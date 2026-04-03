@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de travail de la note de politique - MSO6083</title>
+    <!-- Intégration de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Intégration des icônes Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+
+    <div class="min-h-screen p-4 md:p-8">
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- En-tête -->
+            <div class="bg-slate-900 text-white rounded-t-xl p-6 md:p-8 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+                    <i data-lucide="calendar" style="width: 200px; height: 200px;"></i>
+                </div>
+                <div class="relative z-10">
+                    <h1 class="text-3xl font-bold mb-2">Plan de travail de la note de politique</h1>
+                    <p class="text-slate-300 text-lg flex items-center">
+                        <span class="bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full mr-3">
+                            MSO6083
+                        </span>
+                        Session Été 2026
+                    </p>
+                </div>
+            </div>
+
+            <!-- Légende -->
+            <div class="bg-white border-b border-x border-slate-200 p-4 flex flex-wrap gap-4 items-center text-sm shadow-sm">
+                <span class="font-semibold text-slate-500 uppercase tracking-wider mr-2">Légende :</span>
+                <div class="flex items-center">
+                    <span class="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>
+                    Responsabilité des étudiants (Équipe)
+                </div>
+                <div class="flex items-center">
+                    <span class="w-3 h-3 rounded-full bg-amber-500 mr-2"></span>
+                    Ateliers (Enseignants)
+                </div>
+                <div class="flex items-center">
+                    <span class="w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+                    Rétroaction (Enseignants)
+                </div>
+            </div>
+
+            <!-- Tableau -->
+            <div class="bg-white rounded-b-xl shadow-lg border border-t-0 border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider border-b border-slate-200">
+                                <th class="p-4 font-semibold w-1/2">Étapes du projet</th>
+                                <th class="p-4 font-semibold w-1/4">Dates (Été 2026)</th>
+                                <th class="p-4 font-semibold w-1/4">Action / Intervenant</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-body" class="divide-y divide-slate-100">
+                            <!-- Le contenu sera injecté ici par JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Script de génération des données -->
+    <script>
+        const scheduleData = [
+            {
+                id: 1,
+                etape: "Description de la situation et justification d'agir",
+                details: "Dépôt initial (300 mots)",
+                date: "12 mai",
+                action: "Dépôt",
+                intervenant: "Équipe",
+                type: "depot"
+            },
+            {
+                id: 2,
+                etape: "Atelier de soutien #1",
+                details: "Retour sur le MOOC, rencontre des équipes, raison d'être et publics cibles",
+                date: "12 mai",
+                action: "Atelier et échanges",
+                intervenant: "Enseignants",
+                type: "atelier"
+            },
+            {
+                id: 3,
+                etape: "Charte de projet",
+                details: "Dépôt sur StudiUM (5% de la note finale)",
+                date: "26 mai",
+                action: "Dépôt",
+                intervenant: "Équipe",
+                type: "depot"
+            },
+            {
+                id: 4,
+                etape: "Atelier de soutien #2",
+                details: "Partage d'expérience d'une étudiante invitée et rétroaction sur la charte",
+                date: "26 et 28 mai",
+                action: "Atelier et échanges",
+                intervenant: "Enseignants",
+                type: "atelier"
+            },
+            {
+                id: 5,
+                etape: "Rétroaction sur la Charte de projet",
+                details: "Consultez les commentaires dans le corrigé sur StudiUM",
+                date: "26 et 28 mai",
+                action: "Rétroaction",
+                intervenant: "Enseignants",
+                type: "retro"
+            },
+            {
+                id: 6,
+                etape: "Atelier de soutien #3",
+                details: "Discussion du rapport d'avancement avec chaque équipe",
+                date: "16 juin",
+                action: "Atelier et échanges",
+                intervenant: "Enseignants",
+                type: "atelier"
+            },
+            {
+                id: 7,
+                etape: "Rapport d'avancement",
+                details: "Dépôt sur StudiUM (700 mots - 5% de la note finale)",
+                date: "16 juin",
+                action: "Dépôt",
+                intervenant: "Équipe",
+                type: "depot"
+            },
+            {
+                id: 8,
+                etape: "Rétroaction sur le rapport d'avancement",
+                details: "Consultez le corrigé de votre rapport",
+                date: "Semaine du 16 juin",
+                action: "Rétroaction",
+                intervenant: "Enseignants",
+                type: "retro"
+            },
+            {
+                id: 9,
+                etape: "Présentation de la note de politique",
+                details: "Dépôt des présentations et exposé oral (10% de la note finale)",
+                date: "18 juin",
+                action: "Dépôt et Présentation",
+                intervenant: "Équipe",
+                type: "presentation"
+            },
+            {
+                id: 10,
+                etape: "Dépôt final de la note de politique",
+                details: "Dépôt sur StudiUM au plus tard à 16h00 (15% de la note finale)",
+                date: "25 juin à 16h00",
+                action: "Dépôt Final",
+                intervenant: "Équipe",
+                type: "depot"
+            }
+        ];
+
+        function getBadgeStyle(type) {
+            switch (type) {
+                case 'depot':
+                case 'presentation':
+                    return 'bg-blue-100 text-blue-800 border-blue-200';
+                case 'atelier':
+                    return 'bg-amber-100 text-amber-800 border-amber-200';
+                case 'retro':
+                    return 'bg-green-100 text-green-800 border-green-200';
+                default:
+                    return 'bg-gray-100 text-gray-800 border-gray-200';
+            }
+        }
+
+        function getIconName(type) {
+            switch (type) {
+                case 'depot': return 'upload';
+                case 'atelier': return 'users';
+                case 'retro': return 'check-circle';
+                case 'presentation': return 'book-open';
+                default: return 'message-square';
+            }
+        }
+
+        const tbody = document.getElementById('schedule-body');
+        
+        scheduleData.forEach(row => {
+            const badgeStyle = getBadgeStyle(row.type);
+            const iconName = getIconName(row.type);
+            const intervenantColor = row.intervenant === 'Équipe' ? 'text-blue-600' : 'text-slate-500';
+            
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-blue-50/50 transition-colors duration-150 group";
+            
+            tr.innerHTML = `
+                <td class="p-4">
+                    <div class="font-semibold text-slate-800 mb-1 group-hover:text-blue-700 transition-colors">
+                        ${row.etape}
+                    </div>
+                    <div class="text-sm text-slate-500">
+                        ${row.details}
+                    </div>
+                </td>
+                <td class="p-4">
+                    <div class="inline-flex items-center px-3 py-1 rounded-md bg-slate-100 text-slate-700 font-medium text-sm border border-slate-200">
+                        <i data-lucide="calendar" class="w-4 h-4 mr-2 text-slate-400"></i>
+                        ${row.date}
+                    </div>
+                </td>
+                <td class="p-4">
+                    <div class="flex flex-col items-start gap-2">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${badgeStyle}">
+                            <i data-lucide="${iconName}" class="w-4 h-4 mr-2"></i>
+                            ${row.action}
+                        </span>
+                        <span class="text-xs font-bold uppercase tracking-wider pl-1 ${intervenantColor}">
+                            ${row.intervenant}
+                        </span>
+                    </div>
+                </td>
+            `;
+            
+            tbody.appendChild(tr);
+        });
+
+        // Initialisation des icônes Lucide après avoir généré le HTML
+        lucide.createIcons();
+    </script>
+</body>
+</html>
