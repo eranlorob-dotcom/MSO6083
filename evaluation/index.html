@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluations - MSO 6083</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .row-hover:hover { background-color: rgba(249, 115, 22, 0.05); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen p-4 md:p-12">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- En-tête -->
+        <header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-6">
+            <div>
+                <h1 class="text-4xl font-black text-slate-900 tracking-tight">Évaluations</h1>
+                <p class="text-slate-500 font-medium uppercase tracking-widest text-sm mt-1">Structure de notation du cours</p>
+            </div>
+            <div class="bg-orange-500 text-white px-4 py-2 rounded-lg font-bold shadow-sm">
+                Total : 100%
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Tableau Principal -->
+            <div class="lg:col-span-2 overflow-hidden bg-white rounded-2xl shadow-sm border border-slate-200">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-orange-500 text-white">
+                            <th class="p-4 font-bold text-lg">Évaluations</th>
+                            <th class="p-4 font-bold text-lg text-right">Pondération %</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <!-- Section Note de politique -->
+                        <tr class="bg-slate-50">
+                            <td class="p-4 font-bold text-slate-900 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-4 h-4 text-orange-500"></i>
+                                Note de politique
+                            </td>
+                            <td class="p-4 text-right text-slate-400 italic text-sm">Dates au plan de cours</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Quizz sur le MOOC — <span class="text-blue-600 font-semibold italic">individuel</span>, en classe</td>
+                            <td class="p-4 text-right font-semibold text-slate-700">5</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Recherche documentaire — <span class="text-blue-600 font-semibold italic">individuel</span></td>
+                            <td class="p-4 text-right font-semibold text-slate-700">10</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="p-4 pl-10 bg-slate-50/50 text-slate-500 font-medium text-sm">Conception de la note de politique :</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-14 text-slate-600">• Charte de projet — par <span class="font-bold">équipe</span></td>
+                            <td class="p-4 text-right font-semibold text-slate-700">5</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-14 text-slate-600">• Rapport d'avancement — par <span class="font-bold">équipe</span></td>
+                            <td class="p-4 text-right font-semibold text-slate-700">5</td>
+                        </tr>
+                        <tr class="row-hover bg-orange-50/30">
+                            <td class="p-4 pl-14 text-slate-800">• Note de politique (<span class="text-red-600">15%*</span>) — par <span class="font-bold">équipe</span></td>
+                            <td class="p-4 text-right font-bold text-slate-900">15</td>
+                        </tr>
+                        <tr class="row-hover bg-orange-50/30">
+                            <td class="p-4 pl-14 text-slate-800">• Présentation de la note de politique (<span class="text-red-600">10%*</span>) — par <span class="font-bold">équipe</span></td>
+                            <td class="p-4 text-right font-bold text-slate-900">10</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="p-3 bg-red-50 text-red-600 text-xs italic text-center font-medium">
+                                * jusqu'à 20% des notes pondérées par l'évaluation par les pairs.
+                            </td>
+                        </tr>
+
+                        <!-- Section Évaluations en classe -->
+                        <tr class="bg-slate-50">
+                            <td class="p-4 font-bold text-slate-900 flex items-center gap-2">
+                                <i data-lucide="pencil" class="w-4 h-4 text-orange-500"></i>
+                                Évaluations en classe (<span class="text-blue-600 italic">individuel en classe</span>)
+                            </td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Évaluation sur l'éthique</td>
+                            <td class="p-4 text-right font-semibold text-slate-700">5</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Évaluation sur l'interprétation de données de surveillance</td>
+                            <td class="p-4 text-right font-semibold text-slate-700">5</td>
+                        </tr>
+
+                        <!-- Section Travaux pratiques -->
+                        <tr class="bg-slate-50">
+                            <td class="p-4 font-bold text-slate-900 flex items-center gap-2">
+                                <i data-lucide="briefcase" class="w-4 h-4 text-orange-500"></i>
+                                Travaux pratiques (<span class="text-blue-600 italic">individuel</span>)
+                            </td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Objectifs</td>
+                            <td class="p-4 text-right font-semibold text-slate-700">10</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Rédaction du journal réflexif</td>
+                            <td class="p-4 text-right font-semibold text-slate-700">5</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Modèles conceptuels</td>
+                            <td class="p-4 text-right font-semibold text-slate-700">10</td>
+                        </tr>
+                        <tr class="row-hover">
+                            <td class="p-4 pl-10 text-slate-600">• Texte de communication, utilisation de l'IA + court vidéo</td>
+                            <td class="p-4 text-right font-semibold text-slate-700">15</td>
+                        </tr>
+
+                        <!-- Total Footer -->
+                        <tr class="bg-slate-900 text-white font-black">
+                            <td class="p-5 uppercase tracking-widest">Total</td>
+                            <td class="p-5 text-right text-xl">100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sidebar Info -->
+            <div class="space-y-6">
+                <!-- Retard Policy -->
+                <div class="bg-blue-600 text-white p-6 rounded-2xl shadow-lg border-b-8 border-blue-800">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i data-lucide="clock" class="w-8 h-8"></i>
+                        <h3 class="text-xl font-bold leading-tight">Retard dans la remise de travaux</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-blue-100 leading-relaxed">
+                            Tout retard est pénalisé à raison de <span class="bg-white text-blue-800 px-1.5 py-0.5 rounded font-black">10 %</span> de la note maximale du travail par jour (24h).
+                        </p>
+                        <div class="pt-4 border-t border-blue-400/30 flex items-center gap-2 text-sm italic opacity-80">
+                            <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                            Pensez à anticiper vos dépôts.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rappel Info -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i data-lucide="help-circle" class="w-4 h-4 text-slate-400"></i>
+                        Précision
+                    </h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Les évaluations individuelles en classe nécessitent votre présence obligatoire. En cas d'absence motivée, veuillez contacter l'enseignant.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="mt-12 text-center text-slate-400 text-xs">
+            MSO 6083 — Session en cours • Tous droits réservés
+        </footer>
+    </div>
+
+    <script>
+        // Initialisation des icônes Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
