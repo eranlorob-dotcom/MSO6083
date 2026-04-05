@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soutien et Communication - MSO6083</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #475569 0%, #1e293b 100%);
+        }
+        .step-pill {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Section d'en-tête -->
+    <header class="gradient-bg text-white py-16 px-6 shadow-xl mb-12">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div class="mb-8 md:mb-0">
+                <span class="inline-block px-3 py-1 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-200 text-sm font-semibold mb-4 tracking-wide uppercase">
+                    Ressources et Support
+                </span>
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+                    Soutien et <br>
+                    <span class="text-blue-300">Communication</span>
+                </h1>
+                <p class="mt-4 text-slate-300 text-lg max-w-md">
+                    Modalités d'échange avec l'équipe enseignante et procédures de demande de soutien.
+                </p>
+            </div>
+            <div class="relative">
+                <div class="bg-white/10 p-8 rounded-3xl border border-white/20 backdrop-blur-md flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <div class="text-center">
+                        <span class="block text-sm uppercase tracking-widest text-slate-300 mb-1">Délai réponse</span>
+                        <span class="text-5xl font-black text-white">48<span class="text-2xl text-blue-400">h</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 pb-24">
+        
+        <!-- Canaux de communication -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="glass-card p-8 rounded-3xl shadow-sm border-l-4 border-blue-500 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mr-4 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-700">Courriels</h3>
+                </div>
+                <p class="text-slate-600 leading-relaxed">
+                    L'équipe enseignante s'engage à répondre à vos messages dans un délai maximum de <strong>48 heures</strong>.
+                </p>
+            </div>
+
+            <div class="glass-card p-8 rounded-3xl shadow-sm border-l-4 border-indigo-500 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center mr-4 text-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-700">Questions de notions</h3>
+                </div>
+                <p class="text-slate-600 leading-relaxed">
+                    Vos interrogations sont traitées <strong>pendant les séances </strong>ou par courriel.
+                </p>
+            </div>
+        </section>
+
+        <!-- Procédure de rendez-vous -->
+        <section class="bg-slate-900 text-white rounded-3xl p-10 mb-16 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-12 opacity-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-64 w-64" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+            </div>
+
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="w-10 h-10 step-pill rounded-xl flex items-center justify-center mr-4 text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </span>
+                Prise de rendez-vous
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="flex flex-col">
+                    <span class="text-blue-400 font-bold text-sm uppercase tracking-widest mb-2">Étape 01</span>
+                    <p class="text-slate-300">Consultez les <strong>7 périodes de soutien</strong> disponibles avec les professeurs.</p>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-blue-400 font-bold text-sm uppercase tracking-widest mb-2">Étape 02</span>
+                    <p class="text-slate-300">Envoyez un courriel au professeur responsable <strong>avant 17h00 la veille</strong> de la rencontre.</p>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-blue-400 font-bold text-sm uppercase tracking-widest mb-2">Étape 03</span>
+                    <p class="text-slate-300">Mettez systématiquement les <strong>membres de votre équipe</strong> en copie conforme (CC).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Note sur la coordination -->
+        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 flex items-center">
+            <div class="bg-blue-100 p-3 rounded-xl mr-4 text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+            </div>
+            <p class="text-blue-800 text-sm font-medium">
+                <strong>Mise en commun :</strong> L'équipe enseignante se réunit chaque semaine pour coordonner le suivi pédagogique du cours MSO6083.
+            </p>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-200 py-12 text-center text-slate-400 text-sm">
+        <p>© 2026 - MSO6083 | Soutien à l'apprentissage</p>
+    </footer>
+
+</body>
+</html>
