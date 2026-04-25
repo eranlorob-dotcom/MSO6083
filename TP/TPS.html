@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide des TPs sur les objectifs et les cadres conbceptuels - MSO6083</title>
+    <title>Guide des TPs - Objectifs et Cadres Conceptuels - MSO6083</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -11,18 +11,18 @@
         .case-card.active { border-color: #4f46e5; background-color: #f5f3ff; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
+<body class="bg-slate-50 text-slate-900 min-h-screen pb-12">
 
     <!-- Header Section -->
     <header class="bg-indigo-900 text-white shadow-lg">
-        <div class="max-w-5xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <span class="bg-indigo-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Cours MSO6083</span>
                     <h1 class="text-3xl md:text-4xl font-extrabold mt-3 tracking-tight">
-                        Guide des TPs
+                        Guide des TPs Individuels
                     </h1>
-                    <p class="text-indigo-200 mt-2 text-lg">Planification et cadres théoriques en santé publique</p>
+                    <p class="text-indigo-200 mt-2 text-lg">Objectifs & Modèles Conceptuels</p>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
                     <div class="text-center">
@@ -34,10 +34,10 @@
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <main class="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         
         <!-- Summary Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             
             <!-- TP 1: Objectifs -->
             <section class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
@@ -110,43 +110,65 @@
             </section>
         </div>
 
-        <!-- Interactive Study Cases Section -->
+        <!-- Student Search & Groupings -->
+        <div class="mb-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Assignation des Thématiques</h2>
+                    <p class="text-slate-500 text-sm">Cherchez votre nom pour connaître votre cas d'étude (A à E).</p>
+                </div>
+                <div class="relative w-full max-w-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        oninput="filterStudents()"
+                        placeholder="Chercher votre nom..."
+                        class="block w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-xl leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all sm:text-sm shadow-sm"
+                    />
+                </div>
+            </div>
+
+            <div id="studentResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- Les cartes d'étudiants seront générées ici -->
+            </div>
+        </div>
+
+        <!-- Interactive Study Cases Descriptions -->
         <div class="mb-12">
             <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
                 Descriptions des cas de stage
             </h2>
-            <p class="text-slate-500 mb-6 text-sm">Cliquez sur une thématique pour découvrir le contexte de stage associé.</p>
             
-            <!-- Grid of Buttons -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-                <button onclick="showCase('promo')" id="btn-promo" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Option 1</span>
+                <button onclick="showCase('A')" id="btn-A" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Cas A</span>
                     <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">Promotion</span>
                 </button>
-                <button onclick="showCase('epi')" id="btn-epi" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Option 2</span>
-                    <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">Épidémiologie</span>
+                <button onclick="showCase('B')" id="btn-B" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Cas B</span>
+                    <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">Santé Env.</span>
                 </button>
-                <button onclick="showCase('one')" id="btn-one" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Option 3</span>
+                <button onclick="showCase('C')" id="btn-C" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Cas C</span>
+                    <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">Surveillance</span>
+                </button>
+                <button onclick="showCase('D')" id="btn-D" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Cas D</span>
                     <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">One Health</span>
                 </button>
-                <button onclick="showCase('env')" id="btn-env" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Option 4</span>
-                    <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">Environnement</span>
-                </button>
-                <button onclick="showCase('care')" id="btn-care" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Option 5</span>
-                    <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">Org. Soins</span>
+                <button onclick="showCase('E')" id="btn-E" class="case-card flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-slate-200 hover:border-indigo-300 transition-all group">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase mb-1">Cas E</span>
+                    <span class="text-sm font-bold text-slate-700 group-hover:text-indigo-600">Systèmes</span>
                 </button>
             </div>
 
-            <!-- Detail Display Area -->
-            <div id="caseDetail" class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm min-h-[200px] flex items-center justify-center text-center">
-                <div class="text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-50"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
-                    <p class="italic">Sélectionnez une thématique ci-dessus pour lire le contexte détaillé.</p>
+            <div id="caseDetail" class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm min-h-[150px] flex items-center justify-center text-center">
+                <div class="text-slate-400 italic">
+                    Sélectionnez un cas ci-dessus pour lire la description.
                 </div>
             </div>
         </div>
@@ -157,47 +179,78 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </div>
             <div>
-                <h4 class="font-bold text-amber-900">Rappel sur la Cohérence</h4>
-                <p class="text-amber-800 text-sm mt-1 leading-relaxed">
-                    Il est impératif de conserver le <strong>même cas d'étude</strong> pour les deux travaux pratiques. Vos objectifs (TP1) doivent s'appuyer sur la même problématique que votre cadre conceptuel (TP2).
+                <h4 class="font-bold text-amber-900 leading-none">Cohérence Obligatoire</h4>
+                <p class="text-amber-800 text-sm mt-2 leading-relaxed">
+                    Vous devez conserver le <strong>même cas d'étude</strong> pour les deux TPs. Vos objectifs du TP1 serviront de base à l'application du modèle conceptuel pour le TP2.
                 </p>
             </div>
         </div>
     </main>
 
     <script>
+        const studentsData = [
+            { id: "A", category: "Promotion de la santé", names: ["Luciana Abi Nader", "Gaelle Moraise Iris Ahouandjinou", "Areej Amleh", "Anais Anton", "Elissa Bchara", "Imene Bennani", "Jean-Benoît Bergeron", "Sarah Beydoun", "Nostrana Haïna Strena Norce", "Mélaine Tatiana Santos"] },
+            { id: "B", category: "Santé Environnementale", names: ["Megan Bray", "Laura Patricia Cabana Solar", "Dorianne Calixte", "Tamarah Chevalier", "Zoé Cloutier-Martineau", "Florence Delsame", "Mamadou Diallo", "Mamadou Saliou Diallo", "Jasmine Dumas"] },
+            { id: "C", category: "Surveillance", names: ["Lucie Fauré", "Véra Ferret", "Elodie Figus", "Mégane Francoeur", "Marie Claudenise Georges", "Bianca Goudreault-Beaupré", "Rouguiyatou Hane", "Farida Harissou Hamadou", "Patience Mbambi Ischuo", "Arielle Sybile Jean Pierre"] },
+            { id: "D", category: "Une Seule Santé (One Health)", names: ["Aissatou Kone", "Sabrina Leclair", "Thai Thien Tam Luong", "Jessy Sorya Mboungou Mboulou", "Ibtissem Merri", "Aissatou Ndoye"] },
+            { id: "E", category: "Systèmes et politiques de santé", names: ["Ousmane Sow", "Charlie St-Amant Bouvier", "Laurie Toussaint"] }
+        ];
+
         const cases = {
-            promo: {
+            A: {
                 title: "Promotion de la santé",
                 context: "Stage au sein d'une agence de santé publique travaillant dans une ville industrielle en déclin économique. La région connaît des taux élevés de chômage et de pauvreté, ce qui a conduit à une augmentation des comportements à risque pour la santé, y compris le tabagisme chez les jeunes. L'agence cherche à mettre en œuvre des programmes novateurs pour prévenir le tabagisme et promouvoir des modes de vie sains parmi les adolescents et les jeunes adultes."
             },
-            epi: {
-                title: "Épidémiologie",
-                context: "Stage dans un institut de recherche universitaire situé dans une région touchée par une épidémie de maladies cardiovasculaires. La région a enregistré une augmentation alarmante des taux de maladies cardiovasculaires au cours des dernières décennies, et il est impératif de comprendre les déterminants de cette tendance afin de développer des interventions de santé publique efficaces."
+            B: {
+                title: "Santé Environnementale",
+                context: "Stage dans une agence gouvernementale de surveillance de l'environnement dans une région confrontée à une contamination des sols par des produits chimiques toxiques provenant d'anciennes industries. Les résidents locaux ont signalé des taux élevés de maladies chroniques, notamment des cancers et des maladies respiratoires. L'agence cherche à évaluer l'impact de la contamination et à recommander des mesures de remédiation."
             },
-            one: {
+            C: {
+                title: "Surveillance",
+                context: "Stage dans un institut de recherche universitaire situé dans une région touchée par une épidémie de maladies cardiovasculaires. La région a enregistré une augmentation alarmante des taux au cours des dernières décennies. Il est impératif de comprendre les déterminants de cette tendance afin de développer des interventions de surveillance et de santé publique efficaces."
+            },
+            D: {
                 title: "Une Seule Santé (One Health)",
                 context: "Stage au sein d'une organisation non gouvernementale internationale opérant dans une région où la déforestation massive a conduit à des conflits croissants entre les populations humaines et animales, favorisant la transmission de maladies zoonotiques telles que la fièvre de la vallée du Rift. L'organisation vise à promouvoir une approche One Health pour atténuer les conflits et réduire le risque de maladies émergentes."
             },
-            env: {
-                title: "Santé Environnementale",
-                context: "Stage dans une agence gouvernementale de surveillance de l'environnement dans une région confrontée à une contamination des sols par des produits chimiques toxiques provenant d'anciennes industries. Les résidents locaux ont signalé des taux élevés de maladies chroniques, notamment des cancers et des maladies respiratoires, ce qui soulève des préoccupations quant à la santé publique. L'agence cherche à évaluer l'impact de la contamination sur la santé humaine et à recommander des mesures de remédiation."
-            },
-            care: {
-                title: "Organisation des soins et services de santé",
-                context: "Stage au sein d'une organisation de soins de santé communautaire dans une région rurale où l'accès aux services de santé primaires est limité en raison de la pénurie de professionnels de la santé et de l'isolement géographique. L'organisation cherche à améliorer l'accès aux soins de santé primaires en mettant en place des initiatives de télémédecine et en renforçant les services de santé communautaires."
+            E: {
+                title: "Systèmes et politiques de santé",
+                context: "Stage au sein d'une organisation de soins de santé communautaire dans une région rurale où l'accès aux services de santé primaires est limité en raison de la pénurie de professionnels et de l'isolement géographique. L'organisation cherche à améliorer l'accès en mettant en place des initiatives de télémédecine et en renforçant les services de santé communautaires."
             }
         };
 
-        function showCase(key) {
-            const data = cases[key];
+        function filterStudents() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const results = document.getElementById('studentResults');
+            results.innerHTML = '';
+
+            studentsData.forEach(group => {
+                const matches = group.names.filter(name => name.toLowerCase().includes(term));
+                if (matches.length > 0 || term === '') {
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-indigo-200 transition-all cursor-pointer";
+                    card.onclick = () => showCase(group.id);
+                    card.innerHTML = `
+                        <div class="mb-3">
+                            <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">GROUPE ${group.id}</span>
+                            <h4 class="text-sm font-bold text-slate-700 mt-2">${group.category}</h4>
+                        </div>
+                        <div class="text-[11px] text-slate-500">
+                            ${matches.length} étudiant(s) trouvé(s)
+                        </div>
+                    `;
+                    results.appendChild(card);
+                }
+            });
+        }
+
+        function showCase(id) {
+            const data = cases[id];
             const display = document.getElementById('caseDetail');
             
-            // Update active states
             document.querySelectorAll('.case-card').forEach(c => c.classList.remove('active'));
-            document.getElementById(`btn-${key}`).classList.add('active');
+            document.getElementById(`btn-${id}`).classList.add('active');
             
-            // Update content with animation
             display.style.opacity = 0;
             setTimeout(() => {
                 display.innerHTML = `
@@ -206,20 +259,18 @@
                             <span class="h-8 w-1 bg-indigo-600 rounded-full"></span>
                             <h3 class="text-xl font-bold text-slate-800">${data.title}</h3>
                         </div>
-                        <p class="text-slate-600 leading-relaxed text-sm md:text-base bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                            ${data.context}
+                        <p class="text-slate-600 leading-relaxed text-sm md:text-base bg-slate-50 p-6 rounded-2xl border border-slate-100 italic">
+                            "${data.context}"
                         </p>
-                        <div class="mt-6 flex justify-end">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase bg-white px-3 py-1 rounded-full border border-slate-200">Scénario de stage officiel</span>
-                        </div>
                     </div>
                 `;
                 display.style.opacity = 1;
-            }, 150);
-            
-            display.classList.remove('items-center', 'justify-center', 'text-center');
-            display.style.transition = 'opacity 0.2s ease-in-out';
+                display.classList.remove('items-center', 'justify-center', 'text-center');
+            }, 100);
+            display.style.transition = 'opacity 0.2s';
         }
+
+        window.onload = filterStudents;
     </script>
 
 </body>
