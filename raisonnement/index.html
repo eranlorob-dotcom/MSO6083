@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un raisonnement de santé publique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animations personnalisées pour un chargement en douceur */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        /* Personnalisation des puces de liste pour s'aligner parfaitement */
+        ul.custom-bullets {
+            list-style-type: disc;
+        }
+        ul.custom-bullets li::marker {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4 lg:p-10 font-sans text-black">
+
+    <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12 max-w-[1200px] w-full animate-fade-in border border-gray-100">
+        
+        <!-- Titre principal -->
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-[#303390] mb-16 tracking-wide">
+            Un raisonnement de santé publique
+        </h1>
+
+        <!-- Conteneur avec défilement pour les petits écrans -->
+        <div class="overflow-x-auto pb-8">
+            <div class="min-w-[900px] relative">
+                
+                <!-- En-têtes (Ampleur, Cause, Stratégies) -->
+                <div class="ml-14 grid grid-cols-4 relative mb-6">
+                    
+                    <!-- Grande Flèche 1 (Entre Ampleur et Cause) -->
+                    <div class="absolute left-[25%] top-[40%] -translate-x-1/2 -translate-y-1/2 w-[70px] z-10 transition-transform duration-300 hover:scale-110">
+                        <svg viewBox="0 0 100 40" class="w-full h-full drop-shadow-sm">
+                            <path d="M 25 0 L 0 20 L 25 40 L 25 26 L 75 26 L 75 40 L 100 20 L 75 0 L 75 14 L 25 14 Z" fill="#C0C0C0"/>
+                        </svg>
+                    </div>
+
+                    <!-- Grande Flèche 2 (Entre Cause et Stratégies) -->
+                    <div class="absolute left-[50%] top-[40%] -translate-x-1/2 -translate-y-1/2 w-[70px] z-10 transition-transform duration-300 hover:scale-110">
+                        <svg viewBox="0 0 100 40" class="w-full h-full drop-shadow-sm">
+                            <path d="M 25 0 L 0 20 L 25 40 L 25 26 L 75 26 L 75 40 L 100 20 L 75 0 L 75 14 L 25 14 Z" fill="#C0C0C0"/>
+                        </svg>
+                    </div>
+
+                    <!-- En-tête 1 -->
+                    <div class="text-center transition-all duration-300 flex flex-col items-center justify-end" id="header-0">
+                        <h2 class="font-bold text-2xl">Ampleur</h2>
+                        <p class="text-base font-semibold mt-1">(état de santé)</p>
+                    </div>
+
+                    <!-- En-tête 2 -->
+                    <div class="text-center transition-all duration-300 flex flex-col items-center justify-end" id="header-1">
+                        <h2 class="font-bold text-2xl">Cause</h2>
+                        <p class="text-base font-semibold mt-1">(étiologie)</p>
+                    </div>
+
+                    <!-- En-tête 3 & 4 (Stratégies préventives) -->
+                    <div class="col-span-2 text-center flex flex-col justify-end">
+                        <h2 class="font-bold text-2xl mb-6">Stratégies préventives</h2>
+                        
+                        <div class="flex relative">
+                            <!-- Flèche fine centrale -->
+                            <div class="absolute left-[50%] top-[30%] -translate-x-1/2 -translate-y-1/2 w-16 opacity-60">
+                                <svg viewBox="0 0 100 20" class="w-full h-full">
+                                    <path d="M 10 5 L 0 10 L 10 15 M 0 10 L 100 10 M 90 5 L 100 10 L 90 15" fill="none" stroke="#A0A0A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="flex-1 transition-all duration-300" id="header-2">
+                                <h3 class="font-bold text-[19px]">Potentielles</h3>
+                                <p class="text-[15px] font-semibold mt-1">(théoriques)</p>
+                            </div>
+                            <div class="flex-1 transition-all duration-300" id="header-3">
+                                <h3 class="font-bold text-[19px]">Réelles</h3>
+                                <p class="text-[15px] font-semibold mt-1">(implantées)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tableau de données (Boîte à outils) -->
+                <div class="flex items-stretch shadow-md hover:shadow-lg transition-shadow duration-500">
+                    
+                    <!-- Étiquette latérale -->
+                    <div class="w-14 flex items-center justify-center bg-white border-y border-l border-black relative overflow-hidden">
+                        <span class="-rotate-90 whitespace-nowrap font-bold text-lg tracking-wide absolute">« Boîte à outils »</span>
+                    </div>
+
+                    <!-- Grille des colonnes -->
+                    <div class="flex-1 grid grid-cols-4 border border-black">
+                        
+                        <!-- Colonne 1 -->
+                        <div class="data-col p-5 border-r border-black bg-[#FFF5CF] hover:bg-[#ffe894] transition-colors duration-300" data-index="0">
+                            <ul class="custom-bullets ml-5 space-y-1.5 text-[16px]">
+                                <li>Nombre, taux, risque</li>
+                                <li>Incidence, prévalence</li>
+                                <li>Gravité</li>
+                                <li>Évolution temporelle,</li>
+                                <li>Variations spatiales</li>
+                                <li>Inégalités</li>
+                                <li>etc.</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Colonne 2 -->
+                        <div class="data-col p-5 border-r border-black bg-[#F1EEA5] hover:bg-[#e6e281] transition-colors duration-300" data-index="1">
+                            <ul class="custom-bullets ml-5 space-y-1.5 text-[16px]">
+                                <li>Cadre conceptuel</li>
+                                <li>Causalité</li>
+                                <li>Devis d'études épid.</li>
+                                <li>Déterminants</li>
+                                <li>Facteurs de risque</li>
+                                <li>Risque relatif</li>
+                                <li>Part attribuable</li>
+                                <li>etc.</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Colonne 3 -->
+                        <div class="data-col p-5 border-r border-black bg-[#FFE5E3] hover:bg-[#ffcdc9] transition-colors duration-300" data-index="2">
+                            <ul class="custom-bullets ml-5 space-y-1.5 text-[16px]">
+                                <li>Approches</li>
+                                <li>Stratégies, principes</li>
+                                <li>Composantes</li>
+                                <li>Approche systémique</li>
+                                <li>Effets potentiels</li>
+                                <li>Évaluations</li>
+                                <li>etc.</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Colonne 4 -->
+                        <div class="data-col p-5 bg-[#FFC3B8] hover:bg-[#ffada0] transition-colors duration-300" data-index="3">
+                            <ul class="custom-bullets ml-5 space-y-1.5 text-[16px]">
+                                <li>Contexte</li>
+                                <li>Besoins</li>
+                                <li>Acteurs</li>
+                                <li>Opportunités</li>
+                                <li>Implantation</li>
+                                <li>Couverture</li>
+                                <li>Effets observés</li>
+                                <li>etc.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script pour l'interactivité dynamique -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const columns = document.querySelectorAll('.data-col');
+            
+            columns.forEach(col => {
+                const index = col.getAttribute('data-index');
+                const header = document.getElementById(`header-${index}`);
+                
+                // Mettre en valeur l'en-tête au survol de la colonne correspondante
+                col.addEventListener('mouseenter', () => {
+                    if(header) {
+                        header.classList.add('scale-105', 'text-[#303390]');
+                    }
+                });
+                
+                // Retirer la mise en valeur
+                col.addEventListener('mouseleave', () => {
+                    if(header) {
+                        header.classList.remove('scale-105', 'text-[#303390]');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
