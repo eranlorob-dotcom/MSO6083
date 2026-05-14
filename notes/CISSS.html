@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Équipes MSO6083 - Été 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                    <div class="flex items-center gap-2 text-blue-600 font-semibold mb-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        <span>Université de Montréal</span>
+                    </div>
+                    <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+                        MSO6083 — Équipes de travail
+                    </h1>
+                    <p class="text-slate-500 font-medium">Session Été 2026</p>
+                </div>
+                
+                <div class="relative max-w-sm w-full">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Chercher un nom ou un projet..."
+                        class="block w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-xl leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all sm:text-sm"
+                    />
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bandeau d'information pour les données de surveillance -->
+    <div class="max-w-7xl mx-auto px-4 mt-6 sm:px-6 lg:px-8">
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-center gap-3">
+            <div class="text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            </div>
+            <p class="text-sm text-blue-900">
+                <strong>Données de surveillance :</strong> Pour toute question relative aux données, veuillez contacter l'experte <a href="mailto:sylvie_nadon@ssss.gouv.qc.ca" class="font-bold text-blue-700 underline hover:text-blue-900">sylvie_nadon@ssss.gouv.qc.ca</a>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div id="teamsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Les cartes seront générées ici par JS -->
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults" class="hidden text-center py-20">
+            <div class="inline-flex items-center justify-center p-4 bg-slate-100 rounded-full text-slate-400 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <h2 class="text-xl font-semibold text-slate-600">Aucun résultat trouvé</h2>
+            <p class="text-slate-400 mt-2">Vérifiez l'orthographe ou essayez un autre nom.</p>
+        </div>
+    </main>
+
+    <footer class="max-w-7xl mx-auto px-4 py-8 border-t border-slate-200 text-center text-slate-400 text-sm">
+        <p>&copy; 2026 — Travaux de session MSO6083</p>
+    </footer>
+
+    <script>
+        const teamsData = [
+            {
+                name: "Accessibilité universelle",
+                supervisor: "Éric",
+                expertName: "Pascale Bellemare",
+                expertEmail: "Pascale_Bellemare@ssss.gouv.qc.ca",
+                students: ["Farida Harissou Hamadou", "Jessy Sorya Mboungou Mboulou", "Aissatou Ndoye", "Charlie St-Amant Bouvier", "Laurie Toussaint"]
+            },
+            {
+                name: "Bruit environnemental et santé",
+                supervisor: "Patrick",
+                expertName: "Nathalie Guerra",
+                expertEmail: "Nathalie.Guerra.cissslau@ssss.gouv.qc.ca",
+                students: ["Jean-Benoît Bergeron", "Megan Bray", "Florence Delsame", "Elodie Figus", "Mégane Francoeur", "Rouguiyatou Hane"]
+            },
+            {
+                name: "Logement, abordabilité",
+                supervisor: "Éric",
+                expertName: "Stéphane Dupont",
+                expertEmail: "stephane_dupont@ssss.gouv.qc.ca",
+                students: ["Luciana Abi Nader", "Anais Anton", "Marie Claudenise Georges", "Sabrina Leclair", "Thai Thien Tam Luong"]
+            },
+            {
+                name: "Plein air de proximité",
+                supervisor: "Éric",
+                expertName: "Pascale Bellemare",
+                expertEmail: "Pascale_Bellemare@ssss.gouv.qc.ca",
+                students: ["Gaelle Moraise Iris Ahouandjinou", "Elissa Bchara", "Sarah Beydoun", "Laura Patricia Cabana Solar", "Jasmine Dumas", "Lucie Fauré"]
+            },
+            {
+                name: "Pollens et allergies saisonnières",
+                description: "en contexte de changements climatiques",
+                supervisor: "Geneviève",
+                expertName: "Nathalie Guerra",
+                expertEmail: "Nathalie.Guerra.cissslau@ssss.gouv.qc.ca",
+                students: ["Areej Amleh", "Dorianne Calixte", "Patience Mbambi Ischuo", "Aissatou Kone", "Ibtissem Merri"]
+            },
+            {
+                name: "Qualité de l'air extérieur",
+                supervisor: "Geneviève",
+                expertName: "Nathalie Guerra",
+                expertEmail: "Nathalie.Guerra.cissslau@ssss.gouv.qc.ca",
+                students: ["Imene Bennani", "Tamarah Chevalier", "Mamadou Saliou Diallo", "Bianca Goudreault-Beaupré", "Mélaine Tatiana Santos"]
+            },
+            {
+                name: "Sécurité routière et aménagement",
+                description: "du réseau routier",
+                supervisor: "Patrick",
+                expertName: "Pascale Bellemare",
+                expertEmail: "Pascale_Bellemare@ssss.gouv.qc.ca",
+                students: ["Zoé Cloutier-Martineau", "Mamadou Diallo", "Véra Ferret", "Arielle Sybile Jean Pierre", "Nostrana Haïna Strena Norce", "Ousmane Sow"]
+            }
+        ];
+
+        const container = document.getElementById('teamsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+
+        function renderTeams(filter = '') {
+            const term = filter.toLowerCase();
+            container.innerHTML = '';
+            
+            const filtered = teamsData.map(team => {
+                const filteredStudents = team.students.filter(s => s.toLowerCase().includes(term));
+                const nameMatches = team.name.toLowerCase().includes(term);
+                
+                if (nameMatches || filteredStudents.length > 0) {
+                    return { ...team, studentsToShow: nameMatches ? team.students : filteredStudents };
+                }
+                return null;
+            }).filter(t => t !== null);
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                filtered.forEach(team => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-lg transition-all flex flex-col";
+                    
+                    const initials = (name) => name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+                    card.innerHTML = `
+                        <div class="p-6 border-b border-slate-100 bg-slate-50/50">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-lg text-slate-800 leading-tight">${team.name}</h3>
+                                    ${team.description ? `<p class="text-xs text-blue-600 mt-1 uppercase tracking-wider font-bold">${team.description}</p>` : ''}
+                                </div>
+                                <div class="bg-blue-100 text-blue-700 p-2.5 rounded-xl ml-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-1 bg-white border border-slate-200 rounded text-xs font-medium text-slate-500 uppercase tracking-tight">Superviseur</span>
+                                    <span class="text-sm font-bold text-slate-700">${team.supervisor}</span>
+                                </div>
+                                ${team.expertName ? `
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-1 bg-indigo-50 border border-indigo-100 rounded text-xs font-medium text-indigo-600 uppercase tracking-tight">Expert CISSS</span>
+                                    <a href="mailto:${team.expertEmail}" class="text-sm font-bold text-indigo-700 hover:underline truncate" title="${team.expertEmail}">${team.expertName}</a>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1">
+                            <div class="flex items-center gap-2 text-slate-400 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <span class="text-xs font-bold uppercase tracking-widest">Membres (${team.students.length})</span>
+                            </div>
+                            <ul class="space-y-3">
+                                ${team.studentsToShow.map(student => `
+                                    <li class="flex items-center group">
+                                        <div class="h-9 w-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 text-[10px] font-bold mr-3 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                            ${initials(student)}
+                                        </div>
+                                        <span class="text-slate-700 font-medium group-hover:text-blue-600 transition-colors">${student}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => renderTeams(e.target.value));
+        
+        // Initial render
+        window.onload = () => renderTeams();
+    </script>
+</body>
+</html>
