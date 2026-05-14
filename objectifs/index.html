@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Évaluateur d'objectifs — Note de politique</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink:#1a1a2e;--ink-l:#3a3a5e;--ink-m:#6b6b8d;
+  --paper:#f8f6f1;--paper-w:#f0ece4;
+  --accent:#c0392b;--accent-s:rgba(192,57,43,.12);--accent-h:#a93226;
+  --ok:#1e8449;--ok-s:rgba(30,132,73,.12);
+  --warn:#d4881c;--warn-s:rgba(212,136,28,.12);
+  --info:#2471a3;--info-s:rgba(36,113,163,.12);
+  --purple:#7d3c98;--purple-s:#f5eef8;
+  --bdr:#d5cfc5;--bdr-l:#e8e3da;
+  --r:8px;--rl:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;min-height:100vh}
+
+.hdr{background:var(--ink);color:var(--paper);padding:28px 24px 22px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(192,57,43,.18) 0%,transparent 70%);pointer-events:none}
+.hdr-in{max-width:880px;margin:0 auto;position:relative;z-index:1}
+.badge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.hdr h1{font-family:'Crimson Pro',serif;font-weight:700;font-size:clamp(1.4rem,4vw,2rem);letter-spacing:-.02em;margin-bottom:4px}
+.hdr .sub{font-size:14px;opacity:.65;max-width:580px}
+
+.main{max-width:880px;margin:0 auto;padding:20px 16px 48px}
+
+.tabs{display:flex;border-bottom:2px solid var(--bdr);margin-bottom:24px;overflow-x:auto}
+.tab{font-family:inherit;font-size:14px;font-weight:600;padding:12px 20px;border:none;background:none;color:var(--ink-m);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:8px;transition:.2s;white-space:nowrap}
+.tab:hover{color:var(--ink)}.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.tab .n{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--bdr-l);transition:.2s}
+.tab.on .n{background:var(--accent);color:#fff}
+
+.panel{display:none;animation:fadeUp .35s ease}.panel.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:#fff;border:1px solid var(--bdr-l);border-radius:var(--rl);padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(26,26,46,.05)}
+.card-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px}
+.card h2{font-family:'Crimson Pro',serif;font-size:20px;font-weight:600;margin-bottom:4px}
+.card .desc{font-size:14px;color:var(--ink-m);margin-bottom:16px;line-height:1.6}
+
+.flabel{font-size:13px;font-weight:600;color:var(--ink-l);display:block;margin-bottom:6px}
+textarea{width:100%;font-family:inherit;font-size:14px;padding:12px 14px;border:1.5px solid var(--bdr);border-radius:var(--r);background:var(--paper);color:var(--ink);line-height:1.6;resize:vertical;outline:none;transition:.2s;min-height:100px}
+textarea:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px var(--accent-s)}
+textarea.tall{min-height:130px}
+
+.btn{font-family:inherit;font-size:14px;font-weight:600;padding:10px 20px;border-radius:var(--r);border:none;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:var(--accent-h);transform:translateY(-1px)}
+.btn-p:disabled{background:var(--bdr);color:var(--ink-m);cursor:default;transform:none}
+.btn-s{background:#fff;color:var(--ink-l);border:1.5px solid var(--bdr)}.btn-s:hover{border-color:var(--ink-m);color:var(--ink)}
+.btn-sm{font-size:13px;padding:8px 14px}
+.brow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.oi{background:var(--paper);border:1.5px solid var(--bdr-l);border-radius:var(--r);padding:16px;margin-bottom:10px;transition:.2s}
+.oi:hover{border-color:var(--bdr)}
+.oi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.oi-num{font-family:'Crimson Pro',serif;font-weight:700;font-size:15px;color:var(--accent)}
+.oi-rm{background:none;border:none;color:var(--ink-m);cursor:pointer;font-size:16px;opacity:.5;transition:.2s}
+.oi-rm:hover{color:var(--accent);opacity:1}
+
+.fb-wrap{margin-top:20px;animation:fadeUp .4s ease}
+.fb{border-radius:10px;padding:16px 18px;margin-bottom:12px;border-left:4px solid}
+.fb-ok{background:var(--ok-s);border-color:var(--ok)}.fb-ok .ft{color:var(--ok)}
+.fb-warn{background:var(--warn-s);border-color:var(--warn)}.fb-warn .ft{color:var(--warn)}
+.fb-info{background:var(--info-s);border-color:var(--info)}.fb-info .ft{color:var(--info)}
+.fb-cor{background:var(--purple-s);border-color:var(--purple)}.fb-cor .ft{color:var(--purple)}
+.ft{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.fx{font-size:14px;line-height:1.7;color:var(--ink-l)}
+
+.corrected{background:#fff;border:1.5px dashed var(--bdr);border-radius:var(--r);padding:14px 16px;margin-top:10px;font-family:'Crimson Pro',serif;font-size:15px;line-height:1.75;color:var(--ink);position:relative}
+.corrected-lbl{position:absolute;top:-9px;left:12px;background:#fff;padding:0 6px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--purple)}
+.copy-btn{float:right;background:none;border:1px solid var(--bdr);color:var(--ink-m);font-size:12px;padding:3px 10px;border-radius:5px;cursor:pointer;font-family:inherit;transition:.2s}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.score{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;font-weight:700;font-size:14px;margin-bottom:12px}
+.score-g{background:var(--ok-s);color:var(--ok)}.score-m{background:var(--warn-s);color:var(--warn)}.score-l{background:var(--accent-s);color:var(--accent)}
+
+.cg{display:grid;gap:6px;margin:10px 0 16px}
+.ci{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--ink-l);padding:7px 10px;border-radius:6px;background:var(--paper)}
+.ci-icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:1px}
+.ci-ok{background:var(--ok);color:#fff}.ci-warn{background:var(--warn);color:#fff}.ci-fail{background:var(--accent);color:#fff}
+
+.ex-btn{font-size:13px;color:var(--info);cursor:pointer;background:none;border:none;font-family:inherit;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;transition:.2s}
+.ex-btn:hover{color:var(--accent)}
+.ex-box{background:var(--paper-w);border-radius:var(--r);padding:12px 16px;margin-bottom:12px;font-size:13.5px;line-height:1.7;color:var(--ink-m);border-left:3px solid var(--bdr);display:none}
+.ex-box.vis{display:block}
+
+.info-b{background:var(--info-s);border:1px solid rgba(36,113,163,.16);border-radius:var(--r);padding:12px 14px;font-size:13px;color:var(--info);margin-bottom:16px;display:flex;gap:8px;align-items:flex-start}
+
+.preview{background:var(--paper);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;font-size:13px}
+.preview strong{color:var(--accent)}
+
+.loading{display:flex;align-items:center;gap:10px;padding:16px;color:var(--ink-m);font-size:14px}
+.spin{width:20px;height:20px;border:2.5px solid var(--bdr);border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+@media(max-width:640px){.hdr{padding:18px 14px}.main{padding:14px 10px}.card{padding:16px}.tab{padding:10px 12px;font-size:13px}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-in">
+    <div class="badge">Outil pédagogique — MSO 6083</div>
+    <h1>Évaluateur d'objectifs</h1>
+    <p class="sub">Rédigez, évaluez et améliorez l'objectif général et les objectifs spécifiques de votre note de politique à l'aide de l'intelligence artificielle.</p>
+  </div>
+</div>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tab on" onclick="go('gen')" id="t-gen"><span class="n">1</span>Objectif général</button>
+    <button class="tab" onclick="go('spec')" id="t-spec"><span class="n">2</span>Obj. spécifiques</button>
+    <button class="tab" onclick="go('coh')" id="t-coh"><span class="n">3</span>Cohérence</button>
+  </div>
+
+  <!-- TAB 1 -->
+  <div class="panel on" id="p-gen">
+    <div class="card">
+      <div class="card-tag">Étape 1</div>
+      <h2>Objectif général de la note de politique</h2>
+      <p class="desc">L'objectif général donne le sens de l'action. C'est une déclaration large et globale qui définit la direction principale. Il doit contenir <strong>un seul verbe d'action</strong> et identifier le public cible, le problème et le contexte.</p>
+      <button class="ex-btn" onclick="togEx('ex1')">▸ Voir un exemple</button>
+      <div class="ex-box" id="ex1"><em>Exemple :</em> Influencer la compréhension et éclairer la prise de décision de la Direction de santé publique et des élus municipaux concernant l'accès limité aux services de santé mentale pour les jeunes à Montréal, en leur fournissant une analyse rigoureuse et des recommandations politiques spécifiques, réalisables et fondées sur des données probantes, aptes à catalyser une action concertée.</div>
+      <label class="flabel">Rédigez votre objectif général</label>
+      <textarea id="og" class="tall" placeholder="Ex. : Influencer la compréhension de [public cible] concernant [problème] à [lieu/contexte]…"></textarea>
+      <div class="info-b"><span style="font-size:16px;flex-shrink:0">💡</span><span>L'outil analysera : verbe d'action principal, public cible, problème défini, contexte/lieu, et intention de recommandations fondées sur des données probantes.</span></div>
+      <div class="brow">
+        <button class="btn btn-p" onclick="evalGen()" id="bg">✦ Évaluer mon objectif</button>
+        <button class="btn btn-s btn-sm" onclick="clr('gen')">Effacer</button>
+      </div>
+      <div id="fg"></div>
+    </div>
+  </div>
+
+  <!-- TAB 2 -->
+  <div class="panel" id="p-spec">
+    <div class="card">
+      <div class="card-tag">Étape 2</div>
+      <h2>Objectifs spécifiques</h2>
+      <p class="desc">Les objectifs spécifiques découlent de l'objectif général et le précisent. Chacun doit commencer par <strong>un seul verbe d'action</strong> et ne pas être confondu avec un moyen ou une activité.</p>
+      <button class="ex-btn" onclick="togEx('ex2')">▸ Voir des exemples</button>
+      <div class="ex-box" id="ex2"><em>Exemples :</em><br><br>1. <strong>Établir</strong> de manière concise la nature, l'ampleur et les conséquences du problème de [X] pour [population/contexte].<br>2. <strong>Démontrer</strong>, sur la base d'une analyse critique, les lacunes des réponses existantes face au problème.<br>3. <strong>Proposer</strong> une ou des interventions politiques clairement définies et fondées sur des données probantes.<br>4. <strong>Justifier</strong> la sélection de l'intervention proposée en démontrant sa supériorité potentielle.<br>5. <strong>Articuler</strong> un ensemble de recommandations politiques claires et actionnables.</div>
+      <div id="speclist">
+        <div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Établir de manière concise la nature et l'ampleur du problème…"></textarea></div>
+      </div>
+      <div style="margin-bottom:16px"><button class="btn btn-s btn-sm" onclick="addSpec()">+ Ajouter un objectif spécifique</button></div>
+      <div class="brow">
+        <button class="btn btn-p" onclick="evalSpec()" id="bs">✦ Évaluer mes objectifs spécifiques</button>
+        <button class="btn btn-s btn-sm" onclick="clr('spec')">Effacer tout</button>
+      </div>
+      <div id="fs"></div>
+    </div>
+  </div>
+
+  <!-- TAB 3 -->
+  <div class="panel" id="p-coh">
+    <div class="card">
+      <div class="card-tag">Étape 3</div>
+      <h2>Analyse de cohérence globale</h2>
+      <p class="desc">Cette étape vérifie que vos objectifs spécifiques découlent logiquement de l'objectif général, qu'ils sont complémentaires sans être redondants, et qu'ensemble ils couvrent la logique complète de la note de politique.</p>
+      <div class="info-b"><span style="font-size:16px;flex-shrink:0">⚙️</span><span>Assurez-vous d'avoir rédigé votre objectif général (onglet 1) et au moins deux objectifs spécifiques (onglet 2) avant de lancer cette analyse.</span></div>
+      <div id="coh-preview"></div>
+      <div class="brow"><button class="btn btn-p" onclick="evalCoh()" id="bc">✦ Analyser la cohérence globale</button></div>
+      <div id="fc"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function go(t){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('t-'+t).classList.add('on');
+  document.getElementById('p-'+t).classList.add('on');
+  if(t==='coh') updatePreview();
+}
+function togEx(id){
+  const b=document.getElementById(id),btn=b.previousElementSibling;
+  b.classList.toggle('vis');
+  if(id==='ex2') btn.textContent=b.classList.contains('vis')?'▾ Masquer les exemples':'▸ Voir des exemples';
+  else btn.textContent=b.classList.contains('vis')?"▾ Masquer l'exemple":'▸ Voir un exemple';
+}
+function addSpec(){
+  const list=document.getElementById('speclist'),n=list.children.length+1;
+  const ph=["Établir de manière concise la nature et l'ampleur du problème…","Démontrer les lacunes des réponses existantes…","Proposer une intervention politique fondée sur des données probantes…","Justifier la sélection de l'intervention proposée…","Articuler des recommandations claires et actionnables…"];
+  const d=document.createElement('div');d.className='oi';
+  d.innerHTML='<div class="oi-top"><span class="oi-num">Objectif spécifique '+n+'</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : '+ph[(n-1)%5]+'"></textarea>';
+  list.appendChild(d);renum();
+}
+function rmSpec(btn){const list=document.getElementById('speclist');if(list.children.length<=1)return;btn.closest('.oi').remove();renum();}
+function renum(){document.querySelectorAll('#speclist .oi').forEach((o,i)=>{o.querySelector('.oi-num').textContent='Objectif spécifique '+(i+1);});}
+function getSpecs(){return Array.from(document.querySelectorAll('#speclist textarea')).map(t=>t.value.trim()).filter(v=>v);}
+function clr(s){
+  if(s==='gen'){document.getElementById('og').value='';document.getElementById('fg').innerHTML='';}
+  else{document.getElementById('speclist').innerHTML='<div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Établir de manière concise la nature et l\'ampleur du problème…"></textarea></div>';document.getElementById('fs').innerHTML='';}
+}
+function updatePreview(){
+  const og=document.getElementById('og').value.trim(),sp=getSpecs();let h='';
+  if(og) h+='<div class="preview"><strong>Objectif général :</strong> '+esc(og.substring(0,180))+(og.length>180?'…':'')+'</div>';
+  if(sp.length) h+='<div class="preview"><strong>Objectifs spécifiques :</strong>'+sp.map((s,i)=>'<br>'+(i+1)+'. '+esc(s.substring(0,130))+(s.length>130?'…':'')).join('')+'</div>';
+  document.getElementById('coh-preview').innerHTML=h;
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function callAI(sys,msg){
+  const r=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:sys,messages:[{role:"user",content:msg}]})
+  });
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status);}
+  const d=await r.json();
+  if(d.content&&d.content.length){
+    let t=d.content.map(c=>c.text||'').join('\n').trim();
+    t=t.replace(/```json\s*/g,'').replace(/```\s*/g,'').trim();
+    return JSON.parse(t);
+  }
+  throw new Error("Réponse vide");
+}
+
+function showLoad(id,msg){document.getElementById(id).innerHTML='<div class="loading"><div class="spin"></div>'+msg+'</div>';}
+
+function render(id,d){
+  let h='<div class="fb-wrap">';
+  if(d.score!==undefined){
+    const lv=d.score>=80?'g':d.score>=50?'m':'l',ic={g:'✓',m:'◐',l:'✗'};
+    h+='<div class="score score-'+lv+'">'+ic[lv]+' Score : '+d.score+'/100</div>';
+  }
+  if(d.criteres&&d.criteres.length){
+    h+='<div class="cg">';
+    d.criteres.forEach(c=>{
+      const cls=c.statut==='ok'?'ci-ok':c.statut==='partiel'?'ci-warn':'ci-fail';
+      const ic=c.statut==='ok'?'✓':c.statut==='partiel'?'◐':'✗';
+      h+='<div class="ci"><div class="ci-icon '+cls+'">'+ic+'</div><span>'+c.label+'</span></div>';
+    });
+    h+='</div>';
+  }
+  if(d.points_positifs) h+='<div class="fb fb-ok"><div class="ft">✓ Points forts</div><div class="fx">'+d.points_positifs+'</div></div>';
+  if(d.critiques) h+='<div class="fb fb-warn"><div class="ft">⚠ Points à améliorer</div><div class="fx">'+d.critiques+'</div></div>';
+  if(d.suggestions) h+='<div class="fb fb-info"><div class="ft">ℹ Suggestions</div><div class="fx">'+d.suggestions+'</div></div>';
+  if(d.correction) h+='<div class="fb fb-cor"><div class="ft">✎ Version corrigée proposée</div><div class="fx">Voici une reformulation améliorée de votre objectif :</div><div class="corrected"><span class="corrected-lbl">Proposition</span><button class="copy-btn" onclick="copyT(this)">Copier</button>'+esc(d.correction)+'</div></div>';
+  if(d.corrections&&d.corrections.length){
+    d.corrections.forEach((c,i)=>{
+      h+='<div class="fb fb-cor"><div class="ft">✎ Objectif spécifique '+(i+1)+' — Version corrigée</div>';
+      if(c.commentaire) h+='<div class="fx">'+c.commentaire+'</div>';
+      if(c.correction) h+='<div class="corrected"><span class="corrected-lbl">Proposition '+(i+1)+'</span><button class="copy-btn" onclick="copyT(this)">Copier</button>'+esc(c.correction)+'</div>';
+      h+='</div>';
+    });
+  }
+  h+='</div>';
+  document.getElementById(id).innerHTML=h;
+}
+
+function copyT(btn){
+  const div=btn.parentElement;
+  const txt=div.textContent.replace(/^Proposition\s*\d*/,'').replace('Copier','').replace('Copié ✓','').trim();
+  navigator.clipboard.writeText(txt).then(()=>{btn.textContent='Copié ✓';setTimeout(()=>btn.textContent='Copier',2000);});
+}
+
+function showErr(id,msg){
+  document.getElementById(id).innerHTML='<div class="fb-wrap"><div class="fb fb-warn"><div class="ft">Erreur</div><div class="fx">Une erreur est survenue lors de l\'analyse. Veuillez réessayer.<br><small style="opacity:.7">'+esc(msg)+'</small></div></div></div>';
+}
+
+const SYS_GEN=`Tu es un professeur expert en santé publique et rédaction de notes de politique (policy brief) au Québec. Tu évalues l'objectif général rédigé par un étudiant ou une étudiante. Tu dois répondre UNIQUEMENT en JSON valide, sans texte avant ni après, sans backticks markdown. Tu réponds toujours en français.
+
+Le JSON doit avoir cette structure exacte :
+{"score":<entier 0-100>,"criteres":[{"label":"<description>","statut":"<ok|partiel|absent>"}],"points_positifs":"<texte>","critiques":"<texte>","suggestions":"<texte>","correction":"<texte reformulé complet>"}
+
+Critères à évaluer :
+1. Contient un verbe d'action principal clair (idéalement un seul verbe principal)
+2. Identifie clairement le public cible
+3. Identifie clairement le problème traité
+4. Précise le lieu/contexte spécifique
+5. Mentionne l'intention de fournir des recommandations fondées sur des données probantes
+6. Est une déclaration large et globale (pas trop spécifique)
+7. N'est pas confondu avec un objectif spécifique ou un moyen/activité
+8. Formulation claire, concise et professionnelle
+
+La correction doit garder l'intention de l'étudiant mais améliorer la formulation.`;
+
+const SYS_SPEC=`Tu es un professeur expert en santé publique et rédaction de notes de politique au Québec. Tu évalues les objectifs spécifiques. Réponds UNIQUEMENT en JSON valide, sans backticks. En français.
+
+Structure :
+{"score":<0-100>,"criteres":[{"label":"<desc>","statut":"<ok|partiel|absent>"}],"points_positifs":"<texte>","critiques":"<texte>","suggestions":"<texte>","corrections":[{"commentaire":"<bref>","correction":"<reformulé>"}]}
+
+Critères par objectif : 1. Verbe d'action clair (un seul) 2. Est un objectif, pas un moyen/activité 3. Découle de l'objectif général 4. Suffisamment spécifique 5. Formulation professionnelle.
+Critères globaux : 6. Couvrent la logique complète (établir problème, démontrer lacunes, proposer interventions, justifier choix, articuler recommandations) 7. Pas redondants 8. Nombre approprié.
+Une correction par objectif, dans l'ordre.`;
+
+const SYS_COH=`Tu es un professeur expert en santé publique et rédaction de notes de politique au Québec. Tu évalues la COHÉRENCE GLOBALE. Réponds UNIQUEMENT en JSON valide, sans backticks. En français.
+
+Structure :
+{"score":<0-100>,"criteres":[{"label":"<desc>","statut":"<ok|partiel|absent>"}],"points_positifs":"<texte>","critiques":"<texte>","suggestions":"<texte détaillé>"}
+
+Critères : 1. Spécifiques découlent de général 2. Public cible cohérent 3. Problème cohérent 4. Contexte/lieu cohérent 5. Couvrent logique complète (a-établir problème, b-démontrer lacunes, c-proposer interventions, d-justifier choix, e-recommandations) 6. Pas de redondance 7. Suffisants pour atteindre le général 8. Aucune contradiction.`;
+
+async function evalGen(){
+  const v=document.getElementById('og').value.trim();
+  if(!v){alert("Veuillez rédiger votre objectif général.");return;}
+  const btn=document.getElementById('bg');btn.disabled=true;
+  showLoad('fg','Analyse de votre objectif général en cours…');
+  try{render('fg',await callAI(SYS_GEN,'Objectif général de l\'étudiant(e) :\n\n"'+v+'"'));}
+  catch(e){showErr('fg',e.message);}
+  btn.disabled=false;
+}
+
+async function evalSpec(){
+  const sp=getSpecs();
+  if(!sp.length){alert("Veuillez rédiger au moins un objectif spécifique.");return;}
+  const btn=document.getElementById('bs');btn.disabled=true;
+  showLoad('fs','Analyse de vos objectifs spécifiques en cours…');
+  const og=document.getElementById('og').value.trim();
+  const msg=(og?'Objectif général :\n"'+og+'"\n\n':'')+
+    'Objectifs spécifiques :\n'+sp.map((s,i)=>(i+1)+'. "'+s+'"').join('\n');
+  try{render('fs',await callAI(SYS_SPEC,msg));}
+  catch(e){showErr('fs',e.message);}
+  btn.disabled=false;
+}
+
+async function evalCoh(){
+  const og=document.getElementById('og').value.trim(),sp=getSpecs();
+  if(!og){alert("Rédigez d'abord votre objectif général (onglet 1).");return;}
+  if(sp.length<2){alert("Rédigez au moins 2 objectifs spécifiques (onglet 2).");return;}
+  const btn=document.getElementById('bc');btn.disabled=true;
+  showLoad('fc','Analyse de la cohérence globale en cours…');
+  const msg='Objectif général :\n"'+og+'"\n\nObjectifs spécifiques :\n'+sp.map((s,i)=>(i+1)+'. "'+s+'"').join('\n');
+  try{render('fc',await callAI(SYS_COH,msg));}
+  catch(e){showErr('fc',e.message);}
+  btn.disabled=false;
+}
+</script>
+</body>
+</html>
