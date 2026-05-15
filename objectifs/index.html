@@ -11,9 +11,9 @@
   --ink:#1a1a2e;--ink-l:#3a3a5e;--ink-m:#6b6b8d;
   --paper:#f8f6f1;--paper-w:#f0ece4;
   --accent:#c0392b;--accent-s:rgba(192,57,43,.12);--accent-h:#a93226;
-  --ok:#1e8449;--ok-s:rgba(30,132,73,.12);
-  --warn:#d4881c;--warn-s:rgba(212,136,28,.12);
-  --info:#2471a3;--info-s:rgba(36,113,163,.12);
+  --ok:#1e8449;--ok-s:rgba(30,132,73,.10);
+  --warn:#d4881c;--warn-s:rgba(212,136,28,.10);
+  --info:#2471a3;--info-s:rgba(36,113,163,.10);
   --purple:#7d3c98;--purple-s:#f5eef8;
   --bdr:#d5cfc5;--bdr-l:#e8e3da;
   --r:8px;--rl:14px;
@@ -21,41 +21,50 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;min-height:100vh}
 
+/* HEADER */
 .hdr{background:var(--ink);color:var(--paper);padding:28px 24px 22px;position:relative;overflow:hidden}
 .hdr::before{content:'';position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(192,57,43,.18) 0%,transparent 70%);pointer-events:none}
-.hdr-in{max-width:880px;margin:0 auto;position:relative;z-index:1}
-.badge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.hdr-in{max-width:900px;margin:0 auto;position:relative;z-index:1}
+.badge{display:inline-block;background:var(--accent);color:#fff;font-size:10.5px;font-weight:700;padding:3px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.badge-ai{background:var(--purple)}
 .hdr h1{font-family:'Crimson Pro',serif;font-weight:700;font-size:clamp(1.4rem,4vw,2rem);letter-spacing:-.02em;margin-bottom:4px}
-.hdr .sub{font-size:14px;opacity:.65;max-width:580px}
+.hdr .sub{font-size:14px;opacity:.65;max-width:620px}
 
-.main{max-width:880px;margin:0 auto;padding:20px 16px 48px}
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:20px 16px 48px}
 
+/* TABS */
 .tabs{display:flex;border-bottom:2px solid var(--bdr);margin-bottom:24px;overflow-x:auto}
 .tab{font-family:inherit;font-size:14px;font-weight:600;padding:12px 20px;border:none;background:none;color:var(--ink-m);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:8px;transition:.2s;white-space:nowrap}
 .tab:hover{color:var(--ink)}.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
-.tab .n{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--bdr-l);transition:.2s}
-.tab.on .n{background:var(--accent);color:#fff}
-
+.tab .tn{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--bdr-l);transition:.2s}
+.tab.on .tn{background:var(--accent);color:#fff}
 .panel{display:none;animation:fadeUp .35s ease}.panel.on{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
+/* CARD */
 .card{background:#fff;border:1px solid var(--bdr-l);border-radius:var(--rl);padding:24px;margin-bottom:16px;box-shadow:0 2px 12px rgba(26,26,46,.05)}
 .card-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px}
 .card h2{font-family:'Crimson Pro',serif;font-size:20px;font-weight:600;margin-bottom:4px}
 .card .desc{font-size:14px;color:var(--ink-m);margin-bottom:16px;line-height:1.6}
 
+/* FORM */
 .flabel{font-size:13px;font-weight:600;color:var(--ink-l);display:block;margin-bottom:6px}
 textarea{width:100%;font-family:inherit;font-size:14px;padding:12px 14px;border:1.5px solid var(--bdr);border-radius:var(--r);background:var(--paper);color:var(--ink);line-height:1.6;resize:vertical;outline:none;transition:.2s;min-height:100px}
 textarea:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px var(--accent-s)}
 textarea.tall{min-height:130px}
 
+/* BUTTONS */
 .btn{font-family:inherit;font-size:14px;font-weight:600;padding:10px 20px;border-radius:var(--r);border:none;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px}
 .btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:var(--accent-h);transform:translateY(-1px)}
 .btn-p:disabled{background:var(--bdr);color:var(--ink-m);cursor:default;transform:none}
+.btn-ai{background:var(--purple);color:#fff}.btn-ai:hover{background:#6c2d87;transform:translateY(-1px)}
+.btn-ai:disabled{background:var(--bdr);color:var(--ink-m);cursor:default;transform:none}
 .btn-s{background:#fff;color:var(--ink-l);border:1.5px solid var(--bdr)}.btn-s:hover{border-color:var(--ink-m);color:var(--ink)}
 .btn-sm{font-size:13px;padding:8px 14px}
 .brow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
+/* OBJ ITEMS */
 .oi{background:var(--paper);border:1.5px solid var(--bdr-l);border-radius:var(--r);padding:16px;margin-bottom:10px;transition:.2s}
 .oi:hover{border-color:var(--bdr)}
 .oi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -63,6 +72,7 @@ textarea.tall{min-height:130px}
 .oi-rm{background:none;border:none;color:var(--ink-m);cursor:pointer;font-size:16px;opacity:.5;transition:.2s}
 .oi-rm:hover{color:var(--accent);opacity:1}
 
+/* FEEDBACK */
 .fb-wrap{margin-top:20px;animation:fadeUp .4s ease}
 .fb{border-radius:10px;padding:16px 18px;margin-bottom:12px;border-left:4px solid}
 .fb-ok{background:var(--ok-s);border-color:var(--ok)}.fb-ok .ft{color:var(--ok)}
@@ -71,35 +81,57 @@ textarea.tall{min-height:130px}
 .fb-cor{background:var(--purple-s);border-color:var(--purple)}.fb-cor .ft{color:var(--purple)}
 .ft{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
 .fx{font-size:14px;line-height:1.7;color:var(--ink-l)}
+.fx ul{margin:6px 0 6px 18px;padding:0}.fx li{margin-bottom:4px}
 
 .corrected{background:#fff;border:1.5px dashed var(--bdr);border-radius:var(--r);padding:14px 16px;margin-top:10px;font-family:'Crimson Pro',serif;font-size:15px;line-height:1.75;color:var(--ink);position:relative}
 .corrected-lbl{position:absolute;top:-9px;left:12px;background:#fff;padding:0 6px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--purple)}
 .copy-btn{float:right;background:none;border:1px solid var(--bdr);color:var(--ink-m);font-size:12px;padding:3px 10px;border-radius:5px;cursor:pointer;font-family:inherit;transition:.2s}
 .copy-btn:hover{border-color:var(--accent);color:var(--accent)}
 
+/* SCORE */
 .score{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;font-weight:700;font-size:14px;margin-bottom:12px}
 .score-g{background:var(--ok-s);color:var(--ok)}.score-m{background:var(--warn-s);color:var(--warn)}.score-l{background:var(--accent-s);color:var(--accent)}
 
+/* CRITERIA */
 .cg{display:grid;gap:6px;margin:10px 0 16px}
 .ci{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--ink-l);padding:7px 10px;border-radius:6px;background:var(--paper)}
 .ci-icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:1px}
 .ci-ok{background:var(--ok);color:#fff}.ci-warn{background:var(--warn);color:#fff}.ci-fail{background:var(--accent);color:#fff}
 
+/* EXAMPLE */
 .ex-btn{font-size:13px;color:var(--info);cursor:pointer;background:none;border:none;font-family:inherit;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;transition:.2s}
 .ex-btn:hover{color:var(--accent)}
 .ex-box{background:var(--paper-w);border-radius:var(--r);padding:12px 16px;margin-bottom:12px;font-size:13.5px;line-height:1.7;color:var(--ink-m);border-left:3px solid var(--bdr);display:none}
 .ex-box.vis{display:block}
 
+/* MISC */
 .info-b{background:var(--info-s);border:1px solid rgba(36,113,163,.16);border-radius:var(--r);padding:12px 14px;font-size:13px;color:var(--info);margin-bottom:16px;display:flex;gap:8px;align-items:flex-start}
-
 .preview{background:var(--paper);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;font-size:13px}
 .preview strong{color:var(--accent)}
-
 .loading{display:flex;align-items:center;gap:10px;padding:16px;color:var(--ink-m);font-size:14px}
 .spin{width:20px;height:20px;border:2.5px solid var(--bdr);border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 
-@media(max-width:640px){.hdr{padding:18px 14px}.main{padding:14px 10px}.card{padding:16px}.tab{padding:10px 12px;font-size:13px}}
+/* AI SECTION */
+.ai-section{margin-top:20px;border-top:1px dashed var(--bdr);padding-top:18px}
+.ai-section h3{font-size:14px;font-weight:600;color:var(--purple);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ai-section p{font-size:13px;color:var(--ink-m);margin-bottom:10px;line-height:1.55}
+.api-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.api-input{flex:1;min-width:180px;font-family:monospace;font-size:13px;padding:8px 12px;border:1.5px solid var(--bdr);border-radius:var(--r);background:var(--paper);color:var(--ink);outline:none;transition:.2s}
+.api-input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(125,60,152,.12)}
+.api-input::placeholder{color:var(--ink-m);font-family:'DM Sans',sans-serif;font-size:12px}
+
+.sep{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--ink-m);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.sep::before,.sep::after{content:'';flex:1;height:1px;background:var(--bdr)}
+
+.footer{text-align:center;padding:24px 16px;font-size:12px;color:var(--ink-m);border-top:1px solid var(--bdr-l);margin-top:24px;line-height:1.7}
+.footer a{color:var(--info);text-decoration:none}
+
+@media(max-width:640px){
+  .hdr{padding:18px 14px}.main{padding:14px 10px}.card{padding:16px}
+  .tab{padding:10px 12px;font-size:13px}
+  .api-row{flex-direction:column}.api-input{width:100%}
+}
 </style>
 </head>
 <body>
@@ -108,113 +140,952 @@ textarea.tall{min-height:130px}
   <div class="hdr-in">
     <div class="badge">Outil pédagogique — MSO 6083</div>
     <h1>Évaluateur d'objectifs</h1>
-    <p class="sub">Rédigez, évaluez et améliorez l'objectif général et les objectifs spécifiques de votre note de politique à l'aide de l'intelligence artificielle.</p>
+    <p class="sub">Rédigez, évaluez et améliorez l'objectif général et les objectifs spécifiques de votre note de politique. Évaluation instantanée par règles, avec option de rétroaction approfondie par IA.</p>
   </div>
 </div>
 
 <div class="main">
   <div class="tabs">
-    <button class="tab on" onclick="go('gen')" id="t-gen"><span class="n">1</span>Objectif général</button>
-    <button class="tab" onclick="go('spec')" id="t-spec"><span class="n">2</span>Obj. spécifiques</button>
-    <button class="tab" onclick="go('coh')" id="t-coh"><span class="n">3</span>Cohérence</button>
+    <button class="tab on" onclick="go('gen')" id="t-gen"><span class="tn">1</span>Objectif général</button>
+    <button class="tab" onclick="go('spec')" id="t-spec"><span class="tn">2</span>Obj. spécifiques</button>
+    <button class="tab" onclick="go('coh')" id="t-coh"><span class="tn">3</span>Cohérence</button>
   </div>
 
-  <!-- TAB 1 -->
+  <!-- ==================== TAB 1 ==================== -->
   <div class="panel on" id="p-gen">
     <div class="card">
       <div class="card-tag">Étape 1</div>
       <h2>Objectif général de la note de politique</h2>
       <p class="desc">L'objectif général donne le sens de l'action. C'est une déclaration large et globale qui définit la direction principale. Il doit contenir <strong>un seul verbe d'action</strong> et identifier le public cible, le problème et le contexte.</p>
+
       <button class="ex-btn" onclick="togEx('ex1')">▸ Voir un exemple</button>
       <div class="ex-box" id="ex1"><em>Exemple :</em> Influencer la compréhension et éclairer la prise de décision de la Direction de santé publique et des élus municipaux concernant l'accès limité aux services de santé mentale pour les jeunes à Montréal, en leur fournissant une analyse rigoureuse et des recommandations politiques spécifiques, réalisables et fondées sur des données probantes, aptes à catalyser une action concertée.</div>
+
       <label class="flabel">Rédigez votre objectif général</label>
       <textarea id="og" class="tall" placeholder="Ex. : Influencer la compréhension de [public cible] concernant [problème] à [lieu/contexte]…"></textarea>
-      <div class="info-b"><span style="font-size:16px;flex-shrink:0">💡</span><span>L'outil analysera : verbe d'action principal, public cible, problème défini, contexte/lieu, et intention de recommandations fondées sur des données probantes.</span></div>
+
+      <div class="info-b"><span style="font-size:16px;flex-shrink:0">💡</span><span>L'outil vérifiera : verbe d'action principal, public cible, problème défini, contexte/lieu, intention de recommandations fondées sur des données probantes, et qualité de la formulation.</span></div>
+
       <div class="brow">
-        <button class="btn btn-p" onclick="evalGen()" id="bg">✦ Évaluer mon objectif</button>
+        <button class="btn btn-p" onclick="evalGen()">✦ Évaluer mon objectif</button>
         <button class="btn btn-s btn-sm" onclick="clr('gen')">Effacer</button>
       </div>
       <div id="fg"></div>
+
+      <!-- AI optional -->
+      <div class="ai-section" id="ai-gen" style="display:none">
+        <div class="sep">Rétroaction approfondie par IA (optionnelle)</div>
+        <h3>🤖 Analyse par intelligence artificielle</h3>
+        <p>Obtenez une rétroaction détaillée et une version corrigée générée par IA. Nécessite une clé API Anthropic (<a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--purple)">obtenir une clé</a>). Utilisation conforme à l'<a href="https://www.umontreal.ca/intelligence-artificielle/" target="_blank" style="color:var(--purple)">encadrement de l'IA de l'UdeM</a>.</p>
+        <div class="api-row">
+          <input type="password" class="api-input" id="key-gen" placeholder="sk-ant-api03-… (clé API optionnelle)" autocomplete="off">
+          <button class="btn btn-ai btn-sm" onclick="aiGen()" id="abg">🤖 Rétroaction IA</button>
+        </div>
+        <div id="fga"></div>
+      </div>
     </div>
   </div>
 
-  <!-- TAB 2 -->
+  <!-- ==================== TAB 2 ==================== -->
   <div class="panel" id="p-spec">
     <div class="card">
       <div class="card-tag">Étape 2</div>
       <h2>Objectifs spécifiques</h2>
       <p class="desc">Les objectifs spécifiques découlent de l'objectif général et le précisent. Chacun doit commencer par <strong>un seul verbe d'action</strong> et ne pas être confondu avec un moyen ou une activité.</p>
+
       <button class="ex-btn" onclick="togEx('ex2')">▸ Voir des exemples</button>
       <div class="ex-box" id="ex2"><em>Exemples :</em><br><br>1. <strong>Établir</strong> de manière concise la nature, l'ampleur et les conséquences du problème de [X] pour [population/contexte].<br>2. <strong>Démontrer</strong>, sur la base d'une analyse critique, les lacunes des réponses existantes face au problème.<br>3. <strong>Proposer</strong> une ou des interventions politiques clairement définies et fondées sur des données probantes.<br>4. <strong>Justifier</strong> la sélection de l'intervention proposée en démontrant sa supériorité potentielle.<br>5. <strong>Articuler</strong> un ensemble de recommandations politiques claires et actionnables.</div>
+
       <div id="speclist">
         <div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Établir de manière concise la nature et l'ampleur du problème…"></textarea></div>
       </div>
       <div style="margin-bottom:16px"><button class="btn btn-s btn-sm" onclick="addSpec()">+ Ajouter un objectif spécifique</button></div>
+
       <div class="brow">
-        <button class="btn btn-p" onclick="evalSpec()" id="bs">✦ Évaluer mes objectifs spécifiques</button>
+        <button class="btn btn-p" onclick="evalSpec()">✦ Évaluer mes objectifs spécifiques</button>
         <button class="btn btn-s btn-sm" onclick="clr('spec')">Effacer tout</button>
       </div>
       <div id="fs"></div>
+
+      <div class="ai-section" id="ai-spec" style="display:none">
+        <div class="sep">Rétroaction approfondie par IA (optionnelle)</div>
+        <h3>🤖 Analyse par intelligence artificielle</h3>
+        <p>Obtenez une rétroaction détaillée et des versions corrigées générées par IA.</p>
+        <div class="api-row">
+          <input type="password" class="api-input" id="key-spec" placeholder="sk-ant-api03-… (clé API optionnelle)" autocomplete="off">
+          <button class="btn btn-ai btn-sm" onclick="aiSpec()" id="abs">🤖 Rétroaction IA</button>
+        </div>
+        <div id="fsa"></div>
+      </div>
     </div>
   </div>
 
-  <!-- TAB 3 -->
+  <!-- ==================== TAB 3 ==================== -->
   <div class="panel" id="p-coh">
     <div class="card">
       <div class="card-tag">Étape 3</div>
       <h2>Analyse de cohérence globale</h2>
-      <p class="desc">Cette étape vérifie que vos objectifs spécifiques découlent logiquement de l'objectif général, qu'ils sont complémentaires sans être redondants, et qu'ensemble ils couvrent la logique complète de la note de politique.</p>
-      <div class="info-b"><span style="font-size:16px;flex-shrink:0">⚙️</span><span>Assurez-vous d'avoir rédigé votre objectif général (onglet 1) et au moins deux objectifs spécifiques (onglet 2) avant de lancer cette analyse.</span></div>
+      <p class="desc">Cette étape vérifie que vos objectifs spécifiques découlent logiquement de l'objectif général, qu'ils sont complémentaires et qu'ensemble ils couvrent la logique complète de la note de politique.</p>
+      <div class="info-b"><span style="font-size:16px;flex-shrink:0">⚙️</span><span>Assurez-vous d'avoir rédigé votre objectif général (onglet 1) et au moins deux objectifs spécifiques (onglet 2).</span></div>
       <div id="coh-preview"></div>
-      <div class="brow"><button class="btn btn-p" onclick="evalCoh()" id="bc">✦ Analyser la cohérence globale</button></div>
+      <div class="brow"><button class="btn btn-p" onclick="evalCoh()">✦ Analyser la cohérence globale</button></div>
       <div id="fc"></div>
+
+      <div class="ai-section" id="ai-coh" style="display:none">
+        <div class="sep">Rétroaction approfondie par IA (optionnelle)</div>
+        <h3>🤖 Analyse par intelligence artificielle</h3>
+        <p>Obtenez une analyse de cohérence approfondie par IA.</p>
+        <div class="api-row">
+          <input type="password" class="api-input" id="key-coh" placeholder="sk-ant-api03-… (clé API optionnelle)" autocomplete="off">
+          <button class="btn btn-ai btn-sm" onclick="aiCoh()" id="abc">🤖 Rétroaction IA</button>
+        </div>
+        <div id="fca"></div>
+      </div>
     </div>
+  </div>
+
+  <div class="footer">
+    Outil développé pour le cours <strong>MSO 6083</strong> — Pratiques de santé publique · ESPUM, Université de Montréal<br>
+    Évaluation par règles : gratuite, sans compte. Option IA : conforme à l'<a href="https://www.umontreal.ca/intelligence-artificielle/" target="_blank">encadrement de l'IA de l'UdeM</a>.<br>
+    Propulsé par <a href="https://www.anthropic.com" target="_blank">Claude (Anthropic)</a> pour la composante IA.
   </div>
 </div>
 
 <script>
+/* =============================================
+   LEXIQUES ET DICTIONNAIRES
+   ============================================= */
+
+// Verbes d'action appropriés pour un objectif GÉNÉRAL de note de politique
+const VERBES_GENERAUX = [
+  'influencer','éclairer','orienter','guider','sensibiliser','informer',
+  'convaincre','mobiliser','interpeller','outiller','alimenter','soutenir',
+  'contribuer','favoriser','promouvoir','renforcer','stimuler','appuyer',
+  'transformer','améliorer','accroître','catalyser','inspirer'
+];
+
+// Verbes d'action appropriés pour des objectifs SPÉCIFIQUES
+const VERBES_SPECIFIQUES = [
+  'établir','démontrer','proposer','justifier','articuler','analyser',
+  'évaluer','documenter','identifier','comparer','recommander','formuler',
+  'recenser','synthétiser','caractériser','décrire','définir','examiner',
+  'explorer','illustrer','mettre en évidence','présenter','quantifier',
+  'souligner','exposer','argumenter','déterminer','dégager','préciser',
+  'situer','contextualiser','circonscrire','distinguer','contraster',
+  'hiérarchiser','prioriser','inventorier','cartographier','mesurer',
+  'estimer','apprécier','vérifier','valider','corroborer','étayer',
+  'fonder','appuyer','consolider','structurer','ordonner','classer'
+];
+
+// Verbes qui indiquent un MOYEN/ACTIVITÉ plutôt qu'un objectif
+const VERBES_MOYENS = [
+  'organiser','réaliser','effectuer','distribuer','mettre en place','mettre en œuvre',
+  'créer','développer','rédiger','planifier','coordonner','former',
+  'administrer','gérer','implanter','produire','concevoir','préparer',
+  'exécuter','conduire','mener','animer','diffuser','publier',
+  'compiler','collecter','recueillir','rassembler','envoyer','transmettre',
+  'consulter','interviewer','sonder','enquêter','contacter','recruter',
+  'programmer','budgéter','financer','embaucher','superviser','diriger',
+  'construire','bâtir','installer','aménager','déployer','lancer',
+  'tenir','faire','aller','participer','assister'
+];
+
+// Tous les verbes connus
+const TOUS_VERBES = [...new Set([...VERBES_GENERAUX, ...VERBES_SPECIFIQUES, ...VERBES_MOYENS])];
+
+// Marqueurs de public cible
+const MARQUEURS_PUBLIC = [
+  'décideur','décideurs','élu','élus','élues','municipaux','municipales',
+  'direction','directeur','directrice','gestionnaire','gestionnaires',
+  'professionnel','professionnels','professionnelles',
+  'conseil municipal','conseil d\'agglomération','conseil régional',
+  'ministre','ministère','gouvernement','gouvernemental',
+  'cisss','ciusss','dspublique','santé publique','inspq',
+  'mrc','préfet','maire','mairesse','commissaire',
+  'administrateur','administrateurs','parlementaire','parlementaires',
+  'population','citoyens','citoyennes','communauté','communautés',
+  'intervenants','intervenantes','praticiens','praticiennes',
+  'chercheurs','chercheuses','universitaires','académiques',
+  'organismes communautaires','organisations','acteurs','parties prenantes',
+  'milieu scolaire','enseignants','enseignantes','directeurs d\'école',
+  'travailleurs sociaux','travailleuses sociales','infirmiers','infirmières',
+  'médecins','pédiatres','omnipraticiens','spécialistes',
+  'parents','familles','jeunes','adolescents','adolescentes',
+  'aînés','aînées','personnes âgées','immigrants','immigrantes',
+  'autochtones','premières nations','inuit','métis',
+  'personnes en situation de','personnes vivant avec'
+];
+
+// Marqueurs de problème
+const MARQUEURS_PROBLEME = [
+  'problème','problématique','enjeu','enjeux','défi','défis',
+  'obstacle','obstacles','lacune','lacunes','insuffisance',
+  'inégalité','inégalités','iniquité','iniquités','disparité','disparités',
+  'accès limité','manque','carence','carences','difficulté','difficultés',
+  'préoccupation','risque','risques','vulnérabilité','vulnérabilités',
+  'crise','détérioration','dégradation','augmentation','hausse',
+  'prévalence','incidence','taux élevé','surreprésentation',
+  'sous-représentation','exclusion','marginalisation','isolement',
+  'pauvreté','itinérance','insécurité','violence',
+  'morbidité','mortalité','obésité','sédentarité','tabagisme',
+  'toxicomanie','dépendance','suicide','détresse',
+  'insécurité alimentaire','désert alimentaire','pollution',
+  'étalement urbain','gentrification','embourgeoisement',
+  'vieillissement','pénurie','surcharge','saturation',
+  'concernant','face à','relatif à','lié à','associé à',
+  'en matière de','sur la question de','touchant','affectant'
+];
+
+// Marqueurs de lieu/contexte
+const MARQUEURS_LIEU = [
+  'à ','au ','aux ','en ','dans ','chez ','sur le territoire',
+  'région','régional','régionale','régions','local','locale','locaux','locales',
+  'ville','municipal','municipale','municipalité','municipalités',
+  'province','provincial','provinciale','national','nationale',
+  'québec','montréal','laval','gatineau','sherbrooke','trois-rivières',
+  'saguenay','lévis','longueuil','terrebonne','repentigny',
+  'laurentides','lanaudière','montérégie','estrie','outaouais',
+  'abitibi','témiscamingue','côte-nord','gaspésie','bas-saint-laurent',
+  'chaudière-appalaches','capitale-nationale','mauricie','centre-du-québec',
+  'nord-du-québec','nunavik','eeyou istchee','cree',
+  'canada','canadien','canadienne','fédéral','fédérale',
+  'communauté','quartier','arrondissement','borough','secteur',
+  'milieu rural','milieu urbain','milieu périurbain','banlieue',
+  'territoire','territoires','autochtone','autochtones',
+  'contexte','spécifiquement','particulièrement','notamment'
+];
+
+// Marqueurs de données probantes
+const MARQUEURS_PROBANTES = [
+  'données probantes','données scientifiques','données empiriques',
+  'pratiques exemplaires','pratiques prometteuses','pratiques fondées',
+  'meilleures pratiques','bonnes pratiques','pratiques éprouvées',
+  'revue de littérature','revue systématique','méta-analyse',
+  'études','recherche','recherches','scientifique','scientifiques',
+  'fondé sur','fondée sur','fondées sur','fondés sur',
+  'basé sur','basée sur','basées sur','basés sur',
+  'analyse rigoureuse','analyse critique','analyse systématique',
+  'evidence','evidence-based','probant','probants','probante','probantes',
+  'démontré','démontrée','documenté','documentée',
+  'littérature','publications','articles scientifiques',
+  'résultats de recherche','connaissances scientifiques',
+  'savoirs','expertise','faits','indicateurs','statistiques'
+];
+
+// Dimensions logiques d'une note de politique
+const DIMENSIONS = {
+  probleme: {
+    label: "Établir le problème",
+    verbes: ['établir','documenter','décrire','caractériser','définir','circonscrire','quantifier','mesurer','illustrer','exposer','présenter','situer','contextualiser','démontrer l\'ampleur','souligner'],
+    mots: ['nature','ampleur','conséquences','ampleur','gravité','urgence','pertinence','étendue','portée','importance','prévalence','incidence','problème','problématique','enjeu','situation','état','portrait']
+  },
+  lacunes: {
+    label: "Démontrer les lacunes",
+    verbes: ['démontrer','analyser','évaluer','examiner','identifier','mettre en évidence','révéler','exposer','contraster','critiquer','questionner'],
+    mots: ['lacune','lacunes','limite','limites','limitation','insuffisance','absence','manque','carence','faille','faiblesse','déficit','écart','gap','inadéquation','inefficacité','approches actuelles','réponses existantes','statu quo','politiques actuelles','mesures existantes','interventions en place','critique','critiques']
+  },
+  interventions: {
+    label: "Proposer des interventions",
+    verbes: ['proposer','recommander','formuler','suggérer','avancer','préconiser','présenter','élaborer','concevoir','définir','articuler','soumettre'],
+    mots: ['intervention','interventions','politique','politiques','programme','programmes','mesure','mesures','stratégie','stratégies','action','actions','solution','solutions','initiative','initiatives','approche','approches','plan','dispositif','mécanisme','instrument','outil','levier','option','alternative']
+  },
+  justification: {
+    label: "Justifier les choix",
+    verbes: ['justifier','argumenter','démontrer','étayer','fonder','appuyer','valider','corroborer','comparer','évaluer','apprécier','soupeser'],
+    mots: ['justification','justifier','supériorité','avantage','efficacité','efficience','faisabilité','pertinence','équité','coût-efficacité','coût-bénéfice','comparaison','alternative','options','choix','sélection','préférence','par rapport','versus','vs','statu quo','meilleur','optimal','prioritaire','données probantes','evidence','fondement','base']
+  },
+  recommandations: {
+    label: "Articuler des recommandations",
+    verbes: ['articuler','formuler','recommander','proposer','énoncer','définir','préciser','détailler','spécifier','prescrire','suggérer'],
+    mots: ['recommandation','recommandations','prochaines étapes','mise en œuvre','implantation','implémentation','adoption','actionnable','actionnables','concret','concrètes','spécifique','spécifiques','opérationnel','opérationnelle','échéancier','calendrier','responsable','responsabilité','suivi','évaluation','indicateur','cible','priorité']
+  }
+};
+
+/* =============================================
+   UTILITAIRES
+   ============================================= */
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function norm(s){
+  return s.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/['']/g,"'")
+    .replace(/[\u2013\u2014]/g,'-');
+}
+
+function normKeepAccent(s){
+  return s.toLowerCase().replace(/['']/g,"'").replace(/[\u2013\u2014]/g,'-');
+}
+
+function containsAny(text, keywords){
+  const t = normKeepAccent(text);
+  return keywords.some(k => t.includes(normKeepAccent(k)));
+}
+
+function findMatches(text, keywords){
+  const t = normKeepAccent(text);
+  return keywords.filter(k => t.includes(normKeepAccent(k)));
+}
+
+function getFirstVerb(text){
+  const t = normKeepAccent(text.trim());
+  // Chercher le premier verbe dans les ~6 premiers mots
+  const words = t.split(/[\s,;:]+/).slice(0, 8);
+  for(const w of words){
+    for(const v of TOUS_VERBES){
+      // Match le verbe ou ses conjugaisons courantes (infinitif)
+      if(w === normKeepAccent(v) || t.startsWith(normKeepAccent(v))){
+        return v;
+      }
+    }
+  }
+  return null;
+}
+
+function startsWithVerb(text, verbList){
+  const t = normKeepAccent(text.trim());
+  for(const v of verbList){
+    if(t.startsWith(normKeepAccent(v))){
+      return v;
+    }
+  }
+  return null;
+}
+
+function countVerbesAction(text){
+  const t = normKeepAccent(text);
+  const found = [];
+  for(const v of [...VERBES_GENERAUX, ...VERBES_SPECIFIQUES]){
+    // On cherche le verbe comme mot/début de segment
+    const vn = normKeepAccent(v);
+    const regex = new RegExp('(?:^|[\\s,;:])' + vn.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+    if(regex.test(t) && !found.includes(v)){
+      found.push(v);
+    }
+  }
+  return found;
+}
+
+/* =============================================
+   TABS & UI
+   ============================================= */
 function go(t){
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.getElementById('t-'+t).classList.add('on');
   document.getElementById('p-'+t).classList.add('on');
   if(t==='coh') updatePreview();
+  // Sync API key across tabs
+  syncKey();
 }
+
+function syncKey(){
+  const keys = ['key-gen','key-spec','key-coh'];
+  let val = '';
+  for(const id of keys){ const v = document.getElementById(id).value.trim(); if(v){ val = v; break; } }
+  if(val) keys.forEach(id => { if(!document.getElementById(id).value.trim()) document.getElementById(id).value = val; });
+}
+
 function togEx(id){
-  const b=document.getElementById(id),btn=b.previousElementSibling;
+  const b=document.getElementById(id), btn=b.previousElementSibling;
   b.classList.toggle('vis');
   if(id==='ex2') btn.textContent=b.classList.contains('vis')?'▾ Masquer les exemples':'▸ Voir des exemples';
   else btn.textContent=b.classList.contains('vis')?"▾ Masquer l'exemple":'▸ Voir un exemple';
 }
+
 function addSpec(){
-  const list=document.getElementById('speclist'),n=list.children.length+1;
+  const list=document.getElementById('speclist'), n=list.children.length+1;
   const ph=["Établir de manière concise la nature et l'ampleur du problème…","Démontrer les lacunes des réponses existantes…","Proposer une intervention politique fondée sur des données probantes…","Justifier la sélection de l'intervention proposée…","Articuler des recommandations claires et actionnables…"];
-  const d=document.createElement('div');d.className='oi';
+  const d=document.createElement('div'); d.className='oi';
   d.innerHTML='<div class="oi-top"><span class="oi-num">Objectif spécifique '+n+'</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : '+ph[(n-1)%5]+'"></textarea>';
-  list.appendChild(d);renum();
+  list.appendChild(d); renum();
 }
-function rmSpec(btn){const list=document.getElementById('speclist');if(list.children.length<=1)return;btn.closest('.oi').remove();renum();}
-function renum(){document.querySelectorAll('#speclist .oi').forEach((o,i)=>{o.querySelector('.oi-num').textContent='Objectif spécifique '+(i+1);});}
-function getSpecs(){return Array.from(document.querySelectorAll('#speclist textarea')).map(t=>t.value.trim()).filter(v=>v);}
+function rmSpec(btn){ const list=document.getElementById('speclist'); if(list.children.length<=1)return; btn.closest('.oi').remove(); renum(); }
+function renum(){ document.querySelectorAll('#speclist .oi').forEach((o,i)=>{ o.querySelector('.oi-num').textContent='Objectif spécifique '+(i+1); }); }
+function getSpecs(){ return Array.from(document.querySelectorAll('#speclist textarea')).map(t=>t.value.trim()).filter(v=>v); }
+
 function clr(s){
-  if(s==='gen'){document.getElementById('og').value='';document.getElementById('fg').innerHTML='';}
-  else{document.getElementById('speclist').innerHTML='<div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Établir de manière concise la nature et l\'ampleur du problème…"></textarea></div>';document.getElementById('fs').innerHTML='';}
+  if(s==='gen'){
+    document.getElementById('og').value=''; document.getElementById('fg').innerHTML='';
+    document.getElementById('fga').innerHTML=''; document.getElementById('ai-gen').style.display='none';
+  } else {
+    document.getElementById('speclist').innerHTML='<div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Établir de manière concise la nature et l\'ampleur du problème…"></textarea></div>';
+    document.getElementById('fs').innerHTML='';
+    document.getElementById('fsa').innerHTML=''; document.getElementById('ai-spec').style.display='none';
+  }
 }
+
 function updatePreview(){
-  const og=document.getElementById('og').value.trim(),sp=getSpecs();let h='';
-  if(og) h+='<div class="preview"><strong>Objectif général :</strong> '+esc(og.substring(0,180))+(og.length>180?'…':'')+'</div>';
-  if(sp.length) h+='<div class="preview"><strong>Objectifs spécifiques :</strong>'+sp.map((s,i)=>'<br>'+(i+1)+'. '+esc(s.substring(0,130))+(s.length>130?'…':'')).join('')+'</div>';
+  const og=document.getElementById('og').value.trim(), sp=getSpecs(); let h='';
+  if(og) h+='<div class="preview"><strong>Objectif général :</strong> '+esc(og.substring(0,200))+(og.length>200?'…':'')+'</div>';
+  if(sp.length) h+='<div class="preview"><strong>Objectifs spécifiques :</strong>'+sp.map((s,i)=>'<br>'+(i+1)+'. '+esc(s.substring(0,150))+(s.length>150?'…':'')).join('')+'</div>';
   document.getElementById('coh-preview').innerHTML=h;
 }
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-async function callAI(sys,msg){
-  const r=await fetch("https://api.anthropic.com/v1/messages",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:sys,messages:[{role:"user",content:msg}]})
+function copyT(btn){
+  const div=btn.parentElement;
+  const txt=div.textContent.replace(/^Proposition\s*\d*/,'').replace('Copier','').replace('Copié ✓','').trim();
+  navigator.clipboard.writeText(txt).then(()=>{ btn.textContent='Copié ✓'; setTimeout(()=>btn.textContent='Copier',2000); });
+}
+
+/* =============================================
+   RENDERING
+   ============================================= */
+function render(id, data){
+  let h='<div class="fb-wrap">';
+
+  if(data.score !== undefined){
+    const lv=data.score>=80?'g':data.score>=50?'m':'l';
+    const ic={g:'✓',m:'◐',l:'✗'};
+    h+='<div class="score score-'+lv+'">'+ic[lv]+' Score : '+data.score+'/100</div>';
+  }
+
+  if(data.criteres && data.criteres.length){
+    h+='<div class="cg">';
+    data.criteres.forEach(c=>{
+      const cls=c.statut==='ok'?'ci-ok':c.statut==='partiel'?'ci-warn':'ci-fail';
+      const ic=c.statut==='ok'?'✓':c.statut==='partiel'?'◐':'✗';
+      h+='<div class="ci"><div class="ci-icon '+cls+'">'+ic+'</div><span>'+c.label+'</span></div>';
+    });
+    h+='</div>';
+  }
+
+  if(data.points_positifs) h+='<div class="fb fb-ok"><div class="ft">✓ Points forts</div><div class="fx">'+data.points_positifs+'</div></div>';
+  if(data.critiques) h+='<div class="fb fb-warn"><div class="ft">⚠ Points à améliorer</div><div class="fx">'+data.critiques+'</div></div>';
+  if(data.suggestions) h+='<div class="fb fb-info"><div class="ft">ℹ Suggestions</div><div class="fx">'+data.suggestions+'</div></div>';
+
+  if(data.correction){
+    h+='<div class="fb fb-cor"><div class="ft">✎ Version corrigée proposée</div>';
+    h+='<div class="fx" style="margin-bottom:6px">Voici une reformulation améliorée :</div>';
+    h+='<div class="corrected"><span class="corrected-lbl">Proposition</span><button class="copy-btn" onclick="copyT(this)">Copier</button>'+esc(data.correction)+'</div></div>';
+  }
+
+  if(data.corrections && data.corrections.length){
+    data.corrections.forEach((c,i)=>{
+      h+='<div class="fb fb-cor"><div class="ft">✎ Objectif spécifique '+(i+1)+' — Version corrigée</div>';
+      if(c.commentaire) h+='<div class="fx" style="margin-bottom:6px">'+c.commentaire+'</div>';
+      if(c.correction) h+='<div class="corrected"><span class="corrected-lbl">Proposition '+(i+1)+'</span><button class="copy-btn" onclick="copyT(this)">Copier</button>'+esc(c.correction)+'</div>';
+      h+='</div>';
+    });
+  }
+
+  h+='</div>';
+  document.getElementById(id).innerHTML=h;
+}
+
+/* =============================================
+   ÉVALUATION PAR RÈGLES — OBJECTIF GÉNÉRAL
+   ============================================= */
+function evalGen(){
+  const text = document.getElementById('og').value.trim();
+  if(!text){ alert("Veuillez rédiger votre objectif général."); return; }
+
+  const criteres = [];
+  const positifs = [];
+  const problemes = [];
+  const suggestions = [];
+  let score = 0;
+  const maxScore = 8;
+  let pts = 0;
+
+  // 1. Verbe d'action principal
+  const verbeGen = startsWithVerb(text, VERBES_GENERAUX);
+  const verbeSpec = startsWithVerb(text, VERBES_SPECIFIQUES);
+  const verbeMoyen = startsWithVerb(text, VERBES_MOYENS);
+  const verbesAll = countVerbesAction(text);
+
+  if(verbeGen){
+    criteres.push({label: 'Verbe d\'action principal approprié détecté : « '+verbeGen+' »', statut:'ok'});
+    positifs.push('Bon choix de verbe d\'action « <strong>'+verbeGen+'</strong> » pour un objectif général.');
+    pts++;
+  } else if(verbeSpec){
+    criteres.push({label: 'Verbe détecté (« '+verbeSpec+' ») mais plus approprié pour un objectif spécifique', statut:'partiel'});
+    problemes.push('Le verbe « <strong>'+verbeSpec+'</strong> » est plutôt approprié pour un objectif spécifique. Pour un objectif général, privilégiez des verbes comme : <em>influencer, éclairer, orienter, sensibiliser, informer, contribuer, favoriser</em>.');
+    pts += 0.5;
+  } else if(verbeMoyen){
+    criteres.push({label: 'Le verbe « '+verbeMoyen+' » désigne un moyen/activité, pas un objectif', statut:'absent'});
+    problemes.push('Le verbe « <strong>'+verbeMoyen+'</strong> » décrit une activité ou un moyen, pas un objectif. Un objectif exprime ce que l\'on veut changer ou influencer, pas ce que l\'on va faire concrètement. Reformulez avec un verbe comme : <em>influencer, éclairer, orienter, sensibiliser</em>.');
+  } else {
+    criteres.push({label: 'Aucun verbe d\'action clair détecté en début d\'objectif', statut:'absent'});
+    problemes.push('Votre objectif devrait commencer par un verbe d\'action clair. Pour un objectif général, utilisez : <em>influencer, éclairer, orienter, guider, sensibiliser, informer, convaincre, mobiliser, contribuer, favoriser</em>.');
+  }
+
+  // Vérifier multiplicité de verbes
+  if(verbesAll.length > 2){
+    criteres.push({label: verbesAll.length+' verbes d\'action détectés — idéalement un seul verbe principal', statut:'partiel'});
+    suggestions.push('Votre objectif contient plusieurs verbes d\'action (<em>'+verbesAll.join(', ')+'</em>). Idéalement, un objectif général devrait avoir un seul verbe principal qui donne le sens de l\'action. Les autres dimensions peuvent être réparties dans les objectifs spécifiques.');
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Nombre de verbes d\'action approprié', statut:'ok'});
+    pts++;
+  }
+
+  // 2. Public cible
+  const publicFound = findMatches(text, MARQUEURS_PUBLIC);
+  if(publicFound.length > 0){
+    criteres.push({label: 'Public cible identifié : « '+publicFound.slice(0,3).join(', ')+' »', statut:'ok'});
+    positifs.push('Le public cible est clairement identifié.');
+    pts++;
+  } else {
+    criteres.push({label: 'Aucun public cible clairement identifié', statut:'absent'});
+    problemes.push('Votre objectif devrait identifier clairement le public cible (ex. : les décideurs municipaux, la Direction de santé publique, les élus, les gestionnaires, les professionnels de santé, etc.).');
+  }
+
+  // 3. Problème
+  const probFound = findMatches(text, MARQUEURS_PROBLEME);
+  if(probFound.length > 0){
+    criteres.push({label: 'Problème ou enjeu identifié', statut:'ok'});
+    positifs.push('Le problème ou l\'enjeu est mentionné dans l\'objectif.');
+    pts++;
+  } else {
+    criteres.push({label: 'Le problème traité n\'est pas clairement identifié', statut:'absent'});
+    problemes.push('Votre objectif devrait identifier clairement le problème traité (ex. : l\'accès limité aux services, les inégalités de santé, la sédentarité, l\'insécurité alimentaire, etc.).');
+  }
+
+  // 4. Lieu/contexte
+  const lieuFound = findMatches(text, MARQUEURS_LIEU);
+  if(lieuFound.length > 0){
+    criteres.push({label: 'Contexte ou lieu spécifique mentionné', statut:'ok'});
+    positifs.push('Le contexte géographique ou institutionnel est précisé.');
+    pts++;
+  } else {
+    criteres.push({label: 'Aucun lieu ou contexte spécifique détecté', statut:'partiel'});
+    problemes.push('Il est recommandé de préciser le lieu ou le contexte spécifique de votre note de politique (ex. : à Montréal, dans les Laurentides, au Québec, en milieu rural, dans le contexte du CISSS, etc.).');
+    pts += 0.25;
+  }
+
+  // 5. Données probantes
+  const dpFound = findMatches(text, MARQUEURS_PROBANTES);
+  if(dpFound.length > 0){
+    criteres.push({label: 'Référence aux données probantes ou à la rigueur scientifique', statut:'ok'});
+    positifs.push('L\'intention de fonder l\'analyse sur des données probantes est mentionnée.');
+    pts++;
+  } else {
+    criteres.push({label: 'Aucune mention de données probantes ou de rigueur scientifique', statut:'partiel'});
+    suggestions.push('Mentionnez que votre note fournira une analyse <em>fondée sur des données probantes</em>, des <em>pratiques exemplaires</em> ou une <em>revue de littérature</em>. Cela renforce la crédibilité de l\'objectif.');
+    pts += 0.25;
+  }
+
+  // 6. Déclaration large (pas trop spécifique)
+  const wordCount = text.split(/\s+/).length;
+  if(wordCount < 10){
+    criteres.push({label: 'L\'objectif semble trop court pour être complet ('+wordCount+' mots)', statut:'partiel'});
+    suggestions.push('Un objectif général devrait être une déclaration suffisamment développée (environ 25-60 mots) pour inclure tous les éléments essentiels : verbe, public, problème, contexte et intention.');
+    pts += 0.25;
+  } else if(wordCount > 80){
+    criteres.push({label: 'L\'objectif est très long ('+wordCount+' mots) — pourrait être plus concis', statut:'partiel'});
+    suggestions.push('Votre objectif est assez long. Vérifiez qu\'il ne contient pas d\'éléments qui relèvent plutôt des objectifs spécifiques ou des moyens. Un objectif général devrait rester une déclaration de direction, pas un plan d\'action détaillé.');
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Longueur appropriée pour un objectif général ('+wordCount+' mots)', statut:'ok'});
+    pts++;
+  }
+
+  // 7. Pas un moyen/activité
+  if(!verbeMoyen || (verbeGen && !verbeMoyen)){
+    criteres.push({label: 'L\'objectif n\'est pas confondu avec un moyen ou une activité', statut:'ok'});
+    pts++;
+  }
+  // Already handled above if verbeMoyen was first
+
+  // 8. Formulation professionnelle (basic checks)
+  const hasQuestion = text.includes('?');
+  const hasFirstPerson = /\b(je |nous |mon |notre |nos |ma |mes )\b/i.test(text);
+  const endsWithPeriod = text.endsWith('.') || text.endsWith('…');
+
+  if(hasQuestion){
+    criteres.push({label: 'Un objectif ne devrait pas être formulé comme une question', statut:'absent'});
+    problemes.push('Un objectif est une déclaration affirmative, pas une question. Reformulez sous forme de phrase déclarative commençant par un verbe à l\'infinitif.');
+  } else if(hasFirstPerson){
+    criteres.push({label: 'Évitez la première personne dans la formulation de l\'objectif', statut:'partiel'});
+    suggestions.push('Formulez votre objectif de manière impersonnelle (à l\'infinitif) plutôt qu\'à la première personne.');
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Formulation appropriée (déclarative, impersonnelle)', statut:'ok'});
+    pts++;
+  }
+
+  // Score final
+  score = Math.round((pts / maxScore) * 100);
+
+  const data = {
+    score: score,
+    criteres: criteres,
+    points_positifs: positifs.length ? positifs.join(' ') : null,
+    critiques: problemes.length ? '<ul>'+problemes.map(p=>'<li>'+p+'</li>').join('')+'</ul>' : null,
+    suggestions: suggestions.length ? '<ul>'+suggestions.map(s=>'<li>'+s+'</li>').join('')+'</ul>' : null
+  };
+
+  render('fg', data);
+  // Show AI section
+  document.getElementById('ai-gen').style.display = 'block';
+}
+
+/* =============================================
+   ÉVALUATION PAR RÈGLES — OBJECTIFS SPÉCIFIQUES
+   ============================================= */
+function evalSpec(){
+  const specs = getSpecs();
+  if(!specs.length){ alert("Veuillez rédiger au moins un objectif spécifique."); return; }
+
+  const og = document.getElementById('og').value.trim();
+  const criteres = [];
+  const positifs = [];
+  const problemes = [];
+  const suggestions = [];
+  let pts = 0;
+  const maxPts = 8;
+
+  // Per-objective analysis
+  const objAnalyses = [];
+  let verbOkCount = 0;
+  let moyenCount = 0;
+
+  specs.forEach((s, i) => {
+    const analysis = { index: i, issues: [], ok: [] };
+
+    // Check starts with action verb
+    const vSpec = startsWithVerb(s, VERBES_SPECIFIQUES);
+    const vGen = startsWithVerb(s, VERBES_GENERAUX);
+    const vMoyen = startsWithVerb(s, VERBES_MOYENS);
+
+    if(vSpec){
+      analysis.ok.push('Commence par un verbe d\'action approprié : « '+vSpec+' ».');
+      verbOkCount++;
+    } else if(vGen){
+      analysis.issues.push('Le verbe « '+vGen+' » est plutôt approprié pour un objectif général. Pour un objectif spécifique, utilisez : <em>établir, démontrer, proposer, justifier, articuler, analyser, identifier, comparer, recommander</em>.');
+    } else if(vMoyen){
+      analysis.issues.push('Le verbe « '+vMoyen+' » décrit un moyen ou une activité, pas un objectif. Reformulez pour exprimer ce que la note va <em>établir, démontrer, proposer, justifier</em> ou <em>articuler</em>.');
+      moyenCount++;
+    } else {
+      analysis.issues.push('L\'objectif ne commence pas par un verbe d\'action clair. Commencez par un verbe à l\'infinitif comme : <em>établir, démontrer, proposer, justifier, articuler, analyser, identifier</em>.');
+    }
+
+    // Check not too short
+    const wc = s.split(/\s+/).length;
+    if(wc < 8){
+      analysis.issues.push('L\'objectif semble trop court ('+wc+' mots). Précisez davantage ce que la note va établir ou démontrer.');
+    }
+
+    // Check for question marks
+    if(s.includes('?')){
+      analysis.issues.push('Un objectif spécifique est une déclaration, pas une question.');
+    }
+
+    objAnalyses.push(analysis);
   });
-  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error?.message||'HTTP '+r.status);}
+
+  // Criteria: verbs
+  if(verbOkCount === specs.length){
+    criteres.push({label: 'Tous les objectifs commencent par un verbe d\'action approprié', statut:'ok'});
+    pts += 2;
+  } else if(verbOkCount > 0){
+    criteres.push({label: verbOkCount+'/'+specs.length+' objectifs commencent par un verbe d\'action approprié', statut:'partiel'});
+    pts += 1;
+  } else {
+    criteres.push({label: 'Aucun objectif ne commence par un verbe d\'action approprié', statut:'absent'});
+  }
+
+  // Criteria: not means
+  if(moyenCount === 0){
+    criteres.push({label: 'Les objectifs ne sont pas confondus avec des moyens ou activités', statut:'ok'});
+    pts += 1;
+  } else {
+    criteres.push({label: moyenCount+' objectif(s) confondu(s) avec des moyens ou activités', statut:'absent'});
+    problemes.push('Attention : un objectif spécifique de la note de politique exprime ce que la note va <em>établir, démontrer, proposer, justifier</em> ou <em>articuler</em>. Il ne décrit pas une activité à réaliser.');
+  }
+
+  // Coverage of 5 dimensions
+  const dimCoverage = {};
+  const allSpecText = specs.join(' ');
+  let dimCount = 0;
+
+  for(const [key, dim] of Object.entries(DIMENSIONS)){
+    const hasVerb = dim.verbes.some(v => containsAny(allSpecText, [v]));
+    const hasKeyword = dim.mots.some(m => containsAny(allSpecText, [m]));
+    dimCoverage[key] = hasVerb || hasKeyword;
+    if(dimCoverage[key]) dimCount++;
+  }
+
+  if(dimCount === 5){
+    criteres.push({label: 'Les 5 dimensions logiques de la note sont couvertes', statut:'ok'});
+    positifs.push('Vos objectifs couvrent l\'ensemble de la logique d\'une note de politique : établir le problème, démontrer les lacunes, proposer des interventions, justifier les choix et articuler des recommandations.');
+    pts += 2;
+  } else if(dimCount >= 3){
+    criteres.push({label: dimCount+'/5 dimensions logiques couvertes', statut:'partiel'});
+    pts += 1;
+  } else {
+    criteres.push({label: 'Seulement '+dimCount+'/5 dimensions logiques couvertes', statut:'absent'});
+  }
+
+  // List missing dimensions
+  const missing = Object.entries(DIMENSIONS).filter(([k,v]) => !dimCoverage[k]).map(([k,v]) => v.label);
+  if(missing.length > 0){
+    suggestions.push('Dimensions manquantes dans vos objectifs spécifiques : <strong>'+missing.join(', ')+'</strong>. Assurez-vous que vos objectifs couvrent l\'ensemble de la logique d\'une note de politique.');
+  }
+
+  // Redundancy check (simple: similar words between objectives)
+  let redundantPairs = [];
+  for(let i=0; i<specs.length; i++){
+    for(let j=i+1; j<specs.length; j++){
+      const w1 = new Set(norm(specs[i]).split(/\s+/).filter(w=>w.length>4));
+      const w2 = new Set(norm(specs[j]).split(/\s+/).filter(w=>w.length>4));
+      const inter = [...w1].filter(w => w2.has(w));
+      const similarity = inter.length / Math.min(w1.size, w2.size);
+      if(similarity > 0.5){
+        redundantPairs.push([i+1, j+1]);
+      }
+    }
+  }
+
+  if(redundantPairs.length === 0){
+    criteres.push({label: 'Pas de redondance apparente entre les objectifs', statut:'ok'});
+    pts += 1;
+  } else {
+    criteres.push({label: 'Redondance possible entre certains objectifs', statut:'partiel'});
+    problemes.push('Redondance possible détectée entre les objectifs '+redundantPairs.map(p=>p[0]+' et '+p[1]).join(', ')+'. Vérifiez que chaque objectif apporte une contribution distincte.');
+    pts += 0.5;
+  }
+
+  // Number of objectives
+  if(specs.length >= 3 && specs.length <= 6){
+    criteres.push({label: 'Nombre d\'objectifs approprié ('+specs.length+')', statut:'ok'});
+    pts += 1;
+  } else if(specs.length < 3){
+    criteres.push({label: 'Peu d\'objectifs spécifiques ('+specs.length+') — visez 3 à 5', statut:'partiel'});
+    suggestions.push('Une note de politique comporte généralement entre 3 et 5 objectifs spécifiques pour couvrir l\'ensemble de sa logique argumentative.');
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Beaucoup d\'objectifs spécifiques ('+specs.length+') — certains pourraient être fusionnés', statut:'partiel'});
+    suggestions.push('Vous avez '+specs.length+' objectifs spécifiques. Vérifiez si certains ne pourraient pas être fusionnés pour plus de clarté et de concision.');
+    pts += 0.5;
+  }
+
+  // Coherence with general objective (if provided)
+  if(og){
+    const ogNorm = norm(og);
+    const ogWords = new Set(ogNorm.split(/\s+/).filter(w=>w.length>4));
+    const specWords = new Set(norm(allSpecText).split(/\s+/).filter(w=>w.length>4));
+    const overlap = [...ogWords].filter(w=>specWords.has(w));
+    if(overlap.length >= 3){
+      criteres.push({label: 'Les objectifs spécifiques semblent liés à l\'objectif général', statut:'ok'});
+      pts += 1;
+    } else {
+      criteres.push({label: 'Peu de liens apparents avec l\'objectif général', statut:'partiel'});
+      suggestions.push('Vos objectifs spécifiques semblent peu liés à votre objectif général. Assurez-vous qu\'ils en découlent directement et reprennent le même public cible, problème et contexte.');
+      pts += 0.5;
+    }
+  }
+
+  const score = Math.round((pts / maxPts) * 100);
+
+  // Build per-objective feedback
+  let perObjHtml = '';
+  objAnalyses.forEach((a, i) => {
+    if(a.issues.length > 0){
+      perObjHtml += '<div style="margin-top:8px"><strong>Objectif '+(i+1)+' :</strong><ul>'+a.issues.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+    }
+  });
+
+  const allPositifs = [];
+  objAnalyses.forEach((a,i) => { if(a.ok.length && a.issues.length === 0) allPositifs.push('Objectif '+(i+1)+' : '+a.ok.join(' ')); });
+  if(allPositifs.length) positifs.push(...allPositifs);
+
+  const data = {
+    score: score,
+    criteres: criteres,
+    points_positifs: positifs.length ? positifs.join('<br>') : null,
+    critiques: (problemes.length || perObjHtml) ? (problemes.length ? '<ul>'+problemes.map(p=>'<li>'+p+'</li>').join('')+'</ul>' : '') + perObjHtml : null,
+    suggestions: suggestions.length ? '<ul>'+suggestions.map(s=>'<li>'+s+'</li>').join('')+'</ul>' : null
+  };
+
+  render('fs', data);
+  document.getElementById('ai-spec').style.display = 'block';
+}
+
+/* =============================================
+   ÉVALUATION PAR RÈGLES — COHÉRENCE GLOBALE
+   ============================================= */
+function evalCoh(){
+  const og = document.getElementById('og').value.trim();
+  const specs = getSpecs();
+  if(!og){ alert("Rédigez d'abord votre objectif général (onglet 1)."); return; }
+  if(specs.length < 2){ alert("Rédigez au moins 2 objectifs spécifiques (onglet 2)."); return; }
+
+  updatePreview();
+
+  const criteres = [];
+  const positifs = [];
+  const problemes = [];
+  const suggestions = [];
+  let pts = 0;
+  const maxPts = 8;
+
+  const ogNorm = norm(og);
+  const allSpecText = specs.join(' ');
+  const allSpecNorm = norm(allSpecText);
+
+  // 1. Specific objectives derive from general
+  const ogSubstWords = ogNorm.split(/\s+/).filter(w=>w.length>5);
+  const specSubstWords = allSpecNorm.split(/\s+/).filter(w=>w.length>5);
+  const ogSet = new Set(ogSubstWords);
+  const specSet = new Set(specSubstWords);
+  const sharedWords = [...ogSet].filter(w=>specSet.has(w));
+  const overlapRatio = ogSet.size > 0 ? sharedWords.length / ogSet.size : 0;
+
+  if(overlapRatio > 0.3){
+    criteres.push({label: 'Les objectifs spécifiques découlent logiquement de l\'objectif général', statut:'ok'});
+    positifs.push('Bonne cohérence thématique entre l\'objectif général et les objectifs spécifiques.');
+    pts++;
+  } else if(overlapRatio > 0.15){
+    criteres.push({label: 'Lien partiel entre les objectifs spécifiques et l\'objectif général', statut:'partiel'});
+    suggestions.push('Renforcez le lien entre vos objectifs spécifiques et votre objectif général. Assurez-vous qu\'ils reprennent les mêmes termes clés (public cible, problème, contexte).');
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Faible lien apparent entre les objectifs spécifiques et l\'objectif général', statut:'absent'});
+    problemes.push('Vos objectifs spécifiques ne semblent pas suffisamment liés à votre objectif général. Ils devraient le décliner en précisant le même public cible, le même problème et le même contexte.');
+  }
+
+  // 2. Public cible consistency
+  const publicOg = findMatches(og, MARQUEURS_PUBLIC);
+  const publicSpec = findMatches(allSpecText, MARQUEURS_PUBLIC);
+  if(publicOg.length > 0 && publicSpec.length > 0){
+    const shared = publicOg.filter(p => publicSpec.map(x=>normKeepAccent(x)).includes(normKeepAccent(p)));
+    if(shared.length > 0){
+      criteres.push({label: 'Public cible cohérent entre l\'objectif général et les spécifiques', statut:'ok'});
+      pts++;
+    } else {
+      criteres.push({label: 'Le public cible semble différent entre l\'objectif général et les spécifiques', statut:'partiel'});
+      suggestions.push('Le public cible mentionné dans l\'objectif général ('+publicOg.slice(0,2).join(', ')+') ne semble pas repris dans les objectifs spécifiques ('+publicSpec.slice(0,2).join(', ')+').');
+      pts += 0.5;
+    }
+  } else if(publicOg.length === 0 && publicSpec.length === 0){
+    criteres.push({label: 'Aucun public cible identifié ni dans le général ni dans les spécifiques', statut:'absent'});
+    problemes.push('Identifiez clairement votre public cible dans l\'objectif général et assurez-vous que les objectifs spécifiques y font référence.');
+  } else {
+    criteres.push({label: 'Public cible identifié dans un seul des deux niveaux', statut:'partiel'});
+    pts += 0.5;
+  }
+
+  // 3. Problem consistency
+  const probOg = findMatches(og, MARQUEURS_PROBLEME);
+  const probSpec = findMatches(allSpecText, MARQUEURS_PROBLEME);
+  if(probOg.length > 0 && probSpec.length > 0){
+    criteres.push({label: 'Le problème traité est cohérent entre les niveaux', statut:'ok'});
+    pts++;
+  } else {
+    criteres.push({label: 'Le problème traité devrait être explicite aux deux niveaux', statut:'partiel'});
+    pts += 0.5;
+  }
+
+  // 4. Context/place consistency
+  const lieuOg = findMatches(og, MARQUEURS_LIEU);
+  const lieuSpec = findMatches(allSpecText, MARQUEURS_LIEU);
+  if(lieuOg.length > 0 && lieuSpec.length > 0){
+    criteres.push({label: 'Le contexte/lieu est cohérent entre les niveaux', statut:'ok'});
+    pts++;
+  } else if(lieuOg.length > 0 || lieuSpec.length > 0){
+    criteres.push({label: 'Le contexte géographique n\'est mentionné qu\'à un seul niveau', statut:'partiel'});
+    suggestions.push('Le contexte géographique devrait être cohérent entre l\'objectif général et les objectifs spécifiques.');
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Aucun contexte géographique détecté', statut:'absent'});
+    problemes.push('Précisez le contexte ou le lieu de votre note de politique, tant dans l\'objectif général que dans les spécifiques.');
+  }
+
+  // 5. Coverage of 5 logical dimensions
+  let dimCount = 0;
+  const dimDetails = [];
+  for(const [key, dim] of Object.entries(DIMENSIONS)){
+    const has = dim.verbes.some(v => containsAny(allSpecText, [v])) || dim.mots.some(m => containsAny(allSpecText, [m]));
+    if(has){ dimCount++; dimDetails.push({label: dim.label, statut:'ok'}); }
+    else { dimDetails.push({label: dim.label + ' — non couverte', statut:'absent'}); }
+  }
+
+  if(dimCount === 5){
+    criteres.push({label: 'Les 5 dimensions logiques sont couvertes par les objectifs spécifiques', statut:'ok'});
+    positifs.push('Excellente couverture : vos objectifs couvrent les 5 dimensions d\'une note de politique.');
+    pts++;
+  } else if(dimCount >= 3){
+    criteres.push({label: dimCount+'/5 dimensions logiques couvertes', statut:'partiel'});
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Seulement '+dimCount+'/5 dimensions logiques couvertes', statut:'absent'});
+  }
+
+  const missingDims = Object.entries(DIMENSIONS).filter(([k,v]) => {
+    return !(v.verbes.some(vb => containsAny(allSpecText, [vb])) || v.mots.some(m => containsAny(allSpecText, [m])));
+  }).map(([k,v]) => '<strong>'+v.label+'</strong>');
+  if(missingDims.length > 0){
+    suggestions.push('Dimensions manquantes : '+missingDims.join(', ')+'. Ajoutez des objectifs spécifiques pour couvrir ces dimensions.');
+  }
+
+  // 6. No redundancy
+  let redundant = false;
+  for(let i=0; i<specs.length; i++){
+    for(let j=i+1; j<specs.length; j++){
+      const w1 = new Set(norm(specs[i]).split(/\s+/).filter(w=>w.length>4));
+      const w2 = new Set(norm(specs[j]).split(/\s+/).filter(w=>w.length>4));
+      const inter = [...w1].filter(w => w2.has(w));
+      if(inter.length / Math.min(w1.size, w2.size) > 0.5) redundant = true;
+    }
+  }
+  if(!redundant){
+    criteres.push({label: 'Pas de redondance entre les objectifs spécifiques', statut:'ok'});
+    pts++;
+  } else {
+    criteres.push({label: 'Redondance possible entre certains objectifs spécifiques', statut:'partiel'});
+    problemes.push('Certains objectifs spécifiques semblent redondants. Chaque objectif devrait apporter une contribution distincte à la logique de la note.');
+    pts += 0.5;
+  }
+
+  // 7. Sufficient together
+  if(specs.length >= 3 && dimCount >= 4){
+    criteres.push({label: 'Les objectifs spécifiques sont suffisants pour atteindre l\'objectif général', statut:'ok'});
+    positifs.push('L\'ensemble de vos objectifs spécifiques semble suffisant pour structurer une note de politique complète.');
+    pts++;
+  } else if(specs.length >= 2 && dimCount >= 3){
+    criteres.push({label: 'Les objectifs spécifiques pourraient être renforcés', statut:'partiel'});
+    pts += 0.5;
+  } else {
+    criteres.push({label: 'Les objectifs spécifiques semblent insuffisants', statut:'absent'});
+  }
+
+  // 8. No contradiction (hard to check by rules, give benefit of doubt)
+  criteres.push({label: 'Aucune contradiction apparente entre les objectifs', statut:'ok'});
+  pts++;
+
+  const score = Math.round((pts / maxPts) * 100);
+
+  const data = {
+    score: score,
+    criteres: criteres,
+    points_positifs: positifs.length ? positifs.join('<br>') : null,
+    critiques: problemes.length ? '<ul>'+problemes.map(p=>'<li>'+p+'</li>').join('')+'</ul>' : null,
+    suggestions: suggestions.length ? '<ul>'+suggestions.map(s=>'<li>'+s+'</li>').join('')+'</ul>' : null
+  };
+
+  render('fc', data);
+  document.getElementById('ai-coh').style.display = 'block';
+}
+
+/* =============================================
+   IA — APPELS API OPTIONNELS
+   ============================================= */
+function showLoad(id,msg){ document.getElementById(id).innerHTML='<div class="loading"><div class="spin"></div>'+msg+'</div>'; }
+
+async function callAI(key, sys, msg){
+  const r = await fetch("https://api.anthropic.com/v1/messages", {
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "x-api-key": key,
+      "anthropic-version":"2023-06-01",
+      "anthropic-dangerous-direct-browser-access":"true"
+    },
+    body: JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1500, system:sys, messages:[{role:"user",content:msg}] })
+  });
+  if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error?.message||'HTTP '+r.status); }
   const d=await r.json();
   if(d.content&&d.content.length){
     let t=d.content.map(c=>c.text||'').join('\n').trim();
@@ -224,116 +1095,64 @@ async function callAI(sys,msg){
   throw new Error("Réponse vide");
 }
 
-function showLoad(id,msg){document.getElementById(id).innerHTML='<div class="loading"><div class="spin"></div>'+msg+'</div>';}
+const SYS_GEN=`Tu es un professeur expert en santé publique et rédaction de notes de politique (policy brief) au Québec. Tu évalues l'objectif général rédigé par un étudiant(e). Réponds UNIQUEMENT en JSON valide, sans backticks. En français.
+{"score":<0-100>,"criteres":[{"label":"<desc>","statut":"<ok|partiel|absent>"}],"points_positifs":"<texte>","critiques":"<texte>","suggestions":"<texte>","correction":"<texte reformulé complet>"}
+Critères : 1. Verbe d'action principal clair (un seul) 2. Public cible identifié 3. Problème traité identifié 4. Lieu/contexte spécifique 5. Données probantes mentionnées 6. Déclaration large et globale 7. Pas confondu avec moyen/activité 8. Formulation professionnelle.
+La correction garde l'intention mais améliore selon les critères.`;
 
-function render(id,d){
-  let h='<div class="fb-wrap">';
-  if(d.score!==undefined){
-    const lv=d.score>=80?'g':d.score>=50?'m':'l',ic={g:'✓',m:'◐',l:'✗'};
-    h+='<div class="score score-'+lv+'">'+ic[lv]+' Score : '+d.score+'/100</div>';
-  }
-  if(d.criteres&&d.criteres.length){
-    h+='<div class="cg">';
-    d.criteres.forEach(c=>{
-      const cls=c.statut==='ok'?'ci-ok':c.statut==='partiel'?'ci-warn':'ci-fail';
-      const ic=c.statut==='ok'?'✓':c.statut==='partiel'?'◐':'✗';
-      h+='<div class="ci"><div class="ci-icon '+cls+'">'+ic+'</div><span>'+c.label+'</span></div>';
-    });
-    h+='</div>';
-  }
-  if(d.points_positifs) h+='<div class="fb fb-ok"><div class="ft">✓ Points forts</div><div class="fx">'+d.points_positifs+'</div></div>';
-  if(d.critiques) h+='<div class="fb fb-warn"><div class="ft">⚠ Points à améliorer</div><div class="fx">'+d.critiques+'</div></div>';
-  if(d.suggestions) h+='<div class="fb fb-info"><div class="ft">ℹ Suggestions</div><div class="fx">'+d.suggestions+'</div></div>';
-  if(d.correction) h+='<div class="fb fb-cor"><div class="ft">✎ Version corrigée proposée</div><div class="fx">Voici une reformulation améliorée de votre objectif :</div><div class="corrected"><span class="corrected-lbl">Proposition</span><button class="copy-btn" onclick="copyT(this)">Copier</button>'+esc(d.correction)+'</div></div>';
-  if(d.corrections&&d.corrections.length){
-    d.corrections.forEach((c,i)=>{
-      h+='<div class="fb fb-cor"><div class="ft">✎ Objectif spécifique '+(i+1)+' — Version corrigée</div>';
-      if(c.commentaire) h+='<div class="fx">'+c.commentaire+'</div>';
-      if(c.correction) h+='<div class="corrected"><span class="corrected-lbl">Proposition '+(i+1)+'</span><button class="copy-btn" onclick="copyT(this)">Copier</button>'+esc(c.correction)+'</div>';
-      h+='</div>';
-    });
-  }
-  h+='</div>';
-  document.getElementById(id).innerHTML=h;
-}
-
-function copyT(btn){
-  const div=btn.parentElement;
-  const txt=div.textContent.replace(/^Proposition\s*\d*/,'').replace('Copier','').replace('Copié ✓','').trim();
-  navigator.clipboard.writeText(txt).then(()=>{btn.textContent='Copié ✓';setTimeout(()=>btn.textContent='Copier',2000);});
-}
-
-function showErr(id,msg){
-  document.getElementById(id).innerHTML='<div class="fb-wrap"><div class="fb fb-warn"><div class="ft">Erreur</div><div class="fx">Une erreur est survenue lors de l\'analyse. Veuillez réessayer.<br><small style="opacity:.7">'+esc(msg)+'</small></div></div></div>';
-}
-
-const SYS_GEN=`Tu es un professeur expert en santé publique et rédaction de notes de politique (policy brief) au Québec. Tu évalues l'objectif général rédigé par un étudiant ou une étudiante. Tu dois répondre UNIQUEMENT en JSON valide, sans texte avant ni après, sans backticks markdown. Tu réponds toujours en français.
-
-Le JSON doit avoir cette structure exacte :
-{"score":<entier 0-100>,"criteres":[{"label":"<description>","statut":"<ok|partiel|absent>"}],"points_positifs":"<texte>","critiques":"<texte>","suggestions":"<texte>","correction":"<texte reformulé complet>"}
-
-Critères à évaluer :
-1. Contient un verbe d'action principal clair (idéalement un seul verbe principal)
-2. Identifie clairement le public cible
-3. Identifie clairement le problème traité
-4. Précise le lieu/contexte spécifique
-5. Mentionne l'intention de fournir des recommandations fondées sur des données probantes
-6. Est une déclaration large et globale (pas trop spécifique)
-7. N'est pas confondu avec un objectif spécifique ou un moyen/activité
-8. Formulation claire, concise et professionnelle
-
-La correction doit garder l'intention de l'étudiant mais améliorer la formulation.`;
-
-const SYS_SPEC=`Tu es un professeur expert en santé publique et rédaction de notes de politique au Québec. Tu évalues les objectifs spécifiques. Réponds UNIQUEMENT en JSON valide, sans backticks. En français.
-
-Structure :
+const SYS_SPEC=`Tu es un professeur expert en santé publique et rédaction de notes de politique au Québec. Évalue les objectifs spécifiques. Réponds UNIQUEMENT en JSON valide, sans backticks. En français.
 {"score":<0-100>,"criteres":[{"label":"<desc>","statut":"<ok|partiel|absent>"}],"points_positifs":"<texte>","critiques":"<texte>","suggestions":"<texte>","corrections":[{"commentaire":"<bref>","correction":"<reformulé>"}]}
-
-Critères par objectif : 1. Verbe d'action clair (un seul) 2. Est un objectif, pas un moyen/activité 3. Découle de l'objectif général 4. Suffisamment spécifique 5. Formulation professionnelle.
-Critères globaux : 6. Couvrent la logique complète (établir problème, démontrer lacunes, proposer interventions, justifier choix, articuler recommandations) 7. Pas redondants 8. Nombre approprié.
+Critères par objectif : 1. Verbe d'action (un seul) 2. Objectif pas moyen/activité 3. Découle du général 4. Spécifique 5. Professionnel.
+Globaux : 6. Logique complète (établir problème, démontrer lacunes, proposer interventions, justifier choix, articuler recommandations) 7. Pas redondants 8. Nombre approprié.
 Une correction par objectif, dans l'ordre.`;
 
-const SYS_COH=`Tu es un professeur expert en santé publique et rédaction de notes de politique au Québec. Tu évalues la COHÉRENCE GLOBALE. Réponds UNIQUEMENT en JSON valide, sans backticks. En français.
-
-Structure :
+const SYS_COH=`Tu es un professeur expert en santé publique et rédaction de notes de politique au Québec. Évalue la COHÉRENCE GLOBALE. Réponds UNIQUEMENT en JSON valide, sans backticks. En français.
 {"score":<0-100>,"criteres":[{"label":"<desc>","statut":"<ok|partiel|absent>"}],"points_positifs":"<texte>","critiques":"<texte>","suggestions":"<texte détaillé>"}
+Critères : 1. Spécifiques découlent du général 2. Public cible cohérent 3. Problème cohérent 4. Contexte cohérent 5. 5 dimensions couvertes 6. Pas de redondance 7. Suffisants 8. Pas de contradiction.`;
 
-Critères : 1. Spécifiques découlent de général 2. Public cible cohérent 3. Problème cohérent 4. Contexte/lieu cohérent 5. Couvrent logique complète (a-établir problème, b-démontrer lacunes, c-proposer interventions, d-justifier choix, e-recommandations) 6. Pas de redondance 7. Suffisants pour atteindre le général 8. Aucune contradiction.`;
-
-async function evalGen(){
+async function aiGen(){
+  const key=document.getElementById('key-gen').value.trim();
+  if(!key){alert("Entrez votre clé API Anthropic pour obtenir la rétroaction IA.");return;}
+  syncKey();
   const v=document.getElementById('og').value.trim();
-  if(!v){alert("Veuillez rédiger votre objectif général.");return;}
-  const btn=document.getElementById('bg');btn.disabled=true;
-  showLoad('fg','Analyse de votre objectif général en cours…');
-  try{render('fg',await callAI(SYS_GEN,'Objectif général de l\'étudiant(e) :\n\n"'+v+'"'));}
-  catch(e){showErr('fg',e.message);}
+  if(!v){alert("Rédigez d'abord votre objectif général.");return;}
+  const btn=document.getElementById('abg');btn.disabled=true;
+  showLoad('fga','Analyse approfondie par IA en cours…');
+  try{render('fga',await callAI(key,SYS_GEN,'Objectif général :\n"'+v+'"'));}
+  catch(e){document.getElementById('fga').innerHTML='<div class="fb fb-warn"><div class="ft">Erreur IA</div><div class="fx">'+esc(e.message)+'</div></div>';}
   btn.disabled=false;
 }
 
-async function evalSpec(){
-  const sp=getSpecs();
-  if(!sp.length){alert("Veuillez rédiger au moins un objectif spécifique.");return;}
-  const btn=document.getElementById('bs');btn.disabled=true;
-  showLoad('fs','Analyse de vos objectifs spécifiques en cours…');
+async function aiSpec(){
+  const key=document.getElementById('key-spec').value.trim();
+  if(!key){alert("Entrez votre clé API.");return;}
+  syncKey();
+  const sp=getSpecs();if(!sp.length){alert("Rédigez vos objectifs d'abord.");return;}
+  const btn=document.getElementById('abs');btn.disabled=true;
+  showLoad('fsa','Analyse approfondie par IA en cours…');
   const og=document.getElementById('og').value.trim();
   const msg=(og?'Objectif général :\n"'+og+'"\n\n':'')+
     'Objectifs spécifiques :\n'+sp.map((s,i)=>(i+1)+'. "'+s+'"').join('\n');
-  try{render('fs',await callAI(SYS_SPEC,msg));}
-  catch(e){showErr('fs',e.message);}
+  try{render('fsa',await callAI(key,SYS_SPEC,msg));}
+  catch(e){document.getElementById('fsa').innerHTML='<div class="fb fb-warn"><div class="ft">Erreur IA</div><div class="fx">'+esc(e.message)+'</div></div>';}
   btn.disabled=false;
 }
 
-async function evalCoh(){
-  const og=document.getElementById('og').value.trim(),sp=getSpecs();
-  if(!og){alert("Rédigez d'abord votre objectif général (onglet 1).");return;}
-  if(sp.length<2){alert("Rédigez au moins 2 objectifs spécifiques (onglet 2).");return;}
-  const btn=document.getElementById('bc');btn.disabled=true;
-  showLoad('fc','Analyse de la cohérence globale en cours…');
+async function aiCoh(){
+  const key=document.getElementById('key-coh').value.trim();
+  if(!key){alert("Entrez votre clé API.");return;}
+  syncKey();
+  const og=document.getElementById('og').value.trim();
+  const sp=getSpecs();
+  if(!og||sp.length<2){alert("Complétez d'abord les onglets 1 et 2.");return;}
+  const btn=document.getElementById('abc');btn.disabled=true;
+  showLoad('fca','Analyse approfondie par IA en cours…');
   const msg='Objectif général :\n"'+og+'"\n\nObjectifs spécifiques :\n'+sp.map((s,i)=>(i+1)+'. "'+s+'"').join('\n');
-  try{render('fc',await callAI(SYS_COH,msg));}
-  catch(e){showErr('fc',e.message);}
+  try{render('fca',await callAI(key,SYS_COH,msg));}
+  catch(e){document.getElementById('fca').innerHTML='<div class="fb fb-warn"><div class="ft">Erreur IA</div><div class="fx">'+esc(e.message)+'</div></div>';}
   btn.disabled=false;
 }
 </script>
 </body>
 </html>
+
