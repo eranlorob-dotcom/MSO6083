@@ -14,7 +14,6 @@
   --ok:#1a7a3e;--ok-s:rgba(26,122,62,.10);
   --warn:#c47f12;--warn-s:rgba(196,127,18,.10);
   --info:#2874a6;--info-s:rgba(40,116,166,.10);
-  --violet:#6c3483;--violet-s:#f3ecf7;
   --bdr:#d0c9bc;--bdr-l:#e3ded5;
   --r:8px;--rl:14px;
 }
@@ -43,7 +42,6 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:va
 .opt-current span{color:var(--prim);font-weight:700}
 
 .main{max-width:920px;margin:0 auto;padding:20px 16px 48px}
-
 .tabs{display:flex;border-bottom:2px solid var(--bdr);margin-bottom:24px;overflow-x:auto}
 .tab{font-family:inherit;font-size:14px;font-weight:600;padding:12px 20px;border:none;background:none;color:var(--ink-m);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:8px;transition:.2s;white-space:nowrap}
 .tab:hover{color:var(--ink)}.tab.on{color:var(--prim);border-bottom-color:var(--prim)}
@@ -100,7 +98,6 @@ textarea.tall{min-height:130px}
 .info-b{background:var(--info-s);border:1px solid rgba(40,116,166,.14);border-radius:var(--r);padding:12px 14px;font-size:13px;color:var(--info);margin-bottom:16px;display:flex;gap:8px;align-items:flex-start}
 .preview{background:var(--paper);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;font-size:13px}
 .preview strong{color:var(--prim)}
-
 .footer{text-align:center;padding:24px 16px;font-size:12px;color:var(--ink-m);border-top:1px solid var(--bdr-l);margin-top:24px;line-height:1.7}
 
 @media(max-width:640px){.hdr{padding:20px 14px}.main{padding:14px 10px}.card{padding:16px}.tab{padding:10px 12px;font-size:13px}.opt-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}}
@@ -115,7 +112,7 @@ textarea.tall{min-height:130px}
       <span class="badge badge-ver">Stage — Version 2.0</span>
     </div>
     <h1>Évaluateur d'objectifs de stage</h1>
-    <p class="sub">Rédigez, évaluez et améliorez l'objectif général et les objectifs spécifiques de votre projet de stage. Sélectionnez votre option pour une rétroaction adaptée.</p>
+    <p class="sub">Rédigez, évaluez et améliorez l'objectif général et les objectifs spécifiques liés au mandat de votre stage. Sélectionnez votre option pour une rétroaction adaptée.</p>
   </div>
 </div>
 
@@ -146,13 +143,13 @@ textarea.tall{min-height:130px}
   <div class="panel on" id="p-gen">
     <div class="card">
       <div class="card-tag">Étape 1</div>
-      <h2>Objectif général du stage</h2>
-      <p class="desc">L'objectif général du stage décrit la finalité globale de votre expérience de stage. C'est une déclaration large qui précise <strong>ce que vous cherchez à accomplir, apprendre ou contribuer</strong> dans votre milieu de stage, en lien avec les compétences de votre option. Il doit contenir <strong>un seul verbe d'action principal</strong> et identifier le milieu de stage, la thématique et la population ou le contexte visé.</p>
+      <h2>Objectif général du mandat de stage</h2>
+      <p class="desc">L'objectif général décrit la <strong>finalité globale du mandat</strong> qui vous est confié dans votre milieu de stage. C'est une déclaration large qui précise ce que le mandat vise à accomplir, pour qui et dans quel contexte. Il doit contenir <strong>un seul verbe d'action principal</strong> et situer clairement le mandat dans le milieu, la thématique et la population visée.</p>
       <button class="ex-btn" onclick="togEx('ex1')">▸ Voir un exemple adapté à votre option</button>
       <div class="ex-box" id="ex1"></div>
-      <label class="flabel">Rédigez l'objectif général de votre stage</label>
-      <textarea id="og" class="tall" placeholder="Ex. : Contribuer à [thématique] au sein de [milieu de stage] en développant [compétences] auprès de [population/contexte]…"></textarea>
-      <div class="info-b"><span style="font-size:16px;flex-shrink:0">💡</span><span>L'outil vérifiera : verbe d'action, milieu de stage, thématique ou mandat, population/contexte, lien avec les compétences de votre option, et qualité de la formulation.</span></div>
+      <label class="flabel">Rédigez l'objectif général de votre mandat de stage</label>
+      <textarea id="og" class="tall" placeholder="Ex. : Réaliser [mandat] au sein de [milieu de stage] afin de [finalité] pour [population/contexte]…"></textarea>
+      <div class="info-b"><span style="font-size:16px;flex-shrink:0">💡</span><span>L'outil vérifiera : verbe d'action, milieu de stage, mandat ou thématique, population/contexte visé, ancrage dans votre option, et qualité de la formulation.</span></div>
       <div class="brow">
         <button class="btn btn-p" onclick="evalGen()">✦ Évaluer mon objectif</button>
         <button class="btn btn-s btn-sm" onclick="clr('gen')">Effacer</button>
@@ -165,12 +162,12 @@ textarea.tall{min-height:130px}
   <div class="panel" id="p-spec">
     <div class="card">
       <div class="card-tag">Étape 2</div>
-      <h2>Objectifs spécifiques du stage</h2>
-      <p class="desc">Les objectifs spécifiques découlent de l'objectif général et le précisent en actions concrètes et observables. Chacun doit commencer par <strong>un seul verbe d'action</strong> et décrire un résultat attendu (pas une activité quotidienne). Ils doivent être réalistes pour la durée du stage et couvrir les dimensions clés : <strong>compétences à développer, contribution au milieu et apprentissages</strong>.</p>
+      <h2>Objectifs spécifiques du mandat de stage</h2>
+      <p class="desc">Les objectifs spécifiques découlent de l'objectif général et décrivent les <strong>résultats concrets et observables</strong> que le mandat produira. Chacun commence par <strong>un seul verbe d'action</strong> et précise un livrable, un produit ou un résultat tangible. Ils décrivent <strong>ce que le mandat va produire</strong>, pas ce que vous allez apprendre. Ensemble, ils doivent couvrir les étapes logiques du mandat : documenter le contexte, analyser la situation, produire les livrables, formuler des constats et communiquer les résultats.</p>
       <button class="ex-btn" onclick="togEx('ex2')">▸ Voir des exemples adaptés à votre option</button>
       <div class="ex-box" id="ex2"></div>
       <div id="speclist">
-        <div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Analyser les données de [X] afin de produire un portrait de situation pour [milieu]…"></textarea></div>
+        <div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Documenter l'état de situation de [X] à partir des données disponibles dans le milieu…"></textarea></div>
       </div>
       <div style="margin-bottom:16px"><button class="btn btn-s btn-sm" onclick="addSpec()">+ Ajouter un objectif spécifique</button></div>
       <div class="brow">
@@ -186,7 +183,7 @@ textarea.tall{min-height:130px}
     <div class="card">
       <div class="card-tag">Étape 3</div>
       <h2>Analyse de cohérence globale</h2>
-      <p class="desc">Cette étape vérifie que vos objectifs spécifiques découlent logiquement de l'objectif général, qu'ils sont complémentaires, réalistes et couvrent les dimensions attendues d'un stage en santé publique.</p>
+      <p class="desc">Cette étape vérifie que vos objectifs spécifiques découlent logiquement de l'objectif général du mandat, qu'ils couvrent les étapes logiques du travail à réaliser et qu'ils sont complémentaires sans être redondants.</p>
       <div class="info-b"><span style="font-size:16px;flex-shrink:0">⚙️</span><span>Assurez-vous d'avoir rédigé votre objectif général (onglet 1) et au moins deux objectifs spécifiques (onglet 2).</span></div>
       <div id="coh-preview"></div>
       <div class="brow"><button class="btn btn-p" onclick="evalCoh()">✦ Analyser la cohérence globale</button></div>
@@ -202,184 +199,179 @@ textarea.tall{min-height:130px}
 
 <script>
 /* =============================================
-   OPTIONS — exemples et vocabulaire thématique
+   OPTIONS — exemples centrés sur le MANDAT
    ============================================= */
 const OPTIONS = {
   promo: {
     nom: "Promotion de la santé",
-    exempleGen: "<em>Exemple :</em> Contribuer à la planification et à la mise en œuvre d'interventions de promotion de la santé visant la réduction de la sédentarité chez les jeunes de 12 à 17 ans, au sein de la Direction de santé publique du CISSS des Laurentides, en développant des compétences en mobilisation communautaire et en analyse des déterminants sociaux de la santé.",
-    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Analyser</strong> les données disponibles sur les habitudes d'activité physique des jeunes de la région afin de produire un portrait de situation pour l'équipe de promotion-prévention.<br>2. <strong>Collaborer</strong> à l'élaboration d'une stratégie d'intervention en milieu scolaire visant la création d'environnements favorables à l'activité physique.<br>3. <strong>Participer</strong> à la mobilisation des partenaires intersectoriels (milieu scolaire, municipal, communautaire) autour de la problématique de la sédentarité.<br>4. <strong>Produire</strong> un document de synthèse des pratiques exemplaires en promotion de l'activité physique chez les jeunes, adapté au contexte régional.<br>5. <strong>Développer</strong> ses compétences en planification d'interventions populationnelles et en communication avec les acteurs du milieu.",
-    motsCles: ['promotion','prévention','habitudes de vie','activité physique','sédentarité','alimentation','nutrition','tabagisme','bien-être','empowerment','autonomisation','participation','communautaire','milieux de vie','environnements favorables','littératie en santé','inégalités sociales','équité','déterminants sociaux','déterminants','conditions de vie','facteurs de protection','facteurs de risque','comportements','intersectorialité','plaidoyer','capacitation','santé mentale','obésité','école','villes-santé','municipalités','aménagement','transport actif','verdissement','espaces verts','inclusion','accessibilité','intervention','populationnel','populationnelle','mobilisation','sensibilisation','campagne','programme','prévention primaire','prévention secondaire']
+    exempleGen: "<em>Exemple :</em> Réaliser un portrait des environnements favorables à l'activité physique chez les jeunes de 12 à 17 ans et élaborer des recommandations pour une intervention municipale, au sein de l'équipe de promotion-prévention de la Direction de santé publique du CISSS des Laurentides.",
+    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Documenter</strong> l'état de situation de la sédentarité chez les jeunes de 12-17 ans dans la MRC ciblée à partir des données populationnelles et des enquêtes disponibles.<br>2. <strong>Analyser</strong> les caractéristiques des environnements bâtis (infrastructures, transport actif, espaces verts) en lien avec la pratique d'activité physique des jeunes sur le territoire.<br>3. <strong>Recenser</strong> les pratiques exemplaires en matière d'interventions municipales favorisant l'activité physique chez les jeunes dans des contextes comparables.<br>4. <strong>Élaborer</strong> un document de recommandations à l'intention des élus et des urbanistes pour l'intégration d'environnements favorables à l'activité physique dans la planification municipale.<br>5. <strong>Présenter</strong> les résultats et les recommandations à l'équipe de la DSP et aux partenaires intersectoriels concernés.",
+    motsCles: ['promotion','prévention','habitudes de vie','activité physique','sédentarité','alimentation','nutrition','tabagisme','bien-être','empowerment','participation','communautaire','milieux de vie','environnements favorables','littératie en santé','inégalités sociales','équité','déterminants sociaux','déterminants','facteurs de protection','facteurs de risque','comportements','intersectorialité','plaidoyer','santé mentale','obésité','école','municipalités','aménagement','transport actif','verdissement','espaces verts','inclusion','accessibilité','intervention','populationnel','mobilisation','sensibilisation','programme','prévention primaire']
   },
   surv: {
     nom: "Surveillance épidémiologique",
-    exempleGen: "<em>Exemple :</em> Contribuer aux activités de surveillance épidémiologique et de vigie sanitaire au sein de la Direction de santé publique du CISSS de Laval, en développant des compétences en analyse de données populationnelles, en investigation d'éclosions et en communication des résultats de surveillance aux partenaires du réseau.",
-    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Analyser</strong> les données de surveillance des maladies à déclaration obligatoire (MADO) pour la région de Laval afin de détecter des tendances et des variations saisonnières.<br>2. <strong>Participer</strong> à l'investigation d'au moins une éclosion ou d'un signalement en appliquant les protocoles de vigie sanitaire en vigueur.<br>3. <strong>Produire</strong> un bulletin de surveillance régional intégrant les indicateurs clés de l'état de santé de la population.<br>4. <strong>Développer</strong> un outil d'analyse géospatiale pour visualiser la distribution des cas déclarés sur le territoire.<br>5. <strong>Renforcer</strong> ses compétences en épidémiologie descriptive, en gestion de bases de données et en communication du risque.",
-    motsCles: ['surveillance','vigie','vigie sanitaire','épidémiologie','épidémiologique','incidence','prévalence','mortalité','morbidité','taux','indicateur','indicateurs','tendance','éclosion','épidémie','pandémie','agrégat','cas','déclaration','MADO','investigation','enquête épidémiologique','registre','cohorte','population','données de surveillance','système de surveillance','INSPQ','DSP','biosurveillance','signalement','détection','alerte','veille','monitoring','dépistage','facteurs de risque','exposition','analyse spatiale','géomatique','cartographie','vaccination','couverture vaccinale','bulletin','rapport','portrait de santé']
+    exempleGen: "<em>Exemple :</em> Produire une analyse épidémiologique des tendances de la maladie à déclaration obligatoire [X] sur le territoire du CISSS de Laval et élaborer un bulletin de surveillance régional à l'intention des partenaires du réseau de santé publique.",
+    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Extraire</strong> et valider les données de surveillance des cas déclarés de [X] dans les systèmes d'information du CISSS pour la période ciblée.<br>2. <strong>Analyser</strong> la distribution spatiale, temporelle et démographique des cas afin de dégager les tendances et les variations significatives.<br>3. <strong>Comparer</strong> les indicateurs régionaux aux données provinciales et aux seuils d'alerte établis par l'INSPQ.<br>4. <strong>Rédiger</strong> un bulletin de surveillance régional intégrant les indicateurs clés, les analyses et les constats.<br>5. <strong>Diffuser</strong> le bulletin auprès des partenaires du réseau et présenter les résultats à l'équipe de la DSP.",
+    motsCles: ['surveillance','vigie','vigie sanitaire','épidémiologie','épidémiologique','incidence','prévalence','mortalité','morbidité','taux','indicateur','indicateurs','tendance','éclosion','épidémie','agrégat','cas','déclaration','MADO','investigation','enquête épidémiologique','registre','population','données de surveillance','système de surveillance','INSPQ','DSP','signalement','détection','alerte','veille','monitoring','dépistage','facteurs de risque','exposition','analyse spatiale','géomatique','cartographie','vaccination','couverture vaccinale','bulletin','rapport','portrait de santé']
   },
   enviro: {
     nom: "Santé environnementale",
-    exempleGen: "<em>Exemple :</em> Contribuer à l'évaluation des risques sanitaires liés à l'exposition environnementale aux contaminants dans l'eau potable au sein de la Direction de santé publique du CISSS de l'Outaouais, en développant des compétences en analyse du risque toxicologique et en communication du risque auprès des municipalités.",
-    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Recenser</strong> et analyser les données disponibles sur la qualité de l'eau potable et les niveaux de contamination dans les municipalités ciblées.<br>2. <strong>Réaliser</strong> une évaluation du risque sanitaire pour les contaminants identifiés en appliquant la méthodologie d'analyse du risque reconnue.<br>3. <strong>Élaborer</strong> un document de communication du risque vulgarisé destiné aux élus municipaux et à la population.<br>4. <strong>Participer</strong> aux activités de surveillance environnementale et aux inspections sur le terrain.<br>5. <strong>Développer</strong> ses compétences en toxicologie appliquée, en gestion du risque et en rédaction scientifique.",
-    motsCles: ['environnement','environnemental','toxicologie','toxique','contaminant','contamination','exposition','dose-réponse','analyse du risque','évaluation du risque','gestion du risque','communication du risque','risque sanitaire','eau potable','qualité de l\'air','air intérieur','sol','bruit','chaleur','îlots de chaleur','changements climatiques','pollution','polluant','PFAS','plomb','amiante','pesticide','perturbateur endocrinien','particules fines','PM2.5','radon','norme','réglementation','santé au travail','hygiène','salubrité','insalubrité','verdissement','canopée','espaces verts','biodiversité','écosystème','inspection','terrain','échantillonnage','mesure']
+    exempleGen: "<em>Exemple :</em> Réaliser une évaluation des risques sanitaires liés à la contamination de l'eau potable par les PFAS dans les municipalités ciblées de l'Outaouais et produire un document d'aide à la décision pour la Direction de santé publique du CISSS.",
+    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Recenser</strong> et synthétiser les données disponibles sur les niveaux de contamination par les PFAS dans les sources d'approvisionnement en eau potable des municipalités ciblées.<br>2. <strong>Évaluer</strong> les risques sanitaires associés aux niveaux d'exposition documentés en appliquant la méthodologie d'analyse du risque toxicologique reconnue.<br>3. <strong>Comparer</strong> les niveaux mesurés aux normes et aux valeurs guides provinciales, nationales et internationales en vigueur.<br>4. <strong>Produire</strong> un rapport d'évaluation du risque intégrant les constats, les incertitudes et les recommandations de gestion du risque.<br>5. <strong>Élaborer</strong> un document de communication du risque vulgarisé à l'intention des élus municipaux et des responsables de l'eau potable.",
+    motsCles: ['environnement','environnemental','toxicologie','toxique','contaminant','contamination','exposition','dose-réponse','analyse du risque','évaluation du risque','gestion du risque','communication du risque','risque sanitaire','eau potable','qualité de l\'air','air intérieur','sol','bruit','chaleur','îlots de chaleur','changements climatiques','pollution','polluant','PFAS','plomb','amiante','pesticide','particules fines','PM2.5','radon','norme','réglementation','santé au travail','hygiène','salubrité','verdissement','canopée','espaces verts','biodiversité','écosystème','inspection','échantillonnage','mesure']
   },
   mondiale: {
     nom: "Santé mondiale",
-    exempleGen: "<em>Exemple :</em> Contribuer au renforcement des capacités de l'équipe de santé maternelle et infantile d'une ONG partenaire au Sénégal, en développant des compétences en planification de programmes de santé communautaire, en suivi-évaluation et en adaptation culturelle des interventions dans un contexte de ressources limitées.",
-    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Documenter</strong> les barrières d'accès aux services de santé maternelle dans les communautés rurales ciblées à partir de données qualitatives et quantitatives existantes.<br>2. <strong>Collaborer</strong> à la conception d'un outil de suivi-évaluation pour le programme de santé maternelle en intégrant des indicateurs adaptés au contexte local.<br>3. <strong>Participer</strong> à l'animation d'ateliers de formation avec les agents de santé communautaire sur les pratiques de soins essentiels.<br>4. <strong>Produire</strong> un rapport de stage documentant les apprentissages, les défis rencontrés et des recommandations pour la suite du programme.<br>5. <strong>Développer</strong> ses compétences en santé mondiale, en partenariat interculturel et en approche participative.",
-    motsCles: ['santé mondiale','santé internationale','coopération','ONG','OMS','UNICEF','partenariat','équité','inégalités','accès aux soins','couverture universelle','système de santé','renforcement des capacités','gouvernance','mortalité maternelle','mortalité infantile','VIH','tuberculose','paludisme','vaccination','nutrition','malnutrition','eau potable','assainissement','WASH','crise humanitaire','réfugiés','migration','genre','droits humains','décolonisation','contexte','adaptation','faisabilité','pays à faible revenu','Afrique','Asie','Amérique latine','communautaire','participatif','interculturel','formation','transfert','agent de santé','suivi-évaluation','évaluation']
+    exempleGen: "<em>Exemple :</em> Documenter les barrières d'accès aux soins de santé maternelle en milieu rural au Sénégal et élaborer un cadre de suivi-évaluation pour le programme de santé communautaire de l'ONG partenaire.",
+    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Documenter</strong> les barrières géographiques, économiques et socioculturelles d'accès aux services de santé maternelle dans les communautés rurales ciblées.<br>2. <strong>Analyser</strong> les données programmatiques existantes pour identifier les forces et les faiblesses du programme de santé communautaire en place.<br>3. <strong>Élaborer</strong> un cadre de suivi-évaluation intégrant des indicateurs de processus, de résultats et d'impact adaptés au contexte local.<br>4. <strong>Produire</strong> un guide d'utilisation du cadre de suivi-évaluation à l'intention des coordonnateurs du programme sur le terrain.<br>5. <strong>Présenter</strong> le cadre et le guide aux parties prenantes (ONG, autorités sanitaires locales) pour validation et appropriation.",
+    motsCles: ['santé mondiale','santé internationale','coopération','ONG','OMS','UNICEF','partenariat','équité','inégalités','accès aux soins','couverture universelle','système de santé','renforcement des capacités','gouvernance','mortalité maternelle','mortalité infantile','VIH','tuberculose','paludisme','vaccination','nutrition','malnutrition','eau potable','assainissement','WASH','crise humanitaire','réfugiés','migration','genre','droits humains','contexte','adaptation','faisabilité','pays à faible revenu','Afrique','Asie','Amérique latine','communautaire','participatif','interculturel','formation','agent de santé','suivi-évaluation']
   },
   systemes: {
     nom: "Systèmes et politiques de santé",
-    exempleGen: "<em>Exemple :</em> Contribuer à l'amélioration de l'organisation des services de première ligne pour les personnes atteintes de maladies chroniques au sein du CISSS de Laval, en développant des compétences en analyse organisationnelle, en évaluation de la performance et en soutien à la prise de décision des gestionnaires.",
-    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Analyser</strong> les trajectoires de soins des patients atteints de maladies chroniques afin d'identifier les points de fragmentation dans la coordination des services.<br>2. <strong>Évaluer</strong> la performance des mécanismes de liaison entre les GMF et les services spécialisés à l'aide d'indicateurs de continuité des soins.<br>3. <strong>Élaborer</strong> un tableau de bord synthétique à l'intention des gestionnaires pour le suivi de la coordination interprofessionnelle.<br>4. <strong>Formuler</strong> des recommandations organisationnelles fondées sur l'analyse des données et les modèles d'intégration des services documentés dans la littérature.<br>5. <strong>Développer</strong> ses compétences en analyse des systèmes de santé, en évaluation de la performance et en communication avec les décideurs.",
-    motsCles: ['système de santé','politique de santé','organisation des services','première ligne','soins de santé','accès aux soins','continuité des soins','intégration des soins','coordination','trajectoire de soins','gouvernance','gestion','administration','financement','performance','efficience','efficacité','qualité','sécurité des patients','équité d\'accès','RAMQ','MSSS','CISSS','CIUSSS','GMF','CLSC','hôpital','ressources humaines','pénurie','interprofessionnalité','réforme','transformation','changement organisationnel','innovation','télésanté','maladies chroniques','vieillissement','santé mentale','soins à domicile','CHSLD','évaluation','indicateurs de performance','reddition de comptes','tableau de bord','gestionnaire','décideur']
+    exempleGen: "<em>Exemple :</em> Analyser les trajectoires de soins des patients atteints de maladies chroniques entre la première ligne et les services spécialisés au CISSS de Laval et formuler des recommandations pour améliorer la coordination et la continuité des services.",
+    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Cartographier</strong> les trajectoires de soins actuelles des patients atteints de maladies chroniques entre les GMF, le CLSC et les services spécialisés du CISSS.<br>2. <strong>Identifier</strong> les points de rupture et les facteurs de fragmentation dans la coordination des services à partir des données clinico-administratives et des entrevues avec les intervenants clés.<br>3. <strong>Recenser</strong> les modèles d'intégration des services documentés dans la littérature et dans d'autres juridictions canadiennes comparables.<br>4. <strong>Élaborer</strong> un tableau de bord d'indicateurs de continuité des soins à l'intention des gestionnaires du programme de maladies chroniques.<br>5. <strong>Formuler</strong> des recommandations organisationnelles pour l'amélioration de la coordination des services et les présenter à l'équipe de direction.",
+    motsCles: ['système de santé','politique de santé','organisation des services','première ligne','soins de santé','accès aux soins','continuité des soins','intégration des soins','coordination','trajectoire de soins','gouvernance','gestion','administration','financement','performance','efficience','efficacité','qualité','sécurité des patients','équité d\'accès','RAMQ','MSSS','CISSS','CIUSSS','GMF','CLSC','hôpital','ressources humaines','interprofessionnalité','réforme','transformation','changement organisationnel','innovation','télésanté','maladies chroniques','vieillissement','santé mentale','soins à domicile','CHSLD','indicateurs de performance','tableau de bord','gestionnaire','décideur']
   },
   onehealth: {
     nom: "Une seule Santé",
-    exempleGen: "<em>Exemple :</em> Contribuer aux activités de surveillance et de prévention des zoonoses à l'interface humain-animal-environnement au sein de la Direction de santé publique du CISSS des Laurentides, en développant des compétences en épidémiologie intégrée, en collaboration intersectorielle avec les services vétérinaires et en communication du risque zoonotique.",
-    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Analyser</strong> les données de surveillance de la maladie de Lyme dans la région des Laurentides en intégrant les données humaines, entomologiques et environnementales.<br>2. <strong>Collaborer</strong> avec les services vétérinaires régionaux pour documenter les cas de zoonoses et cartographier les zones à risque.<br>3. <strong>Élaborer</strong> un outil de communication du risque destiné aux municipalités et aux citoyens sur la prévention des maladies transmises par les tiques.<br>4. <strong>Participer</strong> à une activité de surveillance active sur le terrain (collecte de tiques, échantillonnage).<br>5. <strong>Développer</strong> ses compétences en approche Une seule Santé, en épidémiologie de terrain et en travail intersectoriel.",
-    motsCles: ['une seule santé','One Health','santé animale','santé humaine','santé des écosystèmes','interface homme-animal-environnement','zoonose','zoonoses','maladie de Lyme','rage','fièvre Q','virus du Nil occidental','influenza aviaire','résistance aux antibiotiques','antibiorésistance','sécurité alimentaire','salubrité alimentaire','toxi-infection','vétérinaire','santé publique vétérinaire','animal','faune','faune sauvage','réservoir','vecteur','tique','moustique','écosystème','biodiversité','habitat','changements climatiques','agriculture','élevage','surveillance intégrée','interdisciplinaire','intersectoriel','biosécurité','émergence','pathogène','transmission','terrain','échantillonnage','collecte','prélèvement']
+    exempleGen: "<em>Exemple :</em> Produire un portrait intégré de la situation de la maladie de Lyme dans les Laurentides en combinant les données de surveillance humaine, entomologique et environnementale, et élaborer un outil de communication du risque pour les municipalités de la région.",
+    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Compiler</strong> et intégrer les données de surveillance humaine (cas déclarés), entomologique (densité de tiques) et environnementale (habitats favorables) pour le territoire des Laurentides.<br>2. <strong>Analyser</strong> la distribution spatiale et temporelle du risque de maladie de Lyme en croisant les trois sources de données dans un système d'information géographique.<br>3. <strong>Cartographier</strong> les zones à risque élevé sur le territoire à l'intention des intervenants de santé publique et des services vétérinaires régionaux.<br>4. <strong>Élaborer</strong> un outil de communication du risque (fiche, dépliant ou outil web) destiné aux municipalités et aux citoyens des zones à risque.<br>5. <strong>Présenter</strong> le portrait intégré et l'outil de communication aux partenaires intersectoriels (DSP, services vétérinaires, municipalités).",
+    motsCles: ['une seule santé','One Health','santé animale','santé humaine','santé des écosystèmes','interface homme-animal-environnement','zoonose','zoonoses','maladie de Lyme','rage','fièvre Q','virus du Nil occidental','influenza aviaire','résistance aux antibiotiques','antibiorésistance','sécurité alimentaire','salubrité alimentaire','toxi-infection','vétérinaire','santé publique vétérinaire','animal','faune','faune sauvage','réservoir','vecteur','tique','moustique','écosystème','biodiversité','habitat','changements climatiques','agriculture','élevage','surveillance intégrée','interdisciplinaire','intersectoriel','biosécurité','émergence','pathogène','transmission','terrain','échantillonnage']
   },
   recherche: {
     nom: "Recherche",
-    exempleGen: "<em>Exemple :</em> Contribuer à un projet de recherche portant sur les déterminants structurels de l'insécurité alimentaire dans les quartiers défavorisés de Montréal, au sein de l'équipe de recherche du Département de médecine sociale et préventive de l'ESPUM, en développant des compétences en méthodologie de recherche, en analyse de données et en transfert des connaissances.",
-    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Réaliser</strong> une revue de la littérature sur les déterminants structurels de l'insécurité alimentaire en milieu urbain afin de situer le projet dans l'état des connaissances.<br>2. <strong>Contribuer</strong> à la collecte et à l'analyse des données qualitatives (entrevues semi-dirigées) ou quantitatives selon le protocole de recherche établi.<br>3. <strong>Produire</strong> des analyses descriptives et spatiales des données recueillies en utilisant les logiciels appropriés (R, QGIS, NVivo).<br>4. <strong>Rédiger</strong> une section du rapport de recherche ou préparer une communication scientifique (affiche, présentation) pour un congrès ou un séminaire.<br>5. <strong>Développer</strong> ses compétences en méthodologie de recherche, en éthique de la recherche et en rédaction scientifique.",
-    motsCles: ['recherche','méthodologie','méthode','cadre conceptuel','cadre théorique','revue de littérature','revue systématique','méta-analyse','données','analyse','résultats','hypothèse','variable','biais','validité','échantillon','cohorte','transversal','longitudinal','qualitatif','quantitatif','mixte','entrevue','groupe de discussion','questionnaire','éthique','consentement','CÉR','publication','article','mémoire','communication scientifique','transfert de connaissances','épidémiologie','biostatistique','régression','modèle','SIG','géomatique','QGIS','R','SPSS','NVivo','protocole','collecte','terrain','codification','thématique','saturation']
+    exempleGen: "<em>Exemple :</em> Réaliser une analyse des déterminants structurels de l'insécurité alimentaire dans les quartiers défavorisés de Montréal dans le cadre du projet de recherche de l'équipe [X] du Département de médecine sociale et préventive, et produire des résultats contribuant à la rédaction d'un article scientifique.",
+    exemplesSpec: "<em>Exemples :</em><br><br>1. <strong>Réaliser</strong> une revue de la littérature sur les déterminants structurels de l'insécurité alimentaire en milieu urbain afin de situer le projet dans l'état des connaissances.<br>2. <strong>Analyser</strong> les données qualitatives ou quantitatives recueillies dans le cadre du projet selon le protocole de recherche et les méthodes convenues avec le directeur.<br>3. <strong>Produire</strong> des analyses descriptives et spatiales à l'aide des logiciels appropriés (R, QGIS, NVivo) et en interpréter les résultats.<br>4. <strong>Rédiger</strong> une section du rapport de recherche ou d'un manuscrit d'article scientifique à partir des résultats obtenus.<br>5. <strong>Préparer</strong> une communication scientifique (affiche ou présentation orale) pour un séminaire de recherche ou un congrès.",
+    motsCles: ['recherche','méthodologie','méthode','cadre conceptuel','cadre théorique','revue de littérature','revue systématique','méta-analyse','données','analyse','résultats','hypothèse','variable','biais','validité','échantillon','cohorte','qualitatif','quantitatif','mixte','entrevue','questionnaire','éthique','consentement','CÉR','publication','article','communication scientifique','transfert de connaissances','épidémiologie','biostatistique','régression','modèle','SIG','géomatique','QGIS','R','SPSS','NVivo','protocole','collecte','terrain','codification','manuscrit']
   }
 };
 
-let currentOpt = 'promo';
+let currentOpt='promo';
 
 /* =============================================
-   LEXIQUES
+   LEXIQUES — centrés sur le MANDAT
    ============================================= */
-// Verbes appropriés pour l'objectif GÉNÉRAL d'un stage
-const VERBES_GENERAUX = ['contribuer','participer','collaborer','soutenir','appuyer','développer','renforcer','acquérir','consolider','approfondir','intégrer','s\'initier','se familiariser','favoriser','améliorer','enrichir','bonifier','compléter','élargir','diversifier','mobiliser','mettre à profit','parfaire'];
+const VERBES_GENERAUX = ['réaliser','produire','élaborer','concevoir','effectuer','mener','conduire','contribuer','soutenir','appuyer','documenter','analyser','évaluer'];
 
-// Verbes appropriés pour les objectifs SPÉCIFIQUES d'un stage
-const VERBES_SPECIFIQUES = ['analyser','évaluer','documenter','identifier','comparer','recenser','synthétiser','caractériser','décrire','examiner','explorer','illustrer','quantifier','cartographier','mesurer','réaliser','produire','élaborer','concevoir','rédiger','préparer','construire','développer','adapter','créer','collaborer','participer','contribuer','coordonner','animer','faciliter','accompagner','soutenir','communiquer','présenter','diffuser','transmettre','vulgariser','former','sensibiliser','mobiliser','planifier','organiser','implanter','mettre en œuvre','appliquer','utiliser','maîtriser','intégrer','formuler','recommander','proposer'];
+const VERBES_SPECIFIQUES = ['analyser','évaluer','documenter','identifier','comparer','recenser','synthétiser','caractériser','décrire','examiner','explorer','quantifier','cartographier','mesurer','compiler','extraire','valider','croiser','réaliser','produire','élaborer','concevoir','rédiger','préparer','construire','adapter','créer','développer','formuler','recommander','proposer','présenter','diffuser','communiquer','transmettre','vulgariser','soumettre','livrer','remettre'];
 
-// Verbes trop vagues ou passifs pour un objectif
-const VERBES_VAGUES = ['comprendre','connaître','savoir','apprendre','voir','observer','être','avoir','faire','aller','suivre','assister à','regarder','écouter','lire','étudier','s\'informer','prendre connaissance','découvrir','s\'intéresser','trouver','chercher','essayer','tenter'];
+const VERBES_VAGUES = ['comprendre','connaître','savoir','apprendre','voir','observer','être','avoir','faire','aller','suivre','assister à','regarder','écouter','lire','étudier','s\'informer','prendre connaissance','découvrir','s\'intéresser','trouver','chercher','essayer','tenter','se familiariser','acquérir','développer ses compétences','renforcer ses','parfaire'];
 
-const TOUS_VERBES = [...new Set([...VERBES_GENERAUX, ...VERBES_SPECIFIQUES, ...VERBES_VAGUES])];
+const MARQUEURS_MILIEU = ['cisss','ciusss','direction de santé publique','DSP','INSPQ','MSSS','santé publique','hôpital','CLSC','GMF','centre de recherche','équipe de recherche','laboratoire','département','service','unité','organisme communautaire','ONG','organisation','municipalité','ville','MRC','ministère','agence','institut','ESPUM','université','faculté','milieu de stage','milieu de pratique','établissement','réseau','partenaire','OMS','UNICEF','clinique','centre de santé','CHSLD','bureau','division','secteur','programme','équipe'];
 
-// Marqueurs de milieu de stage
-const MARQUEURS_MILIEU = ['cisss','ciusss','direction de santé publique','DSP','INSPQ','MSSS','santé publique','hôpital','CLSC','GMF','centre de recherche','équipe de recherche','laboratoire','département','service','unité','organisme communautaire','ONG','organisation','municipalité','ville','MRC','ministère','agence','institut','ESPUM','université','faculté','milieu de stage','milieu de pratique','établissement','réseau','partenaire','organisation internationale','OMS','UNICEF','clinique','centre de santé','CHSLD','centre jeunesse','centre de réadaptation','bureau','division','secteur','programme'];
+const MARQUEURS_MANDAT = ['portrait','état de situation','analyse','diagnostic','bilan','évaluation','rapport','bulletin','document','outil','grille','guide','protocole','tableau de bord','cadre','modèle','fiche','dépliant','infographie','cartographie','carte','revue','synthèse','plan','recommandation','recommandations','avis','livrable','livrables','produit','résultat','résultats','constats','communication','présentation','affiche','article','manuscrit','publication','base de données','système d\'information','indicateur','indicateurs','enquête','investigation','inventaire','recensement','collecte','données','veille','surveillance'];
 
-// Marqueurs de thématique/mandat
-const MARQUEURS_THEMATIQUE = ['projet','programme','intervention','activité','mandat','mission','dossier','problématique','enjeu','initiative','stratégie','plan','politique','évaluation','surveillance','vigie','recherche','étude','enquête','portrait','analyse','diagnostic','bilan','rapport','recommandation','formation','sensibilisation','prévention','promotion','planification','coordination','implantation','mise en œuvre','suivi','monitoring','développement','amélioration','transformation','innovation','collaboration','partenariat','consultation','accompagnement','soutien','transfert','communication','diffusion','vulgarisation','mobilisation','concertation'];
+const MARQUEURS_POPULATION = ['population','communauté','citoyens','résidents','personnes','patients','usagers','clientèle','jeunes','adolescents','enfants','aînés','personnes âgées','adultes','femmes','hommes','familles','parents','immigrants','réfugiés','autochtones','premières nations','inuit','personnes vulnérables','personnes en situation de','travailleurs','professionnels','intervenants','agents de santé','milieu scolaire','milieu de travail','milieu rural','milieu urbain','quartier','territoire','région','municipalité','municipalités','partenaires','élus','gestionnaires','décideurs','parties prenantes'];
 
-// Marqueurs de population/contexte
-const MARQUEURS_POPULATION = ['population','populations','communauté','communautés','citoyens','citoyennes','résidents','habitants','personnes','individus','patients','usagers','clientèle','jeunes','adolescents','adolescentes','enfants','aînés','aînées','personnes âgées','adultes','femmes','hommes','familles','parents','immigrants','immigrantes','réfugiés','autochtones','premières nations','inuit','personnes vulnérables','personnes en situation de','personnes vivant avec','personnes itinérantes','personnes à faible revenu','travailleurs','travailleuses','professionnels','intervenants','agents de santé','milieu scolaire','milieu de travail','milieu rural','milieu urbain','milieu communautaire','quartier','territoire','région','contexte'];
-
-// Marqueurs de compétences
-const MARQUEURS_COMPETENCES = ['compétence','compétences','habiletés','aptitudes','capacités','savoir-faire','savoir-être','apprentissage','apprentissages','formation','développement professionnel','pratique professionnelle','autonomie','rigueur','esprit critique','jugement','analyse','synthèse','communication','rédaction','collaboration','travail d\'équipe','interdisciplinaire','intersectoriel','leadership','initiative','adaptabilité','éthique','réflexivité','pensée critique','résolution de problèmes','planification','organisation','gestion de projet','transfert de connaissances','vulgarisation','données probantes','méthodologie','recherche','intervention','évaluation','surveillance'];
-
-// Dimensions attendues d'un stage
+// Dimensions logiques d'un MANDAT de stage
 const DIMENSIONS = {
-  analyse: { label:"Analyser/comprendre le milieu et le problème", verbes:['analyser','documenter','décrire','caractériser','identifier','recenser','examiner','explorer','cartographier','mesurer','quantifier','évaluer','synthétiser'], mots:['analyse','portrait','diagnostic','bilan','données','situation','état des lieux','contexte','problème','enjeu','besoin','besoins','déterminants','facteurs','ampleur'] },
-  production: { label:"Produire/créer des livrables", verbes:['produire','élaborer','concevoir','rédiger','préparer','construire','développer','adapter','créer','formuler'], mots:['livrable','livrables','rapport','document','outil','grille','guide','protocole','tableau de bord','présentation','affiche','bulletin','synthèse','revue','communication','recommandation','recommandations','plan','cadre','modèle','fiche','dépliant','infographie'] },
-  collaboration: { label:"Collaborer/participer aux activités du milieu", verbes:['collaborer','participer','contribuer','coordonner','animer','faciliter','accompagner','soutenir','communiquer','présenter','diffuser','transmettre','mobiliser','sensibiliser','former'], mots:['équipe','partenaires','réunion','comité','rencontre','atelier','formation','consultation','concertation','collaboration','partenariat','réseau','interprofessionnel','intersectoriel','terrain','milieu','communauté','acteurs','parties prenantes'] },
-  competences: { label:"Développer des compétences professionnelles", verbes:['développer','renforcer','acquérir','consolider','approfondir','intégrer','maîtriser','parfaire','s\'initier','se familiariser'], mots:['compétence','compétences','habiletés','apprentissage','apprentissages','formation','pratique professionnelle','développement professionnel','autonomie','rigueur','esprit critique','savoir-faire','capacités','aptitudes'] },
-  reflexion: { label:"Réfléchir/porter un regard critique", verbes:['réfléchir','questionner','évaluer','apprécier','critiquer','comparer','situer','contextualiser','recommander','proposer','formuler'], mots:['réflexion','réflexivité','regard critique','esprit critique','analyse critique','leçons apprises','apprentissages','défis','enjeux éthiques','limites','forces','recommandation','amélioration','perspective','bilan','retour','rétroaction'] }
+  documenter: {
+    label: "Documenter le contexte ou l'état de situation",
+    verbes: ['documenter','décrire','caractériser','recenser','compiler','extraire','inventorier','dresser','établir','situer'],
+    mots: ['portrait','état de situation','état des lieux','contexte','situation','données disponibles','données existantes','revue','littérature','bilan','inventaire','recension','sources','documentation']
+  },
+  analyser: {
+    label: "Analyser les données ou la situation",
+    verbes: ['analyser','évaluer','examiner','identifier','comparer','croiser','mesurer','quantifier','cartographier','explorer','interpréter','dégager'],
+    mots: ['analyse','résultats','tendance','tendances','distribution','facteurs','déterminants','indicateur','indicateurs','comparaison','écart','variation','corrélation','association','interprétation','constat','constats','forces','faiblesses','lacunes','enjeux']
+  },
+  produire: {
+    label: "Produire des livrables ou des outils",
+    verbes: ['produire','élaborer','concevoir','rédiger','préparer','construire','développer','créer','adapter','bâtir'],
+    mots: ['livrable','livrables','rapport','document','outil','grille','guide','protocole','tableau de bord','bulletin','fiche','dépliant','infographie','carte','cadre','modèle','plan','base de données','système','plateforme','application','présentation','affiche','article','manuscrit']
+  },
+  recommander: {
+    label: "Formuler des constats ou des recommandations",
+    verbes: ['formuler','recommander','proposer','suggérer','énoncer','définir','préciser','soumettre'],
+    mots: ['recommandation','recommandations','constat','constats','piste','pistes','suggestion','proposition','avis','orientation','option','amélioration','optimisation','ajustement','action','mesure','stratégie','priorité']
+  },
+  communiquer: {
+    label: "Communiquer ou diffuser les résultats",
+    verbes: ['présenter','diffuser','communiquer','transmettre','vulgariser','partager','remettre','livrer'],
+    mots: ['présentation','diffusion','communication','transfert','vulgarisation','partage','dissémination','restitution','partenaires','équipe','comité','décideurs','parties prenantes','milieu','congrès','séminaire','réunion','rencontre','atelier','validation','appropriation']
+  }
 };
 
 /* =============================================
    UTILS
    ============================================= */
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function normKA(s){return s.toLowerCase().replace(/['']/g,"'").replace(/[\u2013\u2014]/g,'-');}
-function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/['']/g,"'");}
-function has(text,kw){const t=normKA(text);return kw.some(k=>t.includes(normKA(k)));}
-function find(text,kw){const t=normKA(text);return kw.filter(k=>t.includes(normKA(k)));}
-function startV(text,vl){const t=normKA(text.trim());for(const v of vl){if(t.startsWith(normKA(v)))return v;}return null;}
-function countV(text){const t=normKA(text);const f=[];for(const v of[...VERBES_GENERAUX,...VERBES_SPECIFIQUES]){const vn=normKA(v);const re=new RegExp('(?:^|[\\s,;:])'+vn.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'g');if(re.test(t)&&!f.includes(v))f.push(v);}return f;}
+function nk(s){return s.toLowerCase().replace(/['']/g,"'").replace(/[\u2013\u2014]/g,'-');}
+function nr(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/['']/g,"'");}
+function has(t,kw){const x=nk(t);return kw.some(k=>x.includes(nk(k)));}
+function find(t,kw){const x=nk(t);return kw.filter(k=>x.includes(nk(k)));}
+function startV(t,vl){const x=nk(t.trim());for(const v of vl){if(x.startsWith(nk(v)))return v;}return null;}
 
 /* =============================================
-   OPTION SELECTOR & UI
+   UI
    ============================================= */
-function setOpt(key){currentOpt=key;document.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('on'));event.target.closest('.opt-btn').classList.add('on');document.getElementById('opt-name').textContent=OPTIONS[key].nom;document.getElementById('ex1').innerHTML=OPTIONS[key].exempleGen;document.getElementById('ex2').innerHTML=OPTIONS[key].exemplesSpec;document.getElementById('fg').innerHTML='';document.getElementById('fs').innerHTML='';document.getElementById('fc').innerHTML='';}
+function setOpt(key){currentOpt=key;document.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('on'));event.target.closest('.opt-btn').classList.add('on');document.getElementById('opt-name').textContent=OPTIONS[key].nom;document.getElementById('ex1').innerHTML=OPTIONS[key].exempleGen;document.getElementById('ex2').innerHTML=OPTIONS[key].exemplesSpec;['fg','fs','fc'].forEach(id=>document.getElementById(id).innerHTML='');}
 document.addEventListener('DOMContentLoaded',()=>{document.getElementById('ex1').innerHTML=OPTIONS[currentOpt].exempleGen;document.getElementById('ex2').innerHTML=OPTIONS[currentOpt].exemplesSpec;});
 
 function go(t){document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.getElementById('t-'+t).classList.add('on');document.getElementById('p-'+t).classList.add('on');if(t==='coh')updatePreview();}
-function togEx(id){const b=document.getElementById(id),btn=b.previousElementSibling;b.classList.toggle('vis');if(id==='ex2')btn.textContent=b.classList.contains('vis')?'▾ Masquer les exemples':'▸ Voir des exemples adaptés à votre option';else btn.textContent=b.classList.contains('vis')?"▾ Masquer l'exemple":'▸ Voir un exemple adapté à votre option';}
-function addSpec(){const list=document.getElementById('speclist'),n=list.children.length+1;const ph=["Analyser les données de [X] afin de produire un portrait…","Collaborer à l'élaboration de [livrable] pour [milieu]…","Participer aux activités de [thématique] au sein de l'équipe…","Produire un [livrable] à l'intention de [public]…","Développer ses compétences en [domaine] par la pratique de [activité]…"];const d=document.createElement('div');d.className='oi';d.innerHTML='<div class="oi-top"><span class="oi-num">Objectif spécifique '+n+'</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : '+ph[(n-1)%5]+'"></textarea>';list.appendChild(d);renum();}
+function togEx(id){const b=document.getElementById(id),btn=b.previousElementSibling;b.classList.toggle('vis');btn.textContent=b.classList.contains('vis')?(id==='ex2'?'▾ Masquer les exemples':"▾ Masquer l'exemple"):(id==='ex2'?'▸ Voir des exemples adaptés à votre option':'▸ Voir un exemple adapté à votre option');}
+function addSpec(){const list=document.getElementById('speclist'),n=list.children.length+1;const ph=["Documenter l'état de situation de [X] à partir des données disponibles…","Analyser [les données / la situation] afin d'identifier [résultat attendu]…","Produire [livrable] à l'intention de [destinataire]…","Formuler des recommandations pour [finalité]…","Présenter les résultats à [destinataires]…"];const d=document.createElement('div');d.className='oi';d.innerHTML='<div class="oi-top"><span class="oi-num">Objectif spécifique '+n+'</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : '+ph[(n-1)%5]+'"></textarea>';list.appendChild(d);renum();}
 function rmSpec(btn){const list=document.getElementById('speclist');if(list.children.length<=1)return;btn.closest('.oi').remove();renum();}
 function renum(){document.querySelectorAll('#speclist .oi').forEach((o,i)=>{o.querySelector('.oi-num').textContent='Objectif spécifique '+(i+1);});}
 function getSpecs(){return Array.from(document.querySelectorAll('#speclist textarea')).map(t=>t.value.trim()).filter(v=>v);}
-function clr(s){if(s==='gen'){document.getElementById('og').value='';document.getElementById('fg').innerHTML='';}else{document.getElementById('speclist').innerHTML='<div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Analyser les données de [X] afin de produire un portrait…"></textarea></div>';document.getElementById('fs').innerHTML='';}}
+function clr(s){if(s==='gen'){document.getElementById('og').value='';document.getElementById('fg').innerHTML='';}else{document.getElementById('speclist').innerHTML='<div class="oi"><div class="oi-top"><span class="oi-num">Objectif spécifique 1</span><button class="oi-rm" onclick="rmSpec(this)">✕</button></div><textarea placeholder="Ex. : Documenter l\'état de situation de [X] à partir des données disponibles…"></textarea></div>';document.getElementById('fs').innerHTML='';}}
 function updatePreview(){const og=document.getElementById('og').value.trim(),sp=getSpecs();let h='';if(og)h+='<div class="preview"><strong>Objectif général :</strong> '+esc(og.substring(0,200))+(og.length>200?'…':'')+'</div>';if(sp.length)h+='<div class="preview"><strong>Objectifs spécifiques :</strong>'+sp.map((s,i)=>'<br>'+(i+1)+'. '+esc(s.substring(0,150))+(s.length>150?'…':'')).join('')+'</div>';document.getElementById('coh-preview').innerHTML=h;}
 
 function render(id,data){
   let h='<div class="fb-wrap">';
-  if(data.score!==undefined){const lv=data.score>=80?'g':data.score>=50?'m':'l';const ic={g:'✓',m:'◐',l:'✗'};h+='<div class="score score-'+lv+'">'+ic[lv]+' Score : '+data.score+'/100</div>';}
-  if(data.criteres&&data.criteres.length){h+='<div class="cg">';data.criteres.forEach(c=>{const cls=c.statut==='ok'?'ci-ok':c.statut==='partiel'?'ci-warn':'ci-fail';const ic=c.statut==='ok'?'✓':c.statut==='partiel'?'◐':'✗';h+='<div class="ci"><div class="ci-icon '+cls+'">'+ic+'</div><span>'+c.label+'</span></div>';});h+='</div>';}
-  if(data.points_positifs)h+='<div class="fb fb-ok"><div class="ft">✓ Points forts</div><div class="fx">'+data.points_positifs+'</div></div>';
+  if(data.score!==undefined){const lv=data.score>=80?'g':data.score>=50?'m':'l';h+='<div class="score score-'+lv+'">'+(lv==='g'?'✓':lv==='m'?'◐':'✗')+' Score : '+data.score+'/100</div>';}
+  if(data.criteres&&data.criteres.length){h+='<div class="cg">';data.criteres.forEach(c=>{const cls=c.statut==='ok'?'ci-ok':c.statut==='partiel'?'ci-warn':'ci-fail';h+='<div class="ci"><div class="ci-icon '+cls+'">'+(c.statut==='ok'?'✓':c.statut==='partiel'?'◐':'✗')+'</div><span>'+c.label+'</span></div>';});h+='</div>';}
+  if(data.positifs)h+='<div class="fb fb-ok"><div class="ft">✓ Points forts</div><div class="fx">'+data.positifs+'</div></div>';
   if(data.critiques)h+='<div class="fb fb-warn"><div class="ft">⚠ Points à améliorer</div><div class="fx">'+data.critiques+'</div></div>';
   if(data.suggestions)h+='<div class="fb fb-info"><div class="ft">ℹ Suggestions</div><div class="fx">'+data.suggestions+'</div></div>';
   h+='</div>';document.getElementById(id).innerHTML=h;
 }
 
 /* =============================================
-   ÉVALUATION — OBJECTIF GÉNÉRAL DU STAGE
+   ÉVAL — OBJECTIF GÉNÉRAL DU MANDAT
    ============================================= */
 function evalGen(){
   const text=document.getElementById('og').value.trim();
-  if(!text){alert("Veuillez rédiger l'objectif général de votre stage.");return;}
+  if(!text){alert("Veuillez rédiger l'objectif général de votre mandat de stage.");return;}
   const opt=OPTIONS[currentOpt];
   const C=[],P=[],PR=[],S=[];
-  let pts=0,max=8;
+  let pts=0,max=7;
 
-  // 1. Verbe d'action
   const vG=startV(text,VERBES_GENERAUX),vS=startV(text,VERBES_SPECIFIQUES),vV=startV(text,VERBES_VAGUES);
-  if(vG){C.push({label:'Verbe d\'action approprié : « '+vG+' »',statut:'ok'});P.push('Bon choix de verbe « <strong>'+vG+'</strong> » pour un objectif général de stage.');pts++;}
-  else if(vS){C.push({label:'Verbe (« '+vS+' ») plus approprié pour un objectif spécifique',statut:'partiel'});PR.push('Le verbe « <strong>'+vS+'</strong> » convient mieux à un objectif spécifique. Pour un objectif général de stage, privilégiez : <em>contribuer, participer, collaborer, soutenir, développer, renforcer, acquérir, consolider, approfondir</em>.');pts+=0.5;}
-  else if(vV){C.push({label:'« '+vV+' » est trop vague ou passif pour un objectif',statut:'absent'});PR.push('Le verbe « <strong>'+vV+'</strong> » est trop vague. Un objectif doit exprimer un résultat observable. Reformulez avec : <em>contribuer, participer, collaborer, développer, renforcer, acquérir</em>.');}
-  else{C.push({label:'Aucun verbe d\'action clair détecté',statut:'absent'});PR.push('Commencez par un verbe d\'action : <em>contribuer, participer, collaborer, soutenir, développer, renforcer, acquérir</em>.');}
+  if(vG){C.push({label:'Verbe d\'action approprié : « '+vG+' »',statut:'ok'});P.push('Bon choix de verbe « <strong>'+vG+'</strong> » pour décrire le mandat global.');pts++;}
+  else if(vS){C.push({label:'Verbe (« '+vS+' ») plutôt approprié pour un objectif spécifique',statut:'partiel'});PR.push('Le verbe « <strong>'+vS+'</strong> » est assez précis pour un objectif général de mandat. Pour décrire la finalité globale, privilégiez : <em>réaliser, produire, élaborer, concevoir, mener, conduire, effectuer, contribuer</em>.');pts+=0.5;}
+  else if(vV){C.push({label:'« '+vV+' » est trop vague pour un objectif de mandat',statut:'absent'});PR.push('Le verbe « <strong>'+vV+'</strong> » n\'exprime pas un résultat concret. Un objectif de mandat doit décrire ce qui sera produit ou accompli. Utilisez : <em>réaliser, produire, élaborer, analyser, évaluer, documenter</em>.');}
+  else{C.push({label:'Aucun verbe d\'action clair détecté',statut:'absent'});PR.push('Commencez par un verbe d\'action décrivant le mandat : <em>réaliser, produire, élaborer, concevoir, mener, analyser, évaluer, documenter</em>.');}
 
-  // 2. Milieu de stage
   const milieuF=find(text,MARQUEURS_MILIEU);
   if(milieuF.length>0){C.push({label:'Milieu de stage identifié : « '+milieuF.slice(0,2).join(', ')+' »',statut:'ok'});pts++;}
-  else{C.push({label:'Milieu de stage non identifié',statut:'absent'});PR.push('Identifiez votre milieu de stage (ex. : Direction de santé publique du CISSS de [X], équipe de recherche de [X], ONG [X], etc.).');}
+  else{C.push({label:'Milieu de stage non identifié',statut:'absent'});PR.push('Identifiez votre milieu de stage (ex. : DSP du CISSS de [X], équipe [X] de l\'INSPQ, ONG [X], etc.).');}
 
-  // 3. Thématique/mandat
-  const themaF=find(text,MARQUEURS_THEMATIQUE);
-  if(themaF.length>0){C.push({label:'Thématique ou mandat de stage identifié',statut:'ok'});pts++;}
-  else{C.push({label:'Thématique ou mandat non clairement identifié',statut:'partiel'});PR.push('Précisez la thématique ou le mandat du stage (ex. : la surveillance de [X], le programme de [X], le projet de recherche sur [X], etc.).');pts+=0.25;}
+  const mandatF=find(text,MARQUEURS_MANDAT);
+  if(mandatF.length>0){C.push({label:'Mandat ou livrable identifié : « '+mandatF.slice(0,3).join(', ')+' »',statut:'ok'});P.push('Le mandat ou les livrables attendus sont mentionnés.');pts++;}
+  else{C.push({label:'Mandat ou livrable non clairement identifié',statut:'partiel'});PR.push('Précisez ce que le mandat produira (ex. : un portrait, une analyse, un rapport, un outil, des recommandations, un bulletin, etc.).');pts+=0.25;}
 
-  // 4. Population/contexte
   const popF=find(text,MARQUEURS_POPULATION);
   if(popF.length>0){C.push({label:'Population ou contexte visé identifié',statut:'ok'});pts++;}
-  else{C.push({label:'Population ou contexte visé non précisé',statut:'partiel'});PR.push('Précisez la population ou le contexte visé (ex. : les jeunes de [X], la population de [région], les usagers de [service], en milieu rural, etc.).');pts+=0.25;}
+  else{C.push({label:'Population ou contexte non précisé',statut:'partiel'});S.push('Précisez la population, le territoire ou le contexte visé par le mandat.');pts+=0.25;}
 
-  // 5. Compétences
-  const compF=find(text,MARQUEURS_COMPETENCES);
-  if(compF.length>0){C.push({label:'Mention de compétences à développer',statut:'ok'});P.push('L\'intention de développer des compétences est mentionnée.');pts++;}
-  else{C.push({label:'Aucune mention de compétences à développer',statut:'partiel'});S.push('Un objectif général de stage devrait mentionner les <em>compétences</em> ou les <em>apprentissages</em> que vous visez (ex. : en développant des compétences en [X]).');pts+=0.25;}
-
-  // 6. Vocabulaire thématique de l'option
   const optF=find(text,opt.motsCles);
   if(optF.length>=2){C.push({label:'Vocabulaire « '+opt.nom+' » présent ('+optF.length+' termes)',statut:'ok'});P.push('Bon ancrage dans l\'option <strong>'+opt.nom+'</strong>.');pts++;}
   else if(optF.length===1){C.push({label:'Un seul terme « '+opt.nom+' » — renforcez l\'ancrage',statut:'partiel'});S.push('Intégrez davantage de vocabulaire propre à votre option <strong>'+opt.nom+'</strong>.');pts+=0.5;}
-  else{C.push({label:'Aucun vocabulaire « '+opt.nom+' » détecté',statut:'absent'});S.push('Votre objectif ne contient aucun terme spécifique à l\'option <strong>'+opt.nom+'</strong>. Assurez-vous que votre stage s\'inscrit dans votre domaine de spécialisation.');}
+  else{C.push({label:'Aucun vocabulaire « '+opt.nom+' »',statut:'absent'});S.push('Votre objectif ne contient aucun terme de l\'option <strong>'+opt.nom+'</strong>.');}
 
-  // 7. Longueur
   const wc=text.split(/\s+/).length;
-  if(wc<12){C.push({label:'Objectif trop court ('+wc+' mots)',statut:'partiel'});S.push('Visez 25-60 mots pour inclure tous les éléments essentiels.');pts+=0.25;}
-  else if(wc>80){C.push({label:'Objectif très long ('+wc+' mots)',statut:'partiel'});S.push('Votre objectif est long. Vérifiez qu\'il ne contient pas d\'éléments qui relèvent des objectifs spécifiques.');pts+=0.5;}
+  if(wc<12){C.push({label:'Objectif trop court ('+wc+' mots)',statut:'partiel'});S.push('Visez 25-50 mots pour inclure tous les éléments du mandat.');pts+=0.25;}
+  else if(wc>70){C.push({label:'Objectif long ('+wc+' mots) — vérifiez la concision',statut:'partiel'});pts+=0.5;}
   else{C.push({label:'Longueur appropriée ('+wc+' mots)',statut:'ok'});pts++;}
 
-  // 8. Formulation
-  if(text.includes('?')){C.push({label:'Un objectif n\'est pas une question',statut:'absent'});PR.push('Formulez une déclaration affirmative.');}
-  else{C.push({label:'Formulation appropriée',statut:'ok'});pts++;}
+  if(text.includes('?')){C.push({label:'Un objectif n\'est pas une question',statut:'absent'});}
 
-  render('fg',{score:Math.round((pts/max)*100),criteres:C,points_positifs:P.length?P.join(' '):null,critiques:PR.length?'<ul>'+PR.map(p=>'<li>'+p+'</li>').join('')+'</ul>':null,suggestions:S.length?'<ul>'+S.map(s=>'<li>'+s+'</li>').join('')+'</ul>':null});
+  render('fg',{score:Math.round((pts/max)*100),criteres:C,positifs:P.length?P.join(' '):null,critiques:PR.length?'<ul>'+PR.map(p=>'<li>'+p+'</li>').join('')+'</ul>':null,suggestions:S.length?'<ul>'+S.map(s=>'<li>'+s+'</li>').join('')+'</ul>':null});
 }
 
 /* =============================================
-   ÉVALUATION — OBJECTIFS SPÉCIFIQUES DU STAGE
+   ÉVAL — OBJECTIFS SPÉCIFIQUES DU MANDAT
    ============================================= */
 function evalSpec(){
   const specs=getSpecs();if(!specs.length){alert("Rédigez au moins un objectif spécifique.");return;}
@@ -393,99 +385,90 @@ function evalSpec(){
     const a={issues:[],ok:[]};
     const vSp=startV(s,VERBES_SPECIFIQUES),vG=startV(s,VERBES_GENERAUX),vV=startV(s,VERBES_VAGUES);
     if(vSp){a.ok.push('Verbe approprié : « '+vSp+' ».');vOk++;}
-    else if(vG){a.issues.push('« '+vG+' » est plutôt pour un objectif général. Utilisez un verbe plus précis : <em>analyser, produire, élaborer, participer, collaborer, documenter, évaluer, rédiger</em>.');}
-    else if(vV){a.issues.push('« '+vV+' » est trop vague. Un objectif spécifique doit exprimer un résultat observable ou mesurable.');vVague++;}
-    else{a.issues.push('Commencez par un verbe d\'action précis : <em>analyser, produire, élaborer, participer, collaborer, documenter, rédiger, développer</em>.');}
-    if(s.split(/\s+/).length<8)a.issues.push('Trop court ('+s.split(/\s+/).length+' mots). Précisez le résultat attendu.');
+    else if(vG){a.issues.push('« '+vG+' » est assez général. Pour un objectif spécifique de mandat, soyez plus précis : <em>analyser, documenter, produire, rédiger, élaborer, cartographier, identifier, formuler, présenter</em>.');}
+    else if(vV){a.issues.push('« '+vV+' » est trop vague. Un objectif de mandat décrit un résultat concret, pas une intention d\'apprentissage.');vVague++;}
+    else{a.issues.push('Commencez par un verbe d\'action précis : <em>analyser, documenter, produire, élaborer, rédiger, identifier, formuler, présenter, cartographier</em>.');}
+    if(s.split(/\s+/).length<8)a.issues.push('Trop court. Précisez le résultat attendu et son destinataire.');
     if(s.includes('?'))a.issues.push('Un objectif est une déclaration, pas une question.');
     objA.push(a);
   });
 
-  if(vOk===specs.length){C.push({label:'Tous les objectifs ont un verbe approprié',statut:'ok'});pts+=2;}else if(vOk>0){C.push({label:vOk+'/'+specs.length+' ont un verbe approprié',statut:'partiel'});pts++;}else C.push({label:'Aucun verbe approprié détecté',statut:'absent'});
-  if(vVague>0){C.push({label:vVague+' objectif(s) avec un verbe trop vague ou passif',statut:'absent'});PR.push('Un objectif spécifique de stage doit exprimer un <em>résultat observable</em> (ce que vous aurez produit, analysé, contribué), pas une intention vague (comprendre, apprendre, voir).');}else{C.push({label:'Aucun verbe vague ou passif',statut:'ok'});pts++;}
+  if(vOk===specs.length){C.push({label:'Tous les objectifs ont un verbe d\'action approprié',statut:'ok'});pts+=2;}else if(vOk>0){C.push({label:vOk+'/'+specs.length+' ont un verbe approprié',statut:'partiel'});pts++;}else C.push({label:'Aucun verbe approprié détecté',statut:'absent'});
+  if(vVague>0){C.push({label:vVague+' objectif(s) avec un verbe trop vague',statut:'absent'});PR.push('Les objectifs spécifiques du mandat doivent exprimer des <em>résultats concrets</em> (ce qui sera produit, analysé, documenté, communiqué), pas des intentions d\'apprentissage ou des actions vagues.');}
 
-  // Couverture des dimensions de stage
+  // Couverture des 5 dimensions du mandat
   const allT=specs.join(' ');let dimC=0;
   for(const[k,d]of Object.entries(DIMENSIONS)){if(d.verbes.some(v=>has(allT,[v]))||d.mots.some(m=>has(allT,[m])))dimC++;}
-  if(dimC>=4){C.push({label:dimC+'/5 dimensions du stage couvertes',statut:'ok'});P.push('Bonne couverture des dimensions attendues d\'un stage.');pts+=2;}else if(dimC>=3){C.push({label:dimC+'/5 dimensions couvertes',statut:'partiel'});pts++;}else{C.push({label:dimC+'/5 dimensions couvertes',statut:'absent'});}
+  if(dimC>=4){C.push({label:dimC+'/5 étapes logiques du mandat couvertes',statut:'ok'});P.push('Bonne couverture des étapes du mandat : documenter, analyser, produire, recommander, communiquer.');pts+=2;}
+  else if(dimC>=3){C.push({label:dimC+'/5 étapes logiques couvertes',statut:'partiel'});pts++;}
+  else{C.push({label:dimC+'/5 étapes logiques couvertes',statut:'absent'});}
   const miss=Object.entries(DIMENSIONS).filter(([k,d])=>!(d.verbes.some(v=>has(allT,[v]))||d.mots.some(m=>has(allT,[m])))).map(([k,d])=>d.label);
-  if(miss.length)S.push('Dimensions manquantes : <strong>'+miss.join(', ')+'</strong>. Un bon projet de stage couvre généralement l\'analyse du milieu, la production de livrables, la collaboration avec l\'équipe, le développement de compétences et la réflexion critique.');
+  if(miss.length)S.push('Étapes manquantes dans vos objectifs : <strong>'+miss.join(', ')+'</strong>.');
 
-  // Vocabulaire thématique
   const optF=find(allT,opt.motsCles);
   if(optF.length>=3){C.push({label:'Vocabulaire « '+opt.nom+' » présent ('+optF.length+' termes)',statut:'ok'});pts++;}
   else if(optF.length>=1){C.push({label:'Peu de vocabulaire « '+opt.nom+' »',statut:'partiel'});pts+=0.5;}
-  else{C.push({label:'Aucun vocabulaire « '+opt.nom+' »',statut:'absent'});S.push('Intégrez des termes propres à votre option <strong>'+opt.nom+'</strong>.');}
+  else{C.push({label:'Aucun vocabulaire « '+opt.nom+' »',statut:'absent'});S.push('Ancrez vos objectifs dans votre option <strong>'+opt.nom+'</strong>.');}
 
-  // Nombre
   if(specs.length>=3&&specs.length<=6){C.push({label:'Nombre approprié ('+specs.length+')',statut:'ok'});pts++;}else if(specs.length<3){C.push({label:'Peu d\'objectifs ('+specs.length+') — visez 3-5',statut:'partiel'});pts+=0.5;}else{C.push({label:'Beaucoup d\'objectifs ('+specs.length+')',statut:'partiel'});pts+=0.5;}
 
-  // Lien avec objectif général
-  if(og){const oW=new Set(norm(og).split(/\s+/).filter(w=>w.length>5)),sW=new Set(norm(allT).split(/\s+/).filter(w=>w.length>5));if([...oW].filter(w=>sW.has(w)).length>=3){C.push({label:'Liés à l\'objectif général',statut:'ok'});pts++;}else{C.push({label:'Peu liés à l\'objectif général',statut:'partiel'});S.push('Assurez-vous que vos objectifs spécifiques reprennent le même milieu, la même thématique et le même contexte que l\'objectif général.');pts+=0.5;}}
+  let red=false;for(let i=0;i<specs.length;i++)for(let j=i+1;j<specs.length;j++){const w1=new Set(nr(specs[i]).split(/\s+/).filter(w=>w.length>4)),w2=new Set(nr(specs[j]).split(/\s+/).filter(w=>w.length>4));if([...w1].filter(w=>w2.has(w)).length/Math.min(w1.size,w2.size)>0.5)red=true;}
+  if(!red){C.push({label:'Pas de redondance',statut:'ok'});pts++;}else{C.push({label:'Redondance possible',statut:'partiel'});PR.push('Certains objectifs semblent se chevaucher.');pts+=0.5;}
+
+  if(og){const oW=new Set(nr(og).split(/\s+/).filter(w=>w.length>5)),sW=new Set(nr(allT).split(/\s+/).filter(w=>w.length>5));if([...oW].filter(w=>sW.has(w)).length>=3){C.push({label:'Liés à l\'objectif général du mandat',statut:'ok'});pts++;}else{C.push({label:'Peu liés à l\'objectif général',statut:'partiel'});S.push('Vos objectifs spécifiques devraient découler directement du mandat décrit dans l\'objectif général.');pts+=0.5;}}
 
   let perObj='';objA.forEach((a,i)=>{if(a.issues.length)perObj+='<div style="margin-top:8px"><strong>Objectif '+(i+1)+' :</strong><ul>'+a.issues.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';});
   const allP=[];objA.forEach((a,i)=>{if(a.ok.length&&!a.issues.length)allP.push('Objectif '+(i+1)+' : '+a.ok.join(' '));});if(allP.length)P.push(...allP);
 
-  render('fs',{score:Math.round((pts/max)*100),criteres:C,points_positifs:P.length?P.join('<br>'):null,critiques:(PR.length||perObj)?(PR.length?'<ul>'+PR.map(p=>'<li>'+p+'</li>').join('')+'</ul>':'')+perObj:null,suggestions:S.length?'<ul>'+S.map(s=>'<li>'+s+'</li>').join('')+'</ul>':null});
+  render('fs',{score:Math.round((pts/max)*100),criteres:C,positifs:P.length?P.join('<br>'):null,critiques:(PR.length||perObj)?(PR.length?'<ul>'+PR.map(p=>'<li>'+p+'</li>').join('')+'</ul>':'')+perObj:null,suggestions:S.length?'<ul>'+S.map(s=>'<li>'+s+'</li>').join('')+'</ul>':null});
 }
 
 /* =============================================
-   ÉVALUATION — COHÉRENCE
+   ÉVAL — COHÉRENCE
    ============================================= */
 function evalCoh(){
   const og=document.getElementById('og').value.trim(),specs=getSpecs();
-  if(!og){alert("Rédigez d'abord votre objectif général (onglet 1).");return;}
+  if(!og){alert("Rédigez d'abord l'objectif général (onglet 1).");return;}
   if(specs.length<2){alert("Rédigez au moins 2 objectifs spécifiques (onglet 2).");return;}
   updatePreview();
   const opt=OPTIONS[currentOpt];
   const C=[],P=[],PR=[],S=[];
-  let pts=0,max=8;
+  let pts=0,max=7;
   const allT=specs.join(' ');
 
-  // 1. Découlent du général
-  const oW=new Set(norm(og).split(/\s+/).filter(w=>w.length>5)),sW=new Set(norm(allT).split(/\s+/).filter(w=>w.length>5));
+  const oW=new Set(nr(og).split(/\s+/).filter(w=>w.length>5)),sW=new Set(nr(allT).split(/\s+/).filter(w=>w.length>5));
   const ratio=oW.size>0?[...oW].filter(w=>sW.has(w)).length/oW.size:0;
-  if(ratio>0.3){C.push({label:'Les spécifiques découlent de l\'objectif général',statut:'ok'});P.push('Bonne cohérence thématique.');pts++;}
-  else if(ratio>0.15){C.push({label:'Lien partiel avec l\'objectif général',statut:'partiel'});pts+=0.5;}
-  else{C.push({label:'Faible lien avec l\'objectif général',statut:'absent'});PR.push('Renforcez le lien entre vos objectifs spécifiques et l\'objectif général du stage.');}
+  if(ratio>0.3){C.push({label:'Les spécifiques découlent du mandat général',statut:'ok'});P.push('Bonne cohérence entre le mandat global et ses déclinaisons.');pts++;}
+  else if(ratio>0.15){C.push({label:'Lien partiel avec le mandat général',statut:'partiel'});S.push('Renforcez le lien : les objectifs spécifiques devraient reprendre les termes clés du mandat (milieu, thématique, livrables).');pts+=0.5;}
+  else{C.push({label:'Faible lien avec le mandat général',statut:'absent'});PR.push('Vos objectifs spécifiques ne semblent pas découler du mandat décrit dans l\'objectif général.');}
 
-  // 2. Milieu cohérent
   const mOg=find(og,MARQUEURS_MILIEU),mSp=find(allT,MARQUEURS_MILIEU);
   if(mOg.length&&mSp.length){C.push({label:'Milieu de stage cohérent',statut:'ok'});pts++;}
-  else if(mOg.length||mSp.length){C.push({label:'Milieu de stage à un seul niveau',statut:'partiel'});pts+=0.5;}
-  else{C.push({label:'Aucun milieu de stage identifié',statut:'absent'});PR.push('Identifiez votre milieu de stage.');}
+  else if(mOg.length||mSp.length){C.push({label:'Milieu identifié à un seul niveau',statut:'partiel'});pts+=0.5;}
+  else{C.push({label:'Aucun milieu de stage identifié',statut:'absent'});}
 
-  // 3. Thématique cohérente
-  if(find(og,MARQUEURS_THEMATIQUE).length&&find(allT,MARQUEURS_THEMATIQUE).length){C.push({label:'Thématique cohérente',statut:'ok'});pts++;}
-  else{C.push({label:'Thématique à expliciter aux deux niveaux',statut:'partiel'});pts+=0.5;}
-
-  // 4. Couverture des dimensions
   let dimC=0;for(const[k,d]of Object.entries(DIMENSIONS)){if(d.verbes.some(v=>has(allT,[v]))||d.mots.some(m=>has(allT,[m])))dimC++;}
-  if(dimC>=4){C.push({label:dimC+'/5 dimensions du stage couvertes',statut:'ok'});P.push('Bonne couverture des dimensions attendues.');pts++;}
-  else if(dimC>=3){C.push({label:dimC+'/5 dimensions',statut:'partiel'});pts+=0.5;}
-  else C.push({label:dimC+'/5 dimensions',statut:'absent'});
+  if(dimC>=4){C.push({label:dimC+'/5 étapes logiques du mandat couvertes',statut:'ok'});P.push('Vos objectifs couvrent bien la progression logique du mandat.');pts++;}
+  else if(dimC>=3){C.push({label:dimC+'/5 étapes logiques',statut:'partiel'});pts+=0.5;}
+  else{C.push({label:dimC+'/5 étapes logiques',statut:'absent'});}
   const missDim=Object.entries(DIMENSIONS).filter(([k,d])=>!(d.verbes.some(v=>has(allT,[v]))||d.mots.some(m=>has(allT,[m])))).map(([k,d])=>'<strong>'+d.label+'</strong>');
-  if(missDim.length)S.push('Dimensions manquantes : '+missDim.join(', ')+'.');
+  if(missDim.length)S.push('Étapes manquantes : '+missDim.join(', ')+'.');
 
-  // 5. Ancrage thématique option
   const thOg=find(og,opt.motsCles),thSp=find(allT,opt.motsCles);
   if(thOg.length>=1&&thSp.length>=1){C.push({label:'Ancrage « '+opt.nom+' » cohérent',statut:'ok'});pts++;}
   else if(thOg.length||thSp.length){C.push({label:'Vocabulaire « '+opt.nom+' » à un seul niveau',statut:'partiel'});pts+=0.5;}
-  else{C.push({label:'Aucun ancrage « '+opt.nom+' »',statut:'absent'});S.push('Ancrez votre stage dans votre option <strong>'+opt.nom+'</strong>.');}
+  else{C.push({label:'Aucun ancrage « '+opt.nom+' »',statut:'absent'});}
 
-  // 6. Pas de redondance
-  let red=false;for(let i=0;i<specs.length;i++)for(let j=i+1;j<specs.length;j++){const w1=new Set(norm(specs[i]).split(/\s+/).filter(w=>w.length>4)),w2=new Set(norm(specs[j]).split(/\s+/).filter(w=>w.length>4));if([...w1].filter(w=>w2.has(w)).length/Math.min(w1.size,w2.size)>0.5)red=true;}
-  if(!red){C.push({label:'Pas de redondance',statut:'ok'});pts++;}
-  else{C.push({label:'Redondance possible',statut:'partiel'});PR.push('Certains objectifs spécifiques semblent se chevaucher.');pts+=0.5;}
+  let red=false;for(let i=0;i<specs.length;i++)for(let j=i+1;j<specs.length;j++){const w1=new Set(nr(specs[i]).split(/\s+/).filter(w=>w.length>4)),w2=new Set(nr(specs[j]).split(/\s+/).filter(w=>w.length>4));if([...w1].filter(w=>w2.has(w)).length/Math.min(w1.size,w2.size)>0.5)red=true;}
+  if(!red){C.push({label:'Pas de redondance entre les objectifs',statut:'ok'});pts++;}
+  else{C.push({label:'Redondance possible',statut:'partiel'});pts+=0.5;}
 
-  // 7. Suffisants
-  if(specs.length>=3&&dimC>=3){C.push({label:'Objectifs suffisants pour structurer le stage',statut:'ok'});P.push('L\'ensemble de vos objectifs semble suffisant pour un stage complet.');pts++;}
-  else{C.push({label:'Les objectifs pourraient être renforcés',statut:'partiel'});pts+=0.5;}
+  if(specs.length>=3&&dimC>=3){C.push({label:'Les objectifs couvrent suffisamment le mandat',statut:'ok'});pts++;}
+  else{C.push({label:'Les objectifs pourraient mieux couvrir le mandat',statut:'partiel'});pts+=0.5;}
 
-  // 8. Pas de contradiction
   C.push({label:'Aucune contradiction apparente',statut:'ok'});pts++;
 
-  render('fc',{score:Math.round((pts/max)*100),criteres:C,points_positifs:P.length?P.join('<br>'):null,critiques:PR.length?'<ul>'+PR.map(p=>'<li>'+p+'</li>').join('')+'</ul>':null,suggestions:S.length?'<ul>'+S.map(s=>'<li>'+s+'</li>').join('')+'</ul>':null});
+  render('fc',{score:Math.round((pts/max)*100),criteres:C,positifs:P.length?P.join('<br>'):null,critiques:PR.length?'<ul>'+PR.map(p=>'<li>'+p+'</li>').join('')+'</ul>':null,suggestions:S.length?'<ul>'+S.map(s=>'<li>'+s+'</li>').join('')+'</ul>':null});
 }
 </script>
 </body>
