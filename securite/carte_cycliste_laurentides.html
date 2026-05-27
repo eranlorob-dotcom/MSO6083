@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accidents cyclistes et infrastructure cyclable — Laurentides (2021-2022)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+  }
+
+  #map { width: 100%; height: 100vh; }
+
+  /* Title overlay */
+  .map-title {
+    position: absolute;
+    top: 12px;
+    left: 60px;
+    z-index: 1000;
+    background: rgba(20, 20, 40, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 12px 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    max-width: 440px;
+  }
+  .map-title h1 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .map-title .subtitle {
+    font-size: 11.5px;
+    font-weight: 300;
+    color: #aaa;
+  }
+
+  /* Legend */
+  .legend-panel {
+    position: absolute;
+    bottom: 30px;
+    left: 12px;
+    z-index: 1000;
+    background: rgba(20, 20, 40, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    min-width: 220px;
+    font-size: 12px;
+  }
+  .legend-panel h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .legend-section {
+    margin-bottom: 12px;
+  }
+  .legend-section:last-child { margin-bottom: 0; }
+  .legend-section h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 6px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 11.5px;
+    color: #bbb;
+  }
+  .legend-line {
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .legend-circle {
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+
+  /* Info panel */
+  .info-panel {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1000;
+    background: rgba(20, 20, 40, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    max-width: 260px;
+    font-size: 12px;
+  }
+  .info-panel h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .info-panel .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .info-panel .stat-label { color: #999; }
+  .info-panel .stat-value { color: #fff; font-weight: 600; }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 2000;
+    background: rgba(10,10,30,0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+  }
+  .loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .loading-spinner {
+    width: 40px; height: 40px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: #4ecdc4;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #aaa;
+  }
+
+  /* Leaflet popup override */
+  .leaflet-popup-content-wrapper {
+    background: rgba(25, 25, 50, 0.95) !important;
+    color: #e0e0e0 !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    font-family: 'Source Sans 3', sans-serif !important;
+  }
+  .leaflet-popup-tip { background: rgba(25, 25, 50, 0.95) !important; }
+  .leaflet-popup-content { font-size: 12px !important; line-height: 1.5 !important; }
+  .leaflet-popup-content strong { color: #fff; }
+
+  /* Status bar */
+  .status-bar {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    z-index: 1000;
+    font-size: 10px;
+    color: #666;
+    background: rgba(20,20,40,0.8);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* OSM fetch button */
+  .osm-control {
+    position: absolute;
+    top: 80px;
+    left: 60px;
+    z-index: 1000;
+  }
+  .osm-btn {
+    background: rgba(78, 205, 196, 0.9);
+    color: #1a1a2e;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .osm-btn:hover { background: rgba(78, 205, 196, 1); transform: translateY(-1px); }
+  .osm-btn:disabled { opacity: 0.5; cursor: wait; }
+  .osm-btn .icon { font-size: 14px; }
+
+  /* Note box */
+  .note-box {
+    position: absolute;
+    bottom: 30px;
+    right: 12px;
+    z-index: 1000;
+    background: rgba(20, 20, 40, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255,200,50,0.2);
+    max-width: 240px;
+    font-size: 10.5px;
+    color: #999;
+    line-height: 1.5;
+  }
+  .note-box strong { color: #f0c040; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div class="map-title">
+  <h1>Sécurité cycliste et infrastructure — Laurentides</h1>
+  <div class="subtitle">Accidents impliquant des cyclistes (2021-2022) · Agrégation municipale · Réseau cyclable OSM</div>
+</div>
+
+<div class="osm-control">
+  <button class="osm-btn" id="btnLoadOSM" onclick="loadOSMCycleways()">
+    <span class="icon">🚲</span> Charger le réseau cyclable OSM
+  </button>
+</div>
+
+<div class="info-panel" id="infoPanel">
+  <h3>Portrait régional</h3>
+  <div class="stat-row"><span class="stat-label">Accidents cyclistes</span><span class="stat-value">195</span></div>
+  <div class="stat-row"><span class="stat-label">Municipalités touchées</span><span class="stat-value">31</span></div>
+  <div class="stat-row"><span class="stat-label">Blessures légères</span><span class="stat-value">147 (75%)</span></div>
+  <div class="stat-row"><span class="stat-label">Blessures graves</span><span class="stat-value">8</span></div>
+  <div class="stat-row"><span class="stat-label">Décès</span><span class="stat-value" style="color:#ff6b6b">2</span></div>
+  <div class="stat-row" style="border:none;padding-top:6px">
+    <span class="stat-label">Période</span><span class="stat-value">2021-2022</span>
+  </div>
+  <div id="osmStats" style="display:none; margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.1);">
+    <div class="stat-row"><span class="stat-label">Segments cyclables OSM</span><span class="stat-value" id="osmCount">—</span></div>
+    <div class="stat-row"><span class="stat-label">Bidirectionnels</span><span class="stat-value" id="osmBidi">—</span></div>
+    <div class="stat-row"><span class="stat-label">Unidirectionnels</span><span class="stat-value" id="osmUni">—</span></div>
+    <div class="stat-row" style="border:none"><span class="stat-label">Non spécifié</span><span class="stat-value" id="osmUnk">—</span></div>
+  </div>
+</div>
+
+<div class="legend-panel">
+  <h3>Légende</h3>
+  <div class="legend-section">
+    <h4>Accidents cyclistes par municipalité</h4>
+    <div class="legend-item">
+      <div class="legend-circle" style="width:12px;height:12px;background:rgba(255,107,107,0.6)"></div>
+      <span>1 – 5 accidents</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-circle" style="width:18px;height:18px;background:rgba(255,107,107,0.7)"></div>
+      <span>6 – 15</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-circle" style="width:26px;height:26px;background:rgba(255,107,107,0.8)"></div>
+      <span>16 – 42</span>
+    </div>
+  </div>
+  <div class="legend-section" id="legendCycleway" style="display:none;">
+    <h4>Infrastructure cyclable (OSM)</h4>
+    <div class="legend-item">
+      <div class="legend-line" style="background:#4ecdc4;"></div>
+      <span>Bidirectionnelle</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-line" style="background:#ffd93d;"></div>
+      <span>Unidirectionnelle</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-line" style="background:#a8a8d8;"></div>
+      <span>Non spécifié / autre</span>
+    </div>
+    <div class="legend-item" style="margin-top:2px;">
+      <div class="legend-line" style="background:#a8a8d8; height:2px; border-top: 2px dashed #a8a8d8; background:none;"></div>
+      <span>Bande cyclable / chaussée dés.</span>
+    </div>
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>⚠ Note méthodologique</strong><br>
+  Les accidents sont agrégés au centroïde municipal (non géolocalisés individuellement) pour des raisons de confidentialité.
+  Le réseau cyclable provient d'OSM et sa couverture est variable selon la qualité de la cartographie participative locale.
+</div>
+
+<div class="loading-overlay hidden" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loadingText">Interrogation de l'API Overpass…</div>
+</div>
+
+<div class="status-bar" id="statusBar">Sources : SAAQ via DSPublique Laurentides (accidents) · OpenStreetMap (réseau cyclable)</div>
+
+<script>
+// ============================================
+// DATA - Accidents cyclistes agrégés par municipalité
+// ============================================
+const accidentsMun = [
+  {"mun":"Saint-Jérôme","n":42,"leger":32,"grave":1,"mortel":0,"lat":45.7823,"lon":-74.0067},
+  {"mun":"Saint-Eustache","n":21,"leger":17,"grave":0,"mortel":0,"lat":45.5675,"lon":-73.902},
+  {"mun":"Blainville","n":20,"leger":16,"grave":1,"mortel":0,"lat":45.6711,"lon":-73.8605},
+  {"mun":"Sainte-Thérèse","n":17,"leger":14,"grave":0,"mortel":0,"lat":45.6417,"lon":-73.8367},
+  {"mun":"Mirabel","n":10,"leger":9,"grave":1,"mortel":0,"lat":45.6536,"lon":-73.976},
+  {"mun":"Mont-Tremblant","n":8,"leger":5,"grave":0,"mortel":0,"lat":46.1534,"lon":-74.591},
+  {"mun":"Sainte-Marthe-sur-le-Lac","n":8,"leger":5,"grave":2,"mortel":0,"lat":45.5315,"lon":-73.9377},
+  {"mun":"Rosemère","n":8,"leger":7,"grave":0,"mortel":0,"lat":45.6353,"lon":-73.7994},
+  {"mun":"Deux-Montagnes","n":8,"leger":7,"grave":0,"mortel":0,"lat":45.5425,"lon":-73.9067},
+  {"mun":"Bois-des-Filion","n":7,"leger":7,"grave":0,"mortel":0,"lat":45.6678,"lon":-73.7575},
+  {"mun":"Sainte-Agathe-des-Monts","n":6,"leger":5,"grave":0,"mortel":0,"lat":46.0424,"lon":-74.2786},
+  {"mun":"Boisbriand","n":5,"leger":4,"grave":0,"mortel":0,"lat":45.6248,"lon":-73.8542},
+  {"mun":"Sainte-Adèle","n":4,"leger":2,"grave":0,"mortel":0,"lat":45.9465,"lon":-74.1353},
+  {"mun":"Sainte-Sophie","n":3,"leger":2,"grave":1,"mortel":0,"lat":45.819,"lon":-73.9001},
+  {"mun":"Saint-Sauveur","n":3,"leger":2,"grave":0,"mortel":0,"lat":45.8926,"lon":-74.1775},
+  {"mun":"Saint-Joseph-du-Lac","n":3,"leger":2,"grave":0,"mortel":0,"lat":45.5373,"lon":-74.01},
+  {"mun":"Sainte-Anne-des-Plaines","n":3,"leger":2,"grave":0,"mortel":1,"lat":45.7589,"lon":-73.7851},
+  {"mun":"Brownsburg-Chatham","n":3,"leger":2,"grave":0,"mortel":0,"lat":45.6448,"lon":-74.4153},
+  {"mun":"Lachute","n":2,"leger":1,"grave":0,"mortel":0,"lat":45.644,"lon":-74.3284},
+  {"mun":"Mont-Laurier","n":2,"leger":2,"grave":0,"mortel":0,"lat":46.5501,"lon":-75.4897},
+  {"mun":"Pointe-Calumet","n":2,"leger":1,"grave":0,"mortel":0,"lat":45.5063,"lon":-73.9719},
+  {"mun":"Lorraine","n":1,"leger":1,"grave":0,"mortel":0,"lat":45.6712,"lon":-73.7902},
+  {"mun":"Morin-Heights","n":1,"leger":0,"grave":1,"mortel":0,"lat":45.9003,"lon":-74.2232},
+  {"mun":"Saint-Colomban","n":1,"leger":1,"grave":0,"mortel":0,"lat":45.7605,"lon":-74.069},
+  {"mun":"Huberdeau","n":1,"leger":0,"grave":0,"mortel":0,"lat":45.9746,"lon":-74.6376},
+  {"mun":"Ivry-sur-le-Lac","n":1,"leger":0,"grave":0,"mortel":0,"lat":46.0836,"lon":-74.3351},
+  {"mun":"Prévost","n":1,"leger":0,"grave":0,"mortel":0,"lat":45.8665,"lon":-74.0684},
+  {"mun":"Mont-Blanc","n":1,"leger":1,"grave":0,"mortel":0,"lat":46.1229,"lon":-74.5219},
+  {"mun":"Lac-Supérieur","n":1,"leger":0,"grave":1,"mortel":0,"lat":46.152,"lon":-74.4802},
+  {"mun":"Val-David","n":1,"leger":0,"grave":0,"mortel":1,"lat":46.0489,"lon":-74.1961},
+  {"mun":"Grenville","n":1,"leger":0,"grave":0,"mortel":0,"lat":45.6242,"lon":-74.5928}
+];
+
+// ============================================
+// MAP INIT
+// ============================================
+const map = L.map('map', {
+  center: [45.85, -74.1],
+  zoom: 9,
+  zoomControl: false
+});
+
+L.control.zoom({ position: 'bottomleft' }).addTo(map);
+
+// Base layers
+const osmBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  maxZoom: 19
+});
+
+const osmLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OSM &copy; CARTO',
+  maxZoom: 19
+});
+
+const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: '&copy; Esri',
+  maxZoom: 19
+});
+
+osmBase.addTo(map);
+
+const baseLayers = {
+  "Sombre (CARTO)": osmBase,
+  "Clair (CARTO)": osmLight,
+  "Satellite (Esri)": satellite
+};
+
+// ============================================
+// ACCIDENT CIRCLES
+// ============================================
+const accidentLayer = L.layerGroup();
+
+function getRadius(n) {
+  if (n <= 2) return 6;
+  if (n <= 5) return 9;
+  if (n <= 10) return 13;
+  if (n <= 20) return 18;
+  return 24;
+}
+
+function getOpacity(n) {
+  if (n <= 3) return 0.55;
+  if (n <= 10) return 0.65;
+  return 0.8;
+}
+
+accidentsMun.forEach(d => {
+  const hasMortel = d.mortel > 0;
+  const hasGrave = d.grave > 0;
+  let borderColor = 'rgba(255,255,255,0.3)';
+  if (hasMortel) borderColor = '#ff4444';
+  else if (hasGrave) borderColor = '#ffa500';
+
+  const circle = L.circleMarker([d.lat, d.lon], {
+    radius: getRadius(d.n),
+    fillColor: '#ff6b6b',
+    fillOpacity: getOpacity(d.n),
+    color: borderColor,
+    weight: hasMortel ? 2.5 : (hasGrave ? 2 : 1.5),
+    className: 'accident-marker'
+  });
+
+  let graviteHtml = '';
+  if (d.mortel > 0) graviteHtml += `<br>⬤ <span style="color:#ff4444">Mortel : ${d.mortel}</span>`;
+  if (d.grave > 0) graviteHtml += `<br>⬤ <span style="color:#ffa500">Grave : ${d.grave}</span>`;
+
+  circle.bindPopup(`
+    <strong style="font-size:13px">${d.mun}</strong><br>
+    <span style="font-size:18px;font-weight:700;color:#ff6b6b">${d.n}</span> accident${d.n>1?'s':''} cycliste${d.n>1?'s':''}
+    <span style="color:#888">(2021-2022)</span>
+    ${graviteHtml}
+    <br><span style="color:#888;font-size:10px">Léger : ${d.leger} · Mat. : ${d.n - d.leger - d.grave - d.mortel}</span>
+  `);
+
+  circle.addTo(accidentLayer);
+});
+
+accidentLayer.addTo(map);
+
+// ============================================
+// OSM CYCLEWAY LOADING (Client-side Overpass)
+// ============================================
+let cyclewayLayer = L.layerGroup();
+let cyclewayBidiLayer = L.layerGroup();
+let cyclewayUniLayer = L.layerGroup();
+let cyclewayUnkLayer = L.layerGroup();
+
+async function loadOSMCycleways() {
+  const btn = document.getElementById('btnLoadOSM');
+  const overlay = document.getElementById('loadingOverlay');
+  btn.disabled = true;
+  btn.textContent = '⏳ Chargement…';
+  overlay.classList.remove('hidden');
+
+  // Overpass query for Laurentides region cycling infrastructure
+  // We use a bounding box covering the Laurentides admin region
+  const bbox = '45.3,-75.7,46.7,-73.6';
+  const query = `
+[out:json][timeout:120][bbox:${bbox}];
+(
+  way["highway"="cycleway"];
+  way["cycleway"~"lane|track|opposite|opposite_lane|opposite_track|shared_lane"];
+  way["cycleway:right"~"lane|track|shared_lane"];
+  way["cycleway:left"~"lane|track|shared_lane"];
+);
+out geom;
+  `.trim();
+
+  try {
+    document.getElementById('loadingText').textContent = 'Interrogation de l\'API Overpass…';
+    const url = 'https://overpass-api.de/api/interpreter';
+    const resp = await fetch(url, {
+      method: 'POST',
+      body: 'data=' + encodeURIComponent(query)
+    });
+
+    if (!resp.ok) throw new Error('Overpass HTTP ' + resp.status);
+
+    document.getElementById('loadingText').textContent = 'Traitement des données…';
+    const data = await resp.json();
+
+    let countBidi = 0, countUni = 0, countUnk = 0;
+
+    data.elements.forEach(el => {
+      if (!el.geometry || el.geometry.length < 2) return;
+
+      const latlngs = el.geometry.map(p => [p.lat, p.lon]);
+      const tags = el.tags || {};
+
+      // Determine directionality
+      let direction = 'unknown';
+
+      // Check explicit oneway tags for cycleways
+      const cwOneway = tags['cycleway:oneway'] || tags['cycleway:right:oneway'] || tags['cycleway:left:oneway'];
+      const oneway = tags['oneway'];
+      const onewayBike = tags['oneway:bicycle'];
+      const hwType = tags['highway'];
+      const cwType = tags['cycleway'] || tags['cycleway:right'] || tags['cycleway:left'];
+
+      if (cwOneway === 'no' || onewayBike === 'no') {
+        direction = 'bidirectional';
+      } else if (cwOneway === 'yes' || cwOneway === '-1') {
+        direction = 'unidirectional';
+      } else if (hwType === 'cycleway') {
+        // Dedicated cycleway: check oneway
+        if (oneway === 'yes' || oneway === '-1') {
+          direction = 'unidirectional';
+        } else if (oneway === 'no' || !oneway) {
+          // Default for standalone cycleways: bidirectional unless marked oneway
+          direction = 'bidirectional';
+        }
+      } else if (cwType) {
+        // Cycleway attached to road
+        if (cwType === 'opposite' || cwType === 'opposite_lane' || cwType === 'opposite_track') {
+          direction = 'bidirectional'; // contra-flow = bidirectional cycling
+        } else if (cwType === 'lane' || cwType === 'shared_lane') {
+          direction = 'unidirectional'; // lanes typically follow traffic direction
+        } else if (cwType === 'track') {
+          // Track could be either
+          if (cwOneway === 'no') direction = 'bidirectional';
+          else direction = 'unknown';
+        }
+      }
+
+      // Style based on direction
+      let color, weight, dashArray, layer;
+      const isLane = (cwType === 'lane' || cwType === 'shared_lane' || cwType === 'opposite_lane');
+
+      if (direction === 'bidirectional') {
+        color = '#4ecdc4';
+        weight = isLane ? 2.5 : 3.5;
+        dashArray = isLane ? '6 4' : null;
+        layer = cyclewayBidiLayer;
+        countBidi++;
+      } else if (direction === 'unidirectional') {
+        color = '#ffd93d';
+        weight = isLane ? 2 : 3;
+        dashArray = isLane ? '6 4' : null;
+        layer = cyclewayUniLayer;
+        countUni++;
+      } else {
+        color = '#a8a8d8';
+        weight = isLane ? 2 : 2.5;
+        dashArray = isLane ? '4 4' : '8 4';
+        layer = cyclewayUnkLayer;
+        countUnk++;
+      }
+
+      const line = L.polyline(latlngs, {
+        color: color,
+        weight: weight,
+        opacity: 0.8,
+        dashArray: dashArray,
+        lineCap: 'round'
+      });
+
+      // Popup with OSM tags
+      let popupHtml = `<strong style="color:${color}">${
+        direction === 'bidirectional' ? '↔ Bidirectionnelle' :
+        direction === 'unidirectional' ? '→ Unidirectionnelle' :
+        '? Direction non spécifiée'
+      }</strong><br>`;
+
+      if (tags.name) popupHtml += `${tags.name}<br>`;
+      popupHtml += `<span style="color:#888">`;
+      if (hwType === 'cycleway') popupHtml += 'Piste cyclable dédiée';
+      else if (isLane) popupHtml += 'Bande cyclable';
+      else if (cwType === 'track') popupHtml += 'Piste cyclable en site propre';
+      else popupHtml += `${hwType || ''} · ${cwType || ''}`;
+      popupHtml += `</span>`;
+
+      if (tags.surface) popupHtml += `<br><span style="color:#777">Surface : ${tags.surface}</span>`;
+      popupHtml += `<br><span style="color:#555;font-size:10px">OSM ID: ${el.id}</span>`;
+
+      line.bindPopup(popupHtml);
+      line.addTo(layer);
+      line.addTo(cyclewayLayer);
+    });
+
+    // Add to map
+    cyclewayLayer.addTo(map);
+
+    // Update stats
+    const total = countBidi + countUni + countUnk;
+    document.getElementById('osmStats').style.display = 'block';
+    document.getElementById('osmCount').textContent = total;
+    document.getElementById('osmBidi').textContent = countBidi;
+    document.getElementById('osmUni').textContent = countUni;
+    document.getElementById('osmUnk').textContent = countUnk;
+
+    // Show legend section
+    document.getElementById('legendCycleway').style.display = 'block';
+
+    // Update layer control
+    updateLayerControl();
+
+    // Hide button, show success
+    btn.textContent = '✓ Réseau chargé (' + total + ' segments)';
+    btn.style.background = 'rgba(78,205,196,0.4)';
+    btn.style.color = '#4ecdc4';
+
+    overlay.classList.add('hidden');
+
+  } catch (err) {
+    console.error('Overpass error:', err);
+    overlay.classList.add('hidden');
+    btn.textContent = '⚠ Erreur — Réessayer';
+    btn.disabled = false;
+    btn.style.background = 'rgba(255,107,107,0.8)';
+    alert('Erreur lors du chargement des données OSM.\n\n' + err.message + '\n\nVérifiez votre connexion ou réessayez dans quelques instants.');
+  }
+}
+
+// ============================================
+// LAYER CONTROL
+// ============================================
+let layerControl = null;
+
+function updateLayerControl() {
+  if (layerControl) map.removeControl(layerControl);
+
+  const overlays = {
+    "🔴 Accidents cyclistes (municipalité)": accidentLayer
+  };
+
+  if (cyclewayLayer.getLayers().length > 0) {
+    overlays["🚲 Réseau cyclable (tout)"] = cyclewayLayer;
+    overlays["  ↔ Bidirectionnelles"] = cyclewayBidiLayer;
+    overlays["  → Unidirectionnelles"] = cyclewayUniLayer;
+    overlays["  ? Non spécifié"] = cyclewayUnkLayer;
+  }
+
+  layerControl = L.control.layers(baseLayers, overlays, {
+    position: 'topright',
+    collapsed: true
+  }).addTo(map);
+}
+
+updateLayerControl();
+
+// ============================================
+// SCALE BAR
+// ============================================
+L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
+</script>
+
+</body>
+</html>
