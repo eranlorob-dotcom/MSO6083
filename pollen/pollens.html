@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pollen × Laurentides — Prototype C.A.R.T.O.S. v2</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242836;
+    --border: #2e3345;
+    --text: #e4e6ef;
+    --text-dim: #8b90a5;
+    --accent-tree: #4ade80;
+    --accent-grass: #facc15;
+    --accent-weed: #f97316;
+    --accent-blue: #60a5fa;
+    --accent-pink: #f472b6;
+    --radius: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000; flex-shrink: 0;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .logo {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--accent-tree), var(--accent-grass));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .header h1 { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+  .header h1 span { color: var(--text-dim); font-weight: 400; margin-left: 6px; }
+
+  .api-bar { display: flex; align-items: center; gap: 8px; }
+  .api-bar label { font-size: 12px; color: var(--text-dim); font-weight: 500; }
+  .api-bar input {
+    background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    padding: 6px 10px; border-radius: 6px; width: 240px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .api-bar input:focus { border-color: var(--accent-blue); }
+  .api-bar input::placeholder { color: #555; }
+  .btn {
+    border: none; padding: 6px 14px; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-blue { background: var(--accent-blue); color: #000; }
+  .btn-green { background: var(--accent-tree); color: #000; }
+  .btn-pink { background: var(--accent-pink); color: #000; }
+  .btn-outline {
+    background: transparent; border: 1px solid var(--border); color: var(--text);
+    font-size: 11px; padding: 5px 10px;
+  }
+  .btn-outline:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .status-dot.ok { background: var(--accent-tree); }
+  .status-dot.waiting { background: var(--accent-grass); }
+  .status-dot.error { background: #ef4444; }
+  .status-text { font-size: 11px; color: var(--text-dim); display: flex; align-items: center; }
+
+  /* ── Main layout ── */
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 370px; background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;
+  }
+  .sidebar-section { padding: 16px; border-bottom: 1px solid var(--border); }
+  .sidebar-section h3 {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 12px;
+  }
+
+  /* ── Tabs ── */
+  .tab-bar {
+    display: flex; border-bottom: 1px solid var(--border);
+    background: var(--surface); flex-shrink: 0;
+  }
+  .tab {
+    flex: 1; padding: 10px 8px; text-align: center;
+    font-size: 12px; font-weight: 500; color: var(--text-dim);
+    cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+  .tab-content { display: none; flex: 1; overflow-y: auto; }
+  .tab-content.active { display: block; }
+
+  /* ── Layer toggles ── */
+  .layer-toggle {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px; cursor: pointer;
+    transition: background 0.15s; margin-bottom: 4px;
+  }
+  .layer-toggle:hover { background: var(--surface2); }
+  .layer-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .layer-toggle .label { font-size: 13px; font-weight: 500; flex: 1; }
+  .layer-toggle .sublabel { font-size: 11px; color: var(--text-dim); }
+  .toggle-switch {
+    width: 36px; height: 20px; background: var(--bg); border-radius: 10px;
+    position: relative; transition: background 0.2s; flex-shrink: 0;
+  }
+  .toggle-switch.active { background: var(--accent-blue); }
+  .toggle-switch::after {
+    content: ''; position: absolute; width: 16px; height: 16px;
+    border-radius: 50%; background: #fff; top: 2px; left: 2px;
+    transition: transform 0.2s;
+  }
+  .toggle-switch.active::after { transform: translateX(16px); }
+
+  /* Legend */
+  .legend-bar { display: flex; border-radius: 6px; overflow: hidden; height: 18px; margin-bottom: 6px; }
+  .legend-bar div {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600; color: #000;
+  }
+  .legend-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-dim); }
+
+  /* Forecast panel */
+  .forecast-empty {
+    text-align: center; padding: 24px 12px; color: var(--text-dim);
+    font-size: 12px; line-height: 1.6;
+  }
+  .forecast-empty .icon { font-size: 28px; margin-bottom: 8px; }
+  .forecast-card { background: var(--surface2); border-radius: var(--radius); padding: 14px; margin-bottom: 8px; }
+  .forecast-card .day-label { font-size: 12px; font-weight: 600; margin-bottom: 10px; color: var(--accent-blue); }
+  .pollen-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .pollen-row .type-icon { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .pollen-row .type-name { font-size: 12px; width: 80px; flex-shrink: 0; }
+  .pollen-bar-bg { flex: 1; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+  .pollen-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+  .pollen-row .value { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-dim); width: 20px; text-align: right; }
+
+  .species-list { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .species-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; font-size: 11px; }
+  .species-row .name { color: var(--text-dim); }
+  .species-row .idx { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+  .upi-0 { background: #374151; color: #9ca3af; }
+  .upi-1 { background: #064e3b; color: #6ee7b7; }
+  .upi-2 { background: #3f6212; color: #bef264; }
+  .upi-3 { background: #713f12; color: #fde047; }
+  .upi-4 { background: #7c2d12; color: #fdba74; }
+  .upi-5 { background: #7f1d1d; color: #fca5a5; }
+
+  /* ── Stats / Diagnostic panel ── */
+  .diag-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .diag-header .date-badge {
+    font-size: 10px; background: var(--surface2); padding: 3px 8px;
+    border-radius: 4px; color: var(--accent-blue);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .progress-bar-outer {
+    width: 100%; height: 4px; background: var(--bg); border-radius: 2px;
+    margin: 10px 0; overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%; background: var(--accent-blue); border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  /* Stat cards */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  .stat-card {
+    background: var(--surface2); border-radius: 8px; padding: 12px;
+    text-align: center;
+  }
+  .stat-card .stat-value {
+    font-size: 22px; font-weight: 700; line-height: 1.1;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-card .stat-label {
+    font-size: 10px; color: var(--text-dim); margin-top: 4px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .stat-card.wide { grid-column: 1 / -1; }
+
+  /* MRC ranking table */
+  .mrc-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .mrc-table th {
+    text-align: left; padding: 6px 8px; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-dim); border-bottom: 1px solid var(--border);
+  }
+  .mrc-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .mrc-table tr:last-child td { border-bottom: none; }
+  .mrc-table .bar-cell { width: 80px; }
+  .mini-bar { height: 6px; border-radius: 3px; background: var(--bg); overflow: hidden; }
+  .mini-bar-fill { height: 100%; border-radius: 3px; }
+
+  /* Species ranking */
+  .species-rank { margin-bottom: 12px; }
+  .species-rank-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 0; border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .species-rank-row:last-child { border-bottom: none; }
+  .rank-num { font-size: 10px; font-weight: 700; color: var(--text-dim); width: 16px; }
+  .rank-bar-wrap { flex: 1; }
+  .rank-bar { height: 6px; border-radius: 3px; background: var(--bg); overflow: hidden; }
+  .rank-bar-fill { height: 100%; border-radius: 3px; }
+  .rank-val {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--text-dim); width: 28px; text-align: right;
+  }
+
+  /* Faits saillants */
+  .fait-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px; font-size: 12px;
+    line-height: 1.7; margin-bottom: 10px; position: relative;
+  }
+  .fait-box .fait-num {
+    position: absolute; top: -8px; left: 12px;
+    background: var(--accent-blue); color: #000;
+    font-size: 10px; font-weight: 700; padding: 1px 7px;
+    border-radius: 4px;
+  }
+  .fait-box p { margin-bottom: 6px; }
+  .fait-box strong { color: var(--accent-blue); }
+  .fait-box em { color: var(--accent-grass); font-style: normal; font-weight: 600; }
+
+  .export-bar {
+    display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap;
+  }
+
+  /* Popup weighted */
+  .pop-weight-note {
+    font-size: 10px; color: var(--text-dim); margin-top: 8px;
+    padding-top: 8px; border-top: 1px solid var(--border); line-height: 1.5;
+  }
+
+  /* Map */
+  #map { flex: 1; background: var(--bg); }
+
+  .leaflet-control-zoom a { background: var(--surface) !important; color: var(--text) !important; border-color: var(--border) !important; }
+  .leaflet-control-zoom a:hover { background: var(--surface2) !important; }
+  .leaflet-control-attribution { background: rgba(15,17,23,0.85) !important; color: var(--text-dim) !important; font-size: 10px !important; }
+  .leaflet-control-attribution a { color: var(--accent-blue) !important; }
+  .leaflet-popup-content-wrapper {
+    background: var(--surface) !important; color: var(--text) !important;
+    border-radius: var(--radius) !important; border: 1px solid var(--border);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4) !important;
+  }
+  .leaflet-popup-tip { background: var(--surface) !important; }
+  .leaflet-popup-content { font-family: 'DM Sans', sans-serif; font-size: 12px; }
+
+  .spinner {
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid var(--border); border-top-color: var(--accent-blue);
+    border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .info-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; font-size: 11px;
+    color: var(--text-dim); line-height: 1.5; margin-top: 10px;
+  }
+  .info-box code {
+    font-family: 'JetBrains Mono', monospace; background: var(--surface2);
+    padding: 1px 4px; border-radius: 3px; font-size: 10px; color: var(--accent-blue);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">🌿</div>
+    <h1>Pollen × Laurentides <span>Prototype C.A.R.T.O.S. v2</span></h1>
+  </div>
+  <div class="api-bar">
+    <label>Clé API :</label>
+    <input type="password" id="apiKeyInput" placeholder="AIzaSy...">
+    <button class="btn btn-blue" onclick="activateAPI()">Activer</button>
+    <span class="status-text" id="apiStatus">
+      <span class="status-dot waiting"></span> En attente
+    </span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="sidebar">
+    <!-- Tabs -->
+    <div class="tab-bar">
+      <div class="tab active" onclick="switchTab('carte')">Carte</div>
+      <div class="tab" onclick="switchTab('diagnostic')">Diagnostic régional</div>
+      <div class="tab" onclick="switchTab('faits')">Faits saillants</div>
+    </div>
+
+    <!-- TAB: Carte -->
+    <div class="tab-content active" id="tab-carte">
+      <div class="sidebar-section">
+        <h3>Couches polliniques</h3>
+        <div class="layer-toggle" onclick="toggleLayer('tree')">
+          <div class="layer-dot" style="background:var(--accent-tree)"></div>
+          <div><div class="label">Arbres (TREE_UPI)</div><div class="sublabel">Bouleau, chêne, aulne, pin…</div></div>
+          <div class="toggle-switch active" id="toggle-tree"></div>
+        </div>
+        <div class="layer-toggle" onclick="toggleLayer('grass')">
+          <div class="layer-dot" style="background:var(--accent-grass)"></div>
+          <div><div class="label">Graminées (GRASS_UPI)</div><div class="sublabel">Poacées, ray-grass…</div></div>
+          <div class="toggle-switch" id="toggle-grass"></div>
+        </div>
+        <div class="layer-toggle" onclick="toggleLayer('weed')">
+          <div class="layer-dot" style="background:var(--accent-weed)"></div>
+          <div><div class="label">Herbacées (WEED_UPI)</div><div class="sublabel">Herbe à poux, armoise…</div></div>
+          <div class="toggle-switch" id="toggle-weed"></div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h3>Indice universel de pollen (UPI)</h3>
+        <div class="legend-bar">
+          <div style="background:#6ee7b7">0</div><div style="background:#bef264">1</div>
+          <div style="background:#fde047">2</div><div style="background:#fdba74">3</div>
+          <div style="background:#fca5a5">4</div><div style="background:#f87171">5</div>
+        </div>
+        <div class="legend-labels">
+          <span>Aucun</span><span>Très faible</span><span>Faible</span>
+          <span>Modéré</span><span>Élevé</span><span>Très élevé</span>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h3>Prévisions polliniques</h3>
+        <div id="forecastContent">
+          <div class="forecast-empty"><div class="icon">📍</div>Cliquez sur une municipalité<br>pour obtenir les prévisions à 5 jours</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Diagnostic régional -->
+    <div class="tab-content" id="tab-diagnostic">
+      <div class="sidebar-section">
+        <div class="diag-header">
+          <h3 style="margin:0">Diagnostic régional</h3>
+          <button class="btn btn-green" id="btnDiag" onclick="runDiagnostic()">Lancer le diagnostic</button>
+        </div>
+        <p style="font-size:11px;color:var(--text-dim);line-height:1.5;margin-bottom:8px;">
+          Interroge l'API pour les 22 municipalités et produit des statistiques agrégées par MRC,
+          par type de pollen et par espèce — prêtes pour une note de politique.
+        </p>
+        <div id="diagProgress" style="display:none;">
+          <div class="progress-bar-outer"><div class="progress-bar-inner" id="diagBar" style="width:0%"></div></div>
+          <div style="font-size:10px;color:var(--text-dim);" id="diagStatus">0 / 22 municipalités…</div>
+        </div>
+      </div>
+      <div id="diagResults"></div>
+    </div>
+
+    <!-- TAB: Faits saillants -->
+    <div class="tab-content" id="tab-faits">
+      <div class="sidebar-section">
+        <h3>Faits saillants pour note de politique</h3>
+        <p style="font-size:11px;color:var(--text-dim);line-height:1.5;margin-bottom:10px;">
+          Textes générés automatiquement à partir du diagnostic régional.
+          Copiez-collez directement dans votre note de politique SQVMM.
+        </p>
+        <div id="faitsContent">
+          <div class="forecast-empty">
+            <div class="icon">📊</div>
+            Lancez d'abord le diagnostic régional<br>pour générer les faits saillants
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="map"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════
+let API_KEY = '';
+const LAURENTIDES_CENTER = [46.15, -74.35];
+const LAURENTIDES_ZOOM = 9;
+
+const MUNICIPALITES = [
+  { nom: "Mont-Laurier", lat: 46.55, lng: -75.50, mrc: "Antoine-Labelle", pop: 14006 },
+  { nom: "Rivière-Rouge", lat: 46.42, lng: -74.87, mrc: "Antoine-Labelle", pop: 5098 },
+  { nom: "L'Ascension", lat: 46.68, lng: -74.80, mrc: "Antoine-Labelle", pop: 878 },
+  { nom: "Nominingue", lat: 46.40, lng: -75.07, mrc: "Antoine-Labelle", pop: 2267 },
+  { nom: "Mont-Tremblant", lat: 46.21, lng: -74.58, mrc: "Les Laurentides", pop: 11426 },
+  { nom: "Sainte-Agathe-des-Monts", lat: 46.05, lng: -74.28, mrc: "Les Laurentides", pop: 11904 },
+  { nom: "Val-David", lat: 46.15, lng: -74.22, mrc: "Les Laurentides", pop: 5357 },
+  { nom: "Val-Morin", lat: 46.12, lng: -74.19, mrc: "Les Laurentides", pop: 3058 },
+  { nom: "Saint-Faustin–Lac-Carré", lat: 46.19, lng: -74.44, mrc: "Les Laurentides", pop: 4102 },
+  { nom: "Sainte-Adèle", lat: 46.05, lng: -74.14, mrc: "Les Pays-d'en-Haut", pop: 13913 },
+  { nom: "Saint-Sauveur", lat: 45.97, lng: -74.17, mrc: "Les Pays-d'en-Haut", pop: 11070 },
+  { nom: "Morin-Heights", lat: 45.91, lng: -74.26, mrc: "Les Pays-d'en-Haut", pop: 4680 },
+  { nom: "Piedmont", lat: 45.97, lng: -74.13, mrc: "Les Pays-d'en-Haut", pop: 3214 },
+  { nom: "Saint-Jérôme", lat: 45.78, lng: -74.00, mrc: "La Rivière-du-Nord", pop: 80890 },
+  { nom: "Prévost", lat: 45.87, lng: -74.08, mrc: "La Rivière-du-Nord", pop: 14060 },
+  { nom: "Saint-Colomban", lat: 45.73, lng: -74.13, mrc: "La Rivière-du-Nord", pop: 18422 },
+  { nom: "Lachute", lat: 45.65, lng: -74.34, mrc: "Argenteuil", pop: 12551 },
+  { nom: "Brownsburg-Chatham", lat: 45.68, lng: -74.42, mrc: "Argenteuil", pop: 7787 },
+  { nom: "Blainville", lat: 45.67, lng: -73.88, mrc: "Thérèse-De Blainville", pop: 61000 },
+  { nom: "Sainte-Thérèse", lat: 45.64, lng: -73.85, mrc: "Thérèse-De Blainville", pop: 27200 },
+  { nom: "Saint-Eustache", lat: 45.56, lng: -73.91, mrc: "Deux-Montagnes", pop: 46400 },
+  { nom: "Mirabel", lat: 45.65, lng: -74.06, mrc: "Mirabel", pop: 62800 },
+];
+
+const MRC_COLORS = {
+  "Antoine-Labelle": "#818cf8", "Les Laurentides": "#60a5fa",
+  "Les Pays-d'en-Haut": "#34d399", "La Rivière-du-Nord": "#fbbf24",
+  "Argenteuil": "#f87171", "Thérèse-De Blainville": "#a78bfa",
+  "Deux-Montagnes": "#fb923c", "Mirabel": "#38bdf8"
+};
+
+const UPI_COLORS = ['#6b7280','#4ade80','#a3e635','#facc15','#f97316','#ef4444'];
+const UPI_LABELS_FR = ['Aucun','Très faible','Faible','Modéré','Élevé','Très élevé'];
+const TYPE_COLORS = { TREE: '#4ade80', GRASS: '#facc15', WEED: '#f97316' };
+const TYPE_FR = { TREE: 'Arbres', GRASS: 'Graminées', WEED: 'Herbacées' };
+
+// Global store for diagnostic results
+let diagData = null;
+
+// ═══════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const ids = ['carte','diagnostic','faits'];
+    t.classList.toggle('active', ids[i] === id);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ═══════════════════════════════════════════════
+// MAP
+// ═══════════════════════════════════════════════
+const map = L.map('map', { center: LAURENTIDES_CENTER, zoom: LAURENTIDES_ZOOM, zoomControl: true });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OSM &copy; CARTO', maxZoom: 18
+}).addTo(map);
+L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
+
+// Pollen layers
+const pollenLayers = { tree: null, grass: null, weed: null };
+const layerState = { tree: true, grass: false, weed: false };
+const layerTypes = { tree: 'TREE_UPI', grass: 'GRASS_UPI', weed: 'WEED_UPI' };
+
+function createPollenLayers() {
+  Object.keys(layerTypes).forEach(key => {
+    if (pollenLayers[key]) map.removeLayer(pollenLayers[key]);
+    pollenLayers[key] = L.tileLayer(
+      `https://pollen.googleapis.com/v1/mapTypes/${layerTypes[key]}/heatmapTiles/{z}/{x}/{y}?key=${API_KEY}`,
+      { opacity: 0.55, attribution: '© Google Pollen API' }
+    );
+    if (layerState[key]) pollenLayers[key].addTo(map);
+  });
+}
+function toggleLayer(key) {
+  layerState[key] = !layerState[key];
+  document.getElementById(`toggle-${key}`).classList.toggle('active');
+  if (!API_KEY) return;
+  if (layerState[key]) { if (pollenLayers[key]) pollenLayers[key].addTo(map); }
+  else { if (pollenLayers[key]) map.removeLayer(pollenLayers[key]); }
+}
+
+// Municipality markers
+const markerRefs = {};
+const muniGroup = L.layerGroup().addTo(map);
+MUNICIPALITES.forEach(m => {
+  const color = MRC_COLORS[m.mrc] || '#60a5fa';
+  const radius = Math.max(4, Math.min(12, Math.sqrt(m.pop / 800)));
+  const marker = L.circleMarker([m.lat, m.lng], {
+    radius, fillColor: color, fillOpacity: 0.7, color: '#fff', weight: 1.5, opacity: 0.9
+  });
+  marker.bindTooltip(
+    `<strong>${m.nom}</strong><br><span style="color:${color}">● ${m.mrc}</span><br>Pop. ${m.pop.toLocaleString('fr-CA')}`,
+    { direction: 'top', offset: [0, -8] }
+  );
+  marker.on('click', () => { switchTab('carte'); fetchForecast(m); });
+  marker.addTo(muniGroup);
+  markerRefs[m.nom] = marker;
+});
+
+// ═══════════════════════════════════════════════
+// API ACTIVATION
+// ═══════════════════════════════════════════════
+function activateAPI() {
+  API_KEY = document.getElementById('apiKeyInput').value.trim();
+  if (!API_KEY) return;
+  const s = document.getElementById('apiStatus');
+  s.innerHTML = '<span class="spinner"></span> Connexion…';
+  createPollenLayers();
+  fetch(`https://pollen.googleapis.com/v1/forecast:lookup?location.latitude=46.05&location.longitude=-74.28&days=1&key=${API_KEY}`)
+    .then(r => { s.innerHTML = r.ok ? '<span class="status-dot ok"></span> Connecté' : '<span class="status-dot error"></span> Erreur ' + r.status; })
+    .catch(() => { s.innerHTML = '<span class="status-dot error"></span> Erreur réseau'; });
+}
+document.getElementById('apiKeyInput').addEventListener('keydown', e => { if (e.key === 'Enter') activateAPI(); });
+
+// ═══════════════════════════════════════════════
+// FORECAST (single municipality)
+// ═══════════════════════════════════════════════
+async function fetchForecast(muni) {
+  const c = document.getElementById('forecastContent');
+  if (!API_KEY) { c.innerHTML = '<div class="forecast-empty"><div class="icon">🔑</div>Entrez votre clé API</div>'; return; }
+  c.innerHTML = `<div class="forecast-empty"><span class="spinner"></span><br>Chargement… <strong>${muni.nom}</strong></div>`;
+  try {
+    const url = `https://pollen.googleapis.com/v1/forecast:lookup?location.latitude=${muni.lat}&location.longitude=${muni.lng}&days=5&languageCode=fr&plantsDescription=true&key=${API_KEY}`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    renderForecast(muni, await resp.json());
+  } catch (err) {
+    c.innerHTML = `<div class="forecast-empty"><div class="icon">⚠️</div>Erreur : ${err.message}</div>`;
+  }
+}
+function renderForecast(muni, data) {
+  const c = document.getElementById('forecastContent');
+  const days = data.dailyInfo || [];
+  if (!days.length) { c.innerHTML = `<div class="forecast-empty"><div class="icon">📭</div>Aucune donnée — ${muni.nom}</div>`; return; }
+  const jN = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  const mN = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  let h = `<div style="font-size:13px;font-weight:600;margin-bottom:12px">${muni.nom} <span style="color:var(--text-dim);font-weight:400;font-size:11px">· ${muni.mrc}</span></div>`;
+  days.forEach((day, i) => {
+    const d = new Date(day.date.year, day.date.month-1, day.date.day);
+    const label = i===0 ? `Aujourd'hui — ${day.date.day} ${mN[day.date.month-1]}` : `${jN[d.getDay()]} ${day.date.day} ${mN[day.date.month-1]}`;
+    h += `<div class="forecast-card"><div class="day-label">${label}</div>`;
+    (day.pollenTypeInfo||[]).forEach(t => {
+      const idx = t.indexInfo?.value ?? 0;
+      const color = TYPE_COLORS[t.code]||'#888';
+      h += `<div class="pollen-row"><div class="type-icon" style="background:${color}"></div><div class="type-name">${TYPE_FR[t.code]||t.code}</div><div class="pollen-bar-bg"><div class="pollen-bar-fill" style="width:${idx/5*100}%;background:${color}"></div></div><div class="value">${idx}</div></div>`;
+    });
+    const plants = day.plantInfo||[];
+    if (plants.length) {
+      h += '<div class="species-list">';
+      plants.forEach(p => { const v = p.indexInfo?.value??0; h += `<div class="species-row"><span class="name">${p.displayName||p.code}</span><span class="idx upi-${v}">${v}/5</span></div>`; });
+      h += '</div>';
+    }
+    h += '</div>';
+  });
+  c.innerHTML = h;
+}
+
+// ═══════════════════════════════════════════════
+// DIAGNOSTIC RÉGIONAL — bulk query
+// ═══════════════════════════════════════════════
+async function runDiagnostic() {
+  if (!API_KEY) { alert('Entrez votre clé API d\'abord.'); return; }
+  const btn = document.getElementById('btnDiag');
+  const prog = document.getElementById('diagProgress');
+  const bar = document.getElementById('diagBar');
+  const status = document.getElementById('diagStatus');
+  btn.disabled = true; btn.textContent = 'En cours…';
+  prog.style.display = 'block';
+
+  const results = [];
+  for (let i = 0; i < MUNICIPALITES.length; i++) {
+    const m = MUNICIPALITES[i];
+    bar.style.width = ((i+1)/MUNICIPALITES.length*100).toFixed(0) + '%';
+    status.textContent = `${i+1} / ${MUNICIPALITES.length} — ${m.nom}…`;
+    try {
+      const url = `https://pollen.googleapis.com/v1/forecast:lookup?location.latitude=${m.lat}&location.longitude=${m.lng}&days=5&languageCode=fr&plantsDescription=true&key=${API_KEY}`;
+      const resp = await fetch(url);
+      if (resp.ok) {
+        const data = await resp.json();
+        results.push({ muni: m, data });
+      } else {
+        results.push({ muni: m, data: null, error: resp.status });
+      }
+    } catch (e) {
+      results.push({ muni: m, data: null, error: e.message });
+    }
+    // Small delay to respect rate limits
+    if (i < MUNICIPALITES.length - 1) await new Promise(r => setTimeout(r, 120));
+  }
+
+  btn.disabled = false; btn.textContent = 'Relancer';
+  diagData = computeStats(results);
+  renderDiagnostic(diagData);
+  renderFaitsSaillants(diagData);
+  updateMapColors(diagData);
+}
+
+// ═══════════════════════════════════════════════
+// STATS COMPUTATION
+// ═══════════════════════════════════════════════
+function computeStats(results) {
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('fr-CA', { year:'numeric', month:'long', day:'numeric' });
+  const totalPop = MUNICIPALITES.reduce((s,m) => s + m.pop, 0);
+
+  // Per-municipality today stats
+  const muniStats = [];
+  results.forEach(r => {
+    if (!r.data || !r.data.dailyInfo?.length) return;
+    const day0 = r.data.dailyInfo[0];
+    const types = {};
+    (day0.pollenTypeInfo || []).forEach(t => { types[t.code] = t.indexInfo?.value ?? 0; });
+    const plants = {};
+    (day0.plantInfo || []).forEach(p => { plants[p.displayName || p.code] = p.indexInfo?.value ?? 0; });
+    const maxType = Math.max(types.TREE||0, types.GRASS||0, types.WEED||0);
+    muniStats.push({ nom: r.muni.nom, mrc: r.muni.mrc, pop: r.muni.pop, types, plants, maxUPI: maxType });
+  });
+
+  // 5-day aggregation per municipality
+  const muniStats5d = [];
+  results.forEach(r => {
+    if (!r.data || !r.data.dailyInfo?.length) return;
+    const days = r.data.dailyInfo;
+    const typeSums = { TREE: 0, GRASS: 0, WEED: 0 };
+    const plantSums = {};
+    let nDays = days.length;
+    days.forEach(day => {
+      (day.pollenTypeInfo || []).forEach(t => { typeSums[t.code] = (typeSums[t.code]||0) + (t.indexInfo?.value??0); });
+      (day.plantInfo || []).forEach(p => {
+        const k = p.displayName || p.code;
+        plantSums[k] = (plantSums[k]||0) + (p.indexInfo?.value??0);
+      });
+    });
+    const typeAvg = {};
+    Object.keys(typeSums).forEach(k => typeAvg[k] = typeSums[k] / nDays);
+    const plantAvg = {};
+    Object.keys(plantSums).forEach(k => plantAvg[k] = plantSums[k] / nDays);
+    muniStats5d.push({ nom: r.muni.nom, mrc: r.muni.mrc, pop: r.muni.pop, typeAvg, plantAvg, nDays });
+  });
+
+  // MRC aggregation (today) — population-weighted
+  const mrcMap = {};
+  muniStats.forEach(ms => {
+    if (!mrcMap[ms.mrc]) mrcMap[ms.mrc] = { pop: 0, sumTree: 0, sumGrass: 0, sumWeed: 0, count: 0 };
+    const m = mrcMap[ms.mrc];
+    m.pop += ms.pop;
+    m.sumTree += (ms.types.TREE||0) * ms.pop;
+    m.sumGrass += (ms.types.GRASS||0) * ms.pop;
+    m.sumWeed += (ms.types.WEED||0) * ms.pop;
+    m.count++;
+  });
+  const mrcStats = Object.keys(mrcMap).map(mrc => {
+    const m = mrcMap[mrc];
+    return {
+      mrc,
+      pop: m.pop,
+      count: m.count,
+      tree: m.pop > 0 ? m.sumTree / m.pop : 0,
+      grass: m.pop > 0 ? m.sumGrass / m.pop : 0,
+      weed: m.pop > 0 ? m.sumWeed / m.pop : 0,
+      max: m.pop > 0 ? Math.max(m.sumTree/m.pop, m.sumGrass/m.pop, m.sumWeed/m.pop) : 0
+    };
+  }).sort((a,b) => b.max - a.max);
+
+  // Species ranking (today, population-weighted)
+  const specMap = {};
+  muniStats.forEach(ms => {
+    Object.keys(ms.plants).forEach(sp => {
+      if (!specMap[sp]) specMap[sp] = { sumWeighted: 0, popTotal: 0, count: 0, sumRaw: 0 };
+      specMap[sp].sumWeighted += ms.plants[sp] * ms.pop;
+      specMap[sp].popTotal += ms.pop;
+      specMap[sp].sumRaw += ms.plants[sp];
+      specMap[sp].count++;
+    });
+  });
+  const specRank = Object.keys(specMap).map(sp => ({
+    name: sp,
+    avgWeighted: specMap[sp].popTotal > 0 ? specMap[sp].sumWeighted / specMap[sp].popTotal : 0,
+    avgRaw: specMap[sp].count > 0 ? specMap[sp].sumRaw / specMap[sp].count : 0,
+    coverage: specMap[sp].count
+  })).sort((a,b) => b.avgWeighted - a.avgWeighted);
+
+  // Distribution counts (today)
+  const distrib = [0,0,0,0,0,0]; // UPI 0..5
+  muniStats.forEach(ms => { distrib[Math.round(ms.maxUPI)]++; });
+
+  // Pop exposure
+  const popExposed = muniStats.filter(ms => ms.maxUPI >= 3).reduce((s,ms) => s + ms.pop, 0);
+  const popHighExposure = muniStats.filter(ms => ms.maxUPI >= 4).reduce((s,ms) => s + ms.pop, 0);
+
+  // Regional average (pop-weighted)
+  let regTree = 0, regGrass = 0, regWeed = 0, regPop = 0;
+  muniStats.forEach(ms => {
+    regTree += (ms.types.TREE||0)*ms.pop;
+    regGrass += (ms.types.GRASS||0)*ms.pop;
+    regWeed += (ms.types.WEED||0)*ms.pop;
+    regPop += ms.pop;
+  });
+
+  return {
+    dateStr, totalPop, muniStats, muniStats5d, mrcStats, specRank, distrib,
+    popExposed, popHighExposure,
+    regional: {
+      tree: regPop>0 ? regTree/regPop : 0,
+      grass: regPop>0 ? regGrass/regPop : 0,
+      weed: regPop>0 ? regWeed/regPop : 0
+    },
+    nMuniQueried: muniStats.length
+  };
+}
+
+// ═══════════════════════════════════════════════
+// RENDER DIAGNOSTIC
+// ═══════════════════════════════════════════════
+function renderDiagnostic(s) {
+  let h = '';
+
+  // Overview stats
+  h += '<div class="sidebar-section">';
+  h += `<div class="diag-header"><h3 style="margin:0">Portrait du jour</h3><span class="date-badge">${s.dateStr}</span></div>`;
+  h += '<div class="stat-grid">';
+  h += `<div class="stat-card"><div class="stat-value" style="color:var(--accent-tree)">${s.regional.tree.toFixed(1)}</div><div class="stat-label">UPI Arbres (moy. pond.)</div></div>`;
+  h += `<div class="stat-card"><div class="stat-value" style="color:var(--accent-grass)">${s.regional.grass.toFixed(1)}</div><div class="stat-label">UPI Graminées (moy. pond.)</div></div>`;
+  h += `<div class="stat-card"><div class="stat-value" style="color:var(--accent-weed)">${s.regional.weed.toFixed(1)}</div><div class="stat-label">UPI Herbacées (moy. pond.)</div></div>`;
+  h += `<div class="stat-card"><div class="stat-value" style="color:var(--accent-pink)">${(s.popExposed/1000).toFixed(0)}k</div><div class="stat-label">Pop. exposée UPI ≥ 3</div></div>`;
+  h += '</div>';
+
+  // Distribution
+  h += '<h3 style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);margin-bottom:8px;">Répartition des municipalités par niveau max</h3>';
+  h += '<div style="display:flex;gap:4px;margin-bottom:14px;">';
+  s.distrib.forEach((n, i) => {
+    const pct = s.nMuniQueried > 0 ? (n / s.nMuniQueried * 100) : 0;
+    h += `<div style="flex:1;text-align:center;">
+      <div style="height:${Math.max(4, pct*0.8)}px;background:${UPI_COLORS[i]};border-radius:3px;margin-bottom:4px;"></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;">${n}</div>
+      <div style="font-size:9px;color:var(--text-dim)">${UPI_LABELS_FR[i]}</div>
+    </div>`;
+  });
+  h += '</div>';
+
+  // Pop-weighted note
+  h += `<div class="pop-weight-note">
+    <strong style="color:var(--accent-blue)">Note méthodologique :</strong> Les moyennes sont pondérées par la population municipale (données MAMH).
+    La population totale couverte est de <strong>${(s.totalPop/1000).toFixed(0)} k</strong> résidents sur ${s.nMuniQueried} municipalités.
+  </div>`;
+  h += '</div>';
+
+  // MRC ranking
+  h += '<div class="sidebar-section"><h3>Classement des MRC (indice max pondéré)</h3>';
+  h += '<table class="mrc-table"><thead><tr><th>MRC</th><th>🌲</th><th>🌾</th><th>🌿</th><th>Max</th></tr></thead><tbody>';
+  s.mrcStats.forEach(m => {
+    h += `<tr>
+      <td style="font-weight:500;color:${MRC_COLORS[m.mrc]||'#fff'}">${m.mrc}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${m.tree.toFixed(1)}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${m.grass.toFixed(1)}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${m.weed.toFixed(1)}</td>
+      <td><div class="mini-bar"><div class="mini-bar-fill" style="width:${m.max/5*100}%;background:${UPI_COLORS[Math.round(m.max)]}"></div></div></td>
+    </tr>`;
+  });
+  h += '</tbody></table></div>';
+
+  // Species ranking
+  h += '<div class="sidebar-section"><h3>Espèces les plus actives (moy. pondérée)</h3><div class="species-rank">';
+  s.specRank.slice(0, 10).forEach((sp, i) => {
+    const color = sp.avgWeighted >= 3 ? '#ef4444' : sp.avgWeighted >= 2 ? '#f97316' : sp.avgWeighted >= 1 ? '#facc15' : '#4ade80';
+    h += `<div class="species-rank-row">
+      <span class="rank-num">${i+1}</span>
+      <span style="width:110px;flex-shrink:0">${sp.name}</span>
+      <div class="rank-bar-wrap"><div class="rank-bar"><div class="rank-bar-fill" style="width:${sp.avgWeighted/5*100}%;background:${color}"></div></div></div>
+      <span class="rank-val">${sp.avgWeighted.toFixed(2)}</span>
+    </div>`;
+  });
+  h += '</div></div>';
+
+  // Top 5 municipalities
+  const topMuni = [...s.muniStats].sort((a,b) => b.maxUPI - a.maxUPI).slice(0,5);
+  h += '<div class="sidebar-section"><h3>Municipalités les plus exposées (aujourd\'hui)</h3>';
+  topMuni.forEach((m,i) => {
+    h += `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;">
+      <span class="rank-num">${i+1}</span>
+      <span style="flex:1;font-weight:500">${m.nom}</span>
+      <span style="font-size:10px;color:${MRC_COLORS[m.mrc]||'#888'}">${m.mrc}</span>
+      <span class="idx upi-${Math.round(m.maxUPI)}" style="font-family:'JetBrains Mono',monospace;font-size:10px">${m.maxUPI}/5</span>
+    </div>`;
+  });
+  h += '</div>';
+
+  document.getElementById('diagResults').innerHTML = h;
+}
+
+// ═══════════════════════════════════════════════
+// FAITS SAILLANTS — auto-generated text
+// ═══════════════════════════════════════════════
+function renderFaitsSaillants(s) {
+  const container = document.getElementById('faitsContent');
+  const topMRC = s.mrcStats[0];
+  const topSpec = s.specRank[0];
+  const pctExposed = s.totalPop > 0 ? (s.popExposed / s.totalPop * 100).toFixed(0) : 0;
+  const pctHigh = s.totalPop > 0 ? (s.popHighExposure / s.totalPop * 100).toFixed(0) : 0;
+  const topMunis = [...s.muniStats].sort((a,b) => b.maxUPI - a.maxUPI);
+  const nModere = s.distrib[3] + s.distrib[4] + s.distrib[5];
+  const dominantType = s.regional.tree >= s.regional.grass && s.regional.tree >= s.regional.weed ? 'arbres'
+    : s.regional.grass >= s.regional.weed ? 'graminées' : 'herbacées';
+
+  let h = '';
+
+  // Fait 1 — Niveau régional
+  h += `<div class="fait-box"><span class="fait-num">1</span>
+    <p><strong>Niveau d'exposition régional</strong></p>
+    <p>Au ${s.dateStr}, l'indice pollinique moyen pondéré par la population dans la région des Laurentides s'établit à
+    <em>${Math.max(s.regional.tree, s.regional.grass, s.regional.weed).toFixed(1)} / 5</em> (UPI),
+    dominé par le pollen d'<em>${dominantType}</em>
+    (arbres : ${s.regional.tree.toFixed(1)}, graminées : ${s.regional.grass.toFixed(1)}, herbacées : ${s.regional.weed.toFixed(1)}).</p>
+  </div>`;
+
+  // Fait 2 — Population exposée
+  h += `<div class="fait-box"><span class="fait-num">2</span>
+    <p><strong>Population exposée</strong></p>
+    <p><em>${pctExposed} %</em> de la population couverte (${(s.popExposed/1000).toFixed(0)} 000 personnes sur ${(s.totalPop/1000).toFixed(0)} 000)
+    réside dans une municipalité où l'indice pollinique maximal atteint le niveau modéré ou supérieur (UPI ≥ 3).
+    ${pctHigh > 0 ? `De ce nombre, <em>${pctHigh} %</em> de la population régionale (${(s.popHighExposure/1000).toFixed(0)} 000 pers.) se situe en zone d'exposition élevée ou très élevée (UPI ≥ 4).` : ''}</p>
+  </div>`;
+
+  // Fait 3 — Disparités MRC
+  h += `<div class="fait-box"><span class="fait-num">3</span>
+    <p><strong>Disparités entre MRC</strong></p>
+    <p>La MRC <em>${topMRC.mrc}</em> présente l'indice pondéré le plus élevé
+    (${topMRC.max.toFixed(1)} / 5), tandis que la MRC <em>${s.mrcStats[s.mrcStats.length-1].mrc}</em>
+    affiche le niveau le plus bas (${s.mrcStats[s.mrcStats.length-1].max.toFixed(1)} / 5).
+    Cet écart illustre la variabilité intra-régionale de l'exposition pollinique et justifie des interventions
+    différenciées selon les territoires.</p>
+  </div>`;
+
+  // Fait 4 — Espèce dominante
+  h += `<div class="fait-box"><span class="fait-num">4</span>
+    <p><strong>Espèce la plus active</strong></p>
+    <p>L'espèce contribuant le plus à l'indice pollinique régional est <em>${topSpec.name}</em>
+    avec un indice moyen pondéré de <em>${topSpec.avgWeighted.toFixed(2)} / 5</em>,
+    détecté dans ${topSpec.coverage} des ${s.nMuniQueried} municipalités sondées.
+    ${s.specRank.length > 1 ? `Suivent ${s.specRank[1].name} (${s.specRank[1].avgWeighted.toFixed(2)})${s.specRank.length > 2 ? ` et ${s.specRank[2].name} (${s.specRank[2].avgWeighted.toFixed(2)})` : ''}.` : ''}</p>
+  </div>`;
+
+  // Fait 5 — Municipalités critiques
+  h += `<div class="fait-box"><span class="fait-num">5</span>
+    <p><strong>Municipalités les plus exposées</strong></p>
+    <p><em>${nModere}</em> municipalités sur ${s.nMuniQueried} présentent un indice pollinique maximal de niveau modéré ou supérieur.
+    Les plus touchées sont ${topMunis.slice(0,3).map(m => `<em>${m.nom}</em> (${m.maxUPI}/5)`).join(', ')}.
+    Ces municipalités devraient être priorisées dans les interventions de contrôle de la végétation allergène
+    et les communications de santé publique.</p>
+  </div>`;
+
+  // Fait 6 — Méthodologie
+  h += `<div class="fait-box"><span class="fait-num">M</span>
+    <p><strong>Note méthodologique</strong></p>
+    <p>Données issues de l'API Google Pollen (résolution 1 km²), interrogée pour ${s.nMuniQueried} centroïdes municipaux
+    de la région des Laurentides. Les moyennes sont pondérées par la population de chaque municipalité
+    (rôle d'évaluation MAMH 2026). L'Indice universel de pollen (UPI) est une échelle de 0 à 5
+    combinant la concentration modélisée, les indices polliniques locaux et l'allergénicité des espèces.
+    Les données reflètent un portrait ponctuel et ne se substituent pas aux mesures du Réseau aéropalynologique du Québec.</p>
+  </div>`;
+
+  // Export buttons
+  h += `<div class="export-bar">
+    <button class="btn btn-outline" onclick="exportCSV()">📄 Exporter CSV</button>
+    <button class="btn btn-outline" onclick="copyFaits()">📋 Copier les faits saillants</button>
+    <button class="btn btn-outline" onclick="exportJSON()">{ } Exporter JSON</button>
+  </div>`;
+
+  container.innerHTML = h;
+}
+
+// ═══════════════════════════════════════════════
+// UPDATE MAP MARKERS by UPI
+// ═══════════════════════════════════════════════
+function updateMapColors(s) {
+  s.muniStats.forEach(ms => {
+    const marker = markerRefs[ms.nom];
+    if (marker) {
+      const upi = Math.round(ms.maxUPI);
+      marker.setStyle({ fillColor: UPI_COLORS[upi], fillOpacity: 0.85, color: '#fff', weight: 2 });
+      // Update radius to emphasize high exposure
+      const baseR = Math.max(4, Math.min(12, Math.sqrt(ms.pop / 800)));
+      marker.setRadius(ms.maxUPI >= 3 ? baseR * 1.4 : baseR);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// EXPORT FUNCTIONS
+// ═══════════════════════════════════════════════
+function exportCSV() {
+  if (!diagData) return;
+  let csv = 'Municipalité,MRC,Population,UPI_Arbres,UPI_Graminées,UPI_Herbacées,UPI_Max\n';
+  diagData.muniStats.forEach(m => {
+    csv += `"${m.nom}","${m.mrc}",${m.pop},${m.types.TREE||0},${m.types.GRASS||0},${m.types.WEED||0},${m.maxUPI}\n`;
+  });
+  csv += `\n"RÉGION (moy. pond.)","Laurentides",${diagData.totalPop},${diagData.regional.tree.toFixed(2)},${diagData.regional.grass.toFixed(2)},${diagData.regional.weed.toFixed(2)},${Math.max(diagData.regional.tree,diagData.regional.grass,diagData.regional.weed).toFixed(2)}\n`;
+  csv += `\nMRC,Population,UPI_Arbres_pond,UPI_Graminées_pond,UPI_Herbacées_pond,UPI_Max_pond\n`;
+  diagData.mrcStats.forEach(m => {
+    csv += `"${m.mrc}",${m.pop},${m.tree.toFixed(2)},${m.grass.toFixed(2)},${m.weed.toFixed(2)},${m.max.toFixed(2)}\n`;
+  });
+  csv += `\nEspèce,UPI_moy_pondérée,UPI_moy_brute,Nb_municipalités\n`;
+  diagData.specRank.forEach(sp => {
+    csv += `"${sp.name}",${sp.avgWeighted.toFixed(2)},${sp.avgRaw.toFixed(2)},${sp.coverage}\n`;
+  });
+  downloadBlob(csv, `pollen_laurentides_${isoDate()}.csv`, 'text/csv;charset=utf-8;');
+}
+
+function exportJSON() {
+  if (!diagData) return;
+  const obj = {
+    meta: { date: diagData.dateStr, region: 'Laurentides', source: 'Google Pollen API', nMunicipalities: diagData.nMuniQueried, totalPopulation: diagData.totalPop },
+    regional: diagData.regional,
+    distribution: { aucun: diagData.distrib[0], tresFaible: diagData.distrib[1], faible: diagData.distrib[2], modere: diagData.distrib[3], eleve: diagData.distrib[4], tresEleve: diagData.distrib[5] },
+    populationExposedUPI3plus: diagData.popExposed,
+    populationExposedUPI4plus: diagData.popHighExposure,
+    mrcRanking: diagData.mrcStats,
+    speciesRanking: diagData.specRank,
+    municipalities: diagData.muniStats.map(m => ({ nom: m.nom, mrc: m.mrc, pop: m.pop, upiTree: m.types.TREE||0, upiGrass: m.types.GRASS||0, upiWeed: m.types.WEED||0, upiMax: m.maxUPI }))
+  };
+  downloadBlob(JSON.stringify(obj, null, 2), `pollen_laurentides_${isoDate()}.json`, 'application/json');
+}
+
+function copyFaits() {
+  const el = document.getElementById('faitsContent');
+  const faits = el.querySelectorAll('.fait-box');
+  let text = 'FAITS SAILLANTS — POLLEN ET LAURENTIDES\n' + '='.repeat(45) + '\n\n';
+  faits.forEach(f => {
+    const lines = f.innerText.trim();
+    text += lines + '\n\n';
+  });
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = el.querySelector('.export-bar .btn-outline:nth-child(2)');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+
+function downloadBlob(content, filename, type) {
+  const blob = new Blob(['\uFEFF' + content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+function isoDate() { return new Date().toISOString().slice(0,10); }
+</script>
+</body>
+</html>
