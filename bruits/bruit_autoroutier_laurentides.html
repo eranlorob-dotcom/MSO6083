@@ -617,34 +617,45 @@ document.getElementById("mrcSelect").addEventListener("change",e=>{
 // ============================================================
 // LOAD GEOJSON — fetch relative file
 // ============================================================
-// Chemin dynamique : fonctionne sur GitHub Pages (sous-dossier) ET en local
-const GEOJSON_FILE = (()=>{
-  const base = window.location.href.replace(/\/[^\/]*$/, '/');
-  return base + 'laurentides_ad.geojson';
-})();
-console.log("Loading GeoJSON from:", GEOJSON_FILE);
+// URL du GeoJSON — essaie plusieurs sources dans l'ordre
+const GEOJSON_URLS = [
+  // Même dossier (GitHub Pages, serveur local)
+  new URL('laurentides_ad.geojson', document.baseURI).href,
+  // Fallback raw GitHub
+  'https://raw.githubusercontent.com/eranlorob-dotcom/MSO6083/main/bruits/laurentides_ad.geojson'
+];
+console.log("Trying GeoJSON URLs:", GEOJSON_URLS);
 
-fetch(GEOJSON_FILE)
-  .then(r=>{
-    if(!r.ok) throw new Error(`HTTP ${r.status}: ${r.url}`);
-    return r.json();
-  })
-  .then(data=>{
-    state.geojsonData=data;
-    document.getElementById("loadingOverlay").classList.add("hidden");
-    drawAD();
-    drawHighways();
-    drawBuffers();
-    drawServices();
-    // Fit to data
-    if(adLayer) map.fitBounds(adLayer.getBounds(),{padding:[10,10]});
-  })
-  .catch(err=>{
-    console.error("GeoJSON load error:",err);
-    document.getElementById("loadingOverlay").classList.add("hidden");
-    const ov=document.getElementById("errorOverlay");
-    ov.style.display="flex";
-  });
+// Fetch avec fallback automatique
+async function loadGeoJSON() {
+  for (const url of GEOJSON_URLS) {
+    try {
+      console.log("Fetching:", url);
+      const r = await fetch(url);
+      if (!r.ok) { console.warn("Failed:", url, r.status); continue; }
+      const data = await r.json();
+      console.log("Loaded successfully from:", url, "features:", data.features?.length);
+      return data;
+    } catch(e) {
+      console.warn("Error fetching", url, e.message);
+    }
+  }
+  return null;
+}
+
+loadGeoJSON().then(data => {
+  document.getElementById("loadingOverlay").classList.add("hidden");
+  if (!data) {
+    document.getElementById("errorOverlay").style.display="flex";
+    return;
+  }
+  state.geojsonData = data;
+  drawAD();
+  drawHighways();
+  drawBuffers();
+  drawServices();
+  if (adLayer) map.fitBounds(adLayer.getBounds(), {padding:[10,10]});
+});
 </script>
 </body>
 </html>
