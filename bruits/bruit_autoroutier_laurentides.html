@@ -268,7 +268,9 @@ function drawAD(){
       ly.on("mouseout",function(){adL&&adL.resetStyle(this);});
     }
   }).addTo(map);
-  HG.bringToFront();SG.bringToFront();
+  // bringToFront sur chaque layer individuel du groupe
+  HG.eachLayer(l=>{ if(l.bringToFront) l.bringToFront(); });
+  SG.eachLayer(l=>{ if(l.bringToFront) l.bringToFront(); });
   computeStats();
 }
 
