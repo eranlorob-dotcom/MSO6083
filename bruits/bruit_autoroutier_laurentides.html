@@ -617,7 +617,12 @@ document.getElementById("mrcSelect").addEventListener("change",e=>{
 // ============================================================
 // LOAD GEOJSON — fetch relative file
 // ============================================================
-const GEOJSON_FILE="laurentides_ad.geojson";
+// Chemin dynamique : fonctionne sur GitHub Pages (sous-dossier) ET en local
+const GEOJSON_FILE = (()=>{
+  const base = window.location.href.replace(/\/[^\/]*$/, '/');
+  return base + 'laurentides_ad.geojson';
+})();
+console.log("Loading GeoJSON from:", GEOJSON_FILE);
 
 fetch(GEOJSON_FILE)
   .then(r=>{
