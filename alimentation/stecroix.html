@@ -147,7 +147,7 @@ header.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 
       <select id="filter-milieu"><option value="">Tous les milieux</option><option value="Urbain">Urbain</option><option value="Rural">Rural</option></select>
       <select id="filter-statut"><option value="">Tous les statuts</option><option value="desert">Désert alimentaire</option><option value="swamp">Marécage alimentaire</option><option value="neither">Ni l'un ni l'autre</option></select>
       <button class="btn active" id="btn-stores" onclick="toggleLayerBtn('stores')">Commerces (OSM)</button>
-      <button class="btn" id="btn-buildings" onclick="toggleLayerBtn('buildings')">Bâtiments résidentiels</button>
+      <button class="btn active" id="btn-buildings" onclick="toggleLayerBtn('buildings')">Accessibilité par bâtiment</button>
       <div class="fontctl"><button onclick="setFont(-1)" title="Réduire le texte">A−</button><button onclick="setFont(1)" title="Agrandir le texte">A+</button></div>
       <button class="btn" onclick="exportGeoJSON()">⬇ GeoJSON</button>
     </div>
@@ -170,7 +170,7 @@ header.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 
         <div class="legend-labels"><span id="lg-min">0</span><span id="lg-mid"></span><span id="lg-max"></span></div>
         <div class="legend-item">
           <div class="legend-sw" style="background:transparent;border:2.5px solid var(--white)"></div>
-          <span>Désert alimentaire confirmé (Q5 + distance)</span>
+          <span>Désert alimentaire confirmé (distance &gt; seuil)</span>
         </div>
         <div class="legend-item">
           <div class="legend-sw" style="background:repeating-linear-gradient(45deg,transparent,transparent 2px,#8b8fc433 2px,#8b8fc433 4px);border:1px dashed var(--muted)"></div>
@@ -178,6 +178,10 @@ header.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 
         </div>
         <div class="legend-sep"></div>
         <div class="legend-item"><div class="legend-sw dot" style="background:var(--indigo);border:2px solid #fff"></div><span>Marécage alimentaire (RFEI moyen ≥ 5,0)</span></div>
+        <div class="legend-sep"></div>
+        <div class="legend-title">Accessibilité par bâtiment (ratio distance/seuil)</div>
+        <div class="legend-scale" id="legend-scale-access"></div>
+        <div class="legend-labels"><span>Accessible</span><span>Seuil</span><span>Éloigné</span></div>
         <div class="legend-sep"></div>
         <div class="legend-item"><div class="legend-sw" style="background:transparent;border:2px solid var(--teal)"></div><span>Périmètre d'urbanisation (PU)</span></div>
         <div class="legend-item"><div class="legend-sw" style="background:transparent;border:1.5px dashed var(--ink2)"></div><span>Limite municipale</span></div>
@@ -196,17 +200,26 @@ header.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 
           un bâtiment résidentiel situé à l'intérieur du PU est «&nbsp;urbain&nbsp;», sinon «&nbsp;rural&nbsp;».
           Le milieu d'une aire de diffusion (AD) est celui de la majorité de ses bâtiments résidentiels
           situés à Sainte-Croix.</p>
-          <h4>Désert alimentaire</h4>
-          <p>Selon Robitaille &amp; Paquette (2020), une AD est un désert alimentaire si elle est à la fois
-          (1) dans le quintile 5 (Q5) de défavorisation matérielle, et (2) ses bâtiments résidentiels sont
-          en moyenne à plus de <b>1000 m</b> (milieu urbain) ou <b>16 000 m</b> (milieu rural) d'un commerce
-          alimentaire sain.</p>
-          <p>Le quintile matériel (Q5) provient directement du fichier de défavorisation 2021 fourni
-          (variable <code>quintmat</code>) — donnée réelle, non estimée. La <b>distance</b> est calculée
-          <b>en direct</b> : pour chaque bâtiment résidentiel de Sainte-Croix, distance à vol d'oiseau
-          jusqu'au commerce alimentaire sain OSM le plus proche, puis moyenne par AD — au lieu de la
-          distance réticulaire (réseau routier) par adresse utilisée dans l'article.</p>
-          <div class="formula">Désert = quintmat == 5  ET  distance moyenne des bâtiments &gt; seuil (milieu de l'AD)</div>
+          <h4>Désert alimentaire (accessibilité seulement)</h4>
+          <p>Robitaille &amp; Paquette (2020) définissent un désert alimentaire comme une AD à la fois
+          défavorisée (quintile 5 matériel) ET peu accessible. <b>Sur demande, ce critère de
+          défavorisation a été retiré ici</b> : une AD est classée désert alimentaire uniquement sur la
+          base de l'<b>accessibilité géographique</b> — ses bâtiments résidentiels sont en moyenne à plus
+          de <b>1000 m</b> (milieu urbain) ou <b>16 000 m</b> (milieu rural) d'un commerce alimentaire
+          sain. Le quintile matériel (<code>quintmat</code>, INSPQ 2021) reste affiché à titre informatif
+          dans la fiche de chaque AD, mais n'influence plus le statut.</p>
+          <p>La <b>distance</b> est calculée <b>en direct</b> : pour chaque bâtiment résidentiel de
+          Sainte-Croix, distance à vol d'oiseau jusqu'au commerce alimentaire sain OSM le plus proche,
+          puis moyenne par AD — au lieu de la distance réticulaire (réseau routier) par adresse utilisée
+          dans l'article.</p>
+          <div class="formula">Désert = distance moyenne des bâtiments de l'AD &gt; seuil (milieu de l'AD)</div>
+          <h4>Accessibilité par bâtiment</h4>
+          <p>La couche «&nbsp;Accessibilité par bâtiment&nbsp;» affiche chaque bâtiment résidentiel coloré
+          selon le ratio distance / seuil applicable à son milieu : <span style="color:#2ecc71">vert</span>
+          = bien en deçà du seuil, <span style="color:#f1c40f">jaune</span> = proche du seuil,
+          <span style="color:#e74c3c">rouge</span> = bien au-delà. Cette échelle rouge/vert est distincte
+          de la rampe séquentielle bleu-sarcelle utilisée pour la moyenne par AD, afin de rendre le
+          repérage intuitif à l'échelle du bâtiment individuel.</p>
           <h4>Marécage alimentaire (RFEI)</h4>
           <p>Pour chaque bâtiment résidentiel, RFEI = (dépanneurs + restauration rapide) / (supermarchés +
           épiceries + fruiteries) dans un rayon de 1000 m (urbain) ou 16 000 m (rural) autour du bâtiment,
@@ -255,6 +268,10 @@ function hexRgb(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),pa
 function lerp(a,b,t){var pa=hexRgb(a),pb=hexRgb(b);return'rgb('+Math.round(pa[0]+(pb[0]-pa[0])*t)+','+Math.round(pa[1]+(pb[1]-pa[1])*t)+','+Math.round(pa[2]+(pb[2]-pa[2])*t)+')';}
 function rampColor(v,min,max,stops){stops=stops||RAMP;if(v==null)return null;var t=Math.max(0,Math.min(1,(v-min)/(max-min)));var s=t*(stops.length-1),i=Math.min(Math.floor(s),stops.length-2);return lerp(stops[i],stops[i+1],s-i);}
 function fmt(n,d){return n==null?'—':Number(n).toLocaleString('fr-CA',{minimumFractionDigits:d||0,maximumFractionDigits:d||0});}
+
+/* Rampe accessibilite par batiment : vert (accessible) -> jaune (au seuil) -> rouge (eloigne) */
+var RAMP_ACCESS=['#2ecc71','#f1c40f','#e74c3c'];
+function accessColor(ratio){ return rampColor(Math.max(0,Math.min(2,ratio)),0,2,RAMP_ACCESS); }
 
 var VMIN=0, VMAX=8000; // ajuste apres recalcul
 
@@ -403,6 +420,7 @@ function buildLegendScale(){
   document.getElementById('lg-min').textContent=fmt(VMIN);
   document.getElementById('lg-mid').textContent=fmt((VMIN+VMAX)/2);
   document.getElementById('lg-max').textContent=fmt(VMAX)+'+';
+  document.getElementById('legend-scale-access').innerHTML=RAMP_ACCESS.map(function(c){return'<div style="background:'+c+'"></div>';}).join('');
 }
 buildLegendScale();
 
@@ -430,8 +448,8 @@ searchBounds = L.latLngBounds(
 );
 
 var storesLayer=L.layerGroup().addTo(map);
-var buildingsLayer=L.layerGroup();
-var layerVisible={stores:true,buildings:false};
+var buildingsLayer=L.layerGroup().addTo(map);
+var layerVisible={stores:true,buildings:true};
 function toggleLayerBtn(key){
   layerVisible[key]=!layerVisible[key];
   var grp = key==='stores'?storesLayer:buildingsLayer;
@@ -525,12 +543,12 @@ function computeLive(){
     var rfeiMean = rfeis.length ? rfeis.reduce(function(a,b){return a+b;},0)/rfeis.length : null;
     var threshold = p.milieu==='Urbain' ? 1000 : 16000;
     var overThreshold = distMean==null || distMean>threshold;
-    var isDesertLive = (p.quintmat===5) && overThreshold;
+    var isDesertLive = overThreshold; // critère de défavorisation (Q5) retiré : accessibilité seule
     if(isDesertLive) desertCount++;
     var isSwamp = rfeiMean!=null && rfeiMean>=5;
     if(isSwamp) swampCount++;
     var statusLabel = overThreshold ?
-      (p.quintmat===5 ? 'Désert alimentaire confirmé (recalculé)' : 'Distance > seuil, mais quintile matériel non Q5')
+      'Désert alimentaire confirmé (accessibilité, recalculé)'
       : ('Non désert (distance ≤ '+fmt(threshold)+' m)');
     LIVE[idx]={n:dists.length, distMean:distMean, overThreshold:overThreshold, isDesertLive:isDesertLive,
       statusLabel:statusLabel, rfeiMean:rfeiMean, isSwamp:isSwamp};
@@ -543,13 +561,15 @@ function computeLive(){
     selectDA(selected.layer.feature, idxSel, selected.layer);
   }
 
-  /* Couche bâtiments (optionnelle) : petit point colore selon statut individuel */
+  /* Couche accessibilité par bâtiment : couleur rouge (éloigné) -> vert (accessible)
+     selon le ratio distance/seuil propre au milieu du bâtiment */
   DATA_BUILDINGS.forEach(function(b,i){
     var r=BUILDING_RESULTS[i];
-    var over = r.dist==null || r.dist>r.threshold;
-    var col = over ? '#5b54c0' : '#21AEAD';
-    var mkr=L.circleMarker([b[0],b[1]],{radius:3,weight:0,fillColor:col,fillOpacity:.75});
-    mkr.bindTooltip((over?'Distance &gt; seuil ('+r.threshold+' m)':'Sous le seuil')+' · '+(r.dist==null?'—':fmt(r.dist))+' m · '+r.milieu,
+    var ratio = r.dist==null ? 2 : (r.dist/r.threshold);
+    var col = accessColor(ratio);
+    var mkr=L.circleMarker([b[0],b[1]],{radius:3.5,weight:0,fillColor:col,fillOpacity:.85});
+    mkr.bindTooltip((r.dist==null?'Aucun commerce sain trouvé':'Distance : '+fmt(r.dist)+' m')+
+      ' · seuil '+fmt(r.threshold)+' m ('+r.milieu+') · ratio '+fmt(ratio,2),
       {className:'muni-tooltip',sticky:true});
     mkr.addTo(buildingsLayer);
   });
@@ -585,7 +605,7 @@ function exportGeoJSON(){
   });
   var out={type:'FeatureCollection',metadata:{titre:'Sainte-Croix — désert et marécage alimentaire (par bâtiment, recalculés en direct)',
     methode:'Robitaille & Paquette (2020), Int. J. Environ. Res. Public Health, 17(10), 3359',
-    source:'CISSS des Laurentides — DSP',date:'2026-08-03'},
+    source:'ESPUM',date:'2026-08-03'},
     features:feats.concat([DATA_BOUNDARY, DATA_PU])};
   var blob=new Blob([JSON.stringify(out)],{type:'application/json'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sainte_croix_desert_marecage_batiments.geojson';a.click();
