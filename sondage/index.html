@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MSO6083 — Portrait de groupe</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --udem-blue: #0057A4;
@@ -593,7 +595,7 @@ footer strong {
 <body>
 
 <!-- NAV -->
-<nav class="nav" id="nav">
+<nav class="nav scrolled" id="nav">
   <a href="#apercu">Aperçu</a>
   <a href="#parcours">Parcours</a>
   <a href="#experience">Expérience</a>
@@ -605,7 +607,7 @@ footer strong {
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-badge">MSO6083 · Été 2026</div>
+    <div class="hero-badge">MSO6083 · Automne 2026</div>
     <h1>Santé publique,<br><em>ensemble</em></h1>
     <p class="hero-sub">Portrait de groupe du cours <strong>Pratiques de santé publique</strong> — École de santé publique de l'Université de Montréal</p>
     <div class="hero-quote">« Aidez-nous à vous aider ! »</div>
@@ -616,25 +618,25 @@ footer strong {
 <!-- STATS -->
 <section class="stats-section" id="apercu">
   <div class="container">
-    <div class="section-label fade-up">01 — Coup d'œil</div>
-    <h2 class="section-title fade-up">Notre cohorte en chiffres</h2>
-    <p class="section-desc fade-up">15 participant·e·s aux parcours riches et diversifiés, réuni·e·s pour un été d'apprentissage pratique en santé publique.</p>
+    <div class="section-label fade-up visible">01 — Coup d'œil</div>
+    <h2 class="section-title fade-up visible">Notre cohorte en chiffres</h2>
+    <p class="section-desc fade-up visible">8 participant·e·s aux parcours riches et diversifiés, réuni·e·s pour une session d'apprentissage pratique en santé publique.</p>
     <div class="stats-grid">
-      <div class="stat-card fade-up">
-        <div class="stat-number blue">15</div>
+      <div class="stat-card fade-up visible">
+        <div class="stat-number blue">8</div>
         <div class="stat-label">Participant·e·s</div>
       </div>
-      <div class="stat-card fade-up">
-        <div class="stat-number terra">4</div>
+      <div class="stat-card fade-up visible">
+        <div class="stat-number terra">5</div>
         <div class="stat-label">Disciplines d'origine</div>
       </div>
-      <div class="stat-card fade-up">
-        <div class="stat-number sage">60%</div>
+      <div class="stat-card fade-up visible">
+        <div class="stat-number sage">75%</div>
         <div class="stat-label">Ont de l'expérience terrain</div>
       </div>
-      <div class="stat-card fade-up">
-        <div class="stat-number gold">4</div>
-        <div class="stat-label">Médecins dans le groupe</div>
+      <div class="stat-card fade-up visible">
+        <div class="stat-number gold">3</div>
+        <div class="stat-label">Infirmier·ère·s dans le groupe</div>
       </div>
     </div>
   </div>
@@ -645,7 +647,7 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up">02 — Parcours académiques</div>
     <h2 class="section-title fade-up">D'où venons-nous ?</h2>
-    <p class="section-desc fade-up">La diversité des formations est une force : biologie, médecine, sciences infirmières et santé publique se côtoient pour enrichir les regards croisés.</p>
+    <p class="section-desc fade-up">Sciences infirmières, sociologie, médecine vétérinaire, sciences biologiques et environnementales, santé publique et santé mondiale : cinq disciplines d'origine se croisent dans le groupe. Les options de maîtrise sont tout aussi variées — santé mondiale, promotion de la santé, systèmes et politiques de santé, Une seule santé.</p>
 
     <div class="charts-row">
       <div class="chart-card fade-up">
@@ -657,13 +659,13 @@ footer strong {
         <h3>Expérience en santé publique</h3>
         <div class="donut-container" id="chart-exp">
           <svg class="donut-svg" viewBox="0 0 160 160">
-            <circle class="donut-circle" cx="80" cy="80" r="56" stroke="#E8E0D4" stroke-dasharray="351.86 351.86"/>
-            <circle class="donut-circle" id="donut-yes" cx="80" cy="80" r="56" stroke="#6B8F71" stroke-dasharray="0 351.86"/>
-            <circle class="donut-circle" id="donut-no" cx="80" cy="80" r="56" stroke="#C75B39" stroke-dasharray="0 351.86"/>
+            <circle class="donut-circle" cx="80" cy="80" r="56" stroke="#E8E0D4" stroke-dasharray="351.86 351.86"></circle>
+            <circle class="donut-circle" id="donut-yes" cx="80" cy="80" r="56" stroke="#6B8F71" stroke-dasharray="0 351.86"></circle>
+            <circle class="donut-circle" id="donut-no" cx="80" cy="80" r="56" stroke="#C75B39" stroke-dasharray="0 351.86"></circle>
           </svg>
           <div class="donut-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#6B8F71"></div>Avec expérience (9)</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#C75B39"></div>Sans expérience (6)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#6B8F71"></div>Avec expérience (6)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#C75B39"></div>Sans expérience directe (2)</div>
           </div>
         </div>
       </div>
@@ -676,13 +678,13 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up">03 — Expériences terrain</div>
     <h2 class="section-title fade-up">Ce que nous apportons</h2>
-    <p class="section-desc fade-up">Neuf participant·e·s arrivent avec une expérience professionnelle concrète en santé publique — un bassin d'expertises complémentaires au service du groupe.</p>
+    <p class="section-desc fade-up">Six participant·e·s arrivent avec une expérience professionnelle concrète en santé publique — de la première ligne en CLSC à la coordination de programmes de nutrition en Haïti, en passant par l'inspection des aliments et la recherche en santé environnementale.</p>
 
     <div class="exp-highlight-grid" id="exp-container"></div>
 
     <div class="exp-summary fade-up">
       <h3>En résumé</h3>
-      <p>Le groupe combine des expériences en <strong>coordination de projets ONG</strong>, en <strong>évaluation d'interventions de santé publique</strong>, en <strong>soins infirmiers et promotion de la santé</strong>, en <strong>recherche clinique et surveillance épidémiologique</strong>, en <strong>aide humanitaire internationale</strong> et en <strong>lutte contre les maladies infectieuses</strong>. Six participant·e·s, sans expérience professionnelle directe en SP, apportent néanmoins des formations solides en sciences biologiques, microbiologie, immunologie et virologie — des bases scientifiques précieuses pour l'analyse de données probantes et la compréhension des déterminants de la santé.</p>
+      <p>Le groupe combine des expériences en <strong>conception et suivi de programmes en ONG internationale</strong> (jusqu'à neuf années de pratique), en <strong>coordination de programmes de nutrition et de santé communautaire</strong>, en <strong>soins infirmiers de première ligne</strong> (dépistage ITSS, vaccination), en <strong>investigation de toxi-infections alimentaires</strong> au palier municipal, en <strong>recherche en santé environnementale et écosystémique</strong> et en <strong>microbiologie des zoonoses</strong>. Deux participantes n'ont pas encore d'expérience professionnelle directe en santé publique, mais apportent une formation en santé mondiale et un parcours en sociologie doublé d'un engagement dans le milieu communautaire — des regards précieux sur les déterminants sociaux de la santé et sur l'action de proximité.</p>
     </div>
   </div>
 </section>
@@ -692,7 +694,7 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up">04 — Attentes</div>
     <h2 class="section-title fade-up">Ce que nous espérons</h2>
-    <p class="section-desc fade-up">Un thème revient sans cesse : le désir de concret, de pratico-pratique, de pouvoir appliquer les concepts à des situations réelles.</p>
+    <p class="section-desc fade-up">Un thème traverse les huit réponses : le désir de concret. « Plus pratique que théorique », « applicable sur le marché du travail », « dans la vie réelle », « de manière concrète » — le mot revient dans presque chaque réponse.</p>
     <div class="expectations-wall" id="expectations-container"></div>
   </div>
 </section>
@@ -710,7 +712,7 @@ footer strong {
 <!-- FOOTER -->
 <footer>
   <strong>MSO6083 — Pratiques de santé publique</strong>
-  École de santé publique · Université de Montréal · Été 2026
+  École de santé publique · Université de Montréal · Automne 2026
 </footer>
 
 <script>
@@ -718,53 +720,46 @@ footer strong {
 const experiences = [
   {
     icon: '🌍',
-    domain: 'Coordination ONG',
-    text: "Coordination de projets de sensibilisation en santé publique dans une ONG internationale : recrutement et formation de paires éducatrices, analyse de données, rédaction de rapports."
+    domain: 'Programmes en ONG internationale',
+    text: "Neuf ans de conception, d'implémentation et de suivi de programmes liés à la santé des populations au sein de différentes organisations non gouvernementales internationales."
   },
   {
-    icon: '🏥',
-    domain: 'Soins infirmiers & promotion',
-    text: "Pratique infirmière en prévention et promotion de la santé. Missions de santé publique à l'international. Collaboration avec des départements de santé publique."
+    icon: '🍲',
+    domain: 'Nutrition & santé communautaire',
+    text: "Coordination nutrition (CARE Haïti), coordination technique ANJE (Save the Children), coordination de programme (Caris Foundation), consultation infirmière (CHARESS) et bénévolat dans les communautés de Labadie et Caracol, en Haïti."
   },
   {
-    icon: '🧗',
-    domain: 'Promotion de la santé',
-    text: "Développement d'un programme de promotion de l'activité physique et du bien-être par l'escalade. Participation au dépistage COVID et à la campagne de vaccination."
+    icon: '💉',
+    domain: 'Première ligne & CLSC',
+    text: "Pratique d'infirmière clinicienne en première ligne en CLSC : dépistage des ITSS, vaccination et autres services de prévention offerts directement à la population."
+  },
+  {
+    icon: '🍽️',
+    domain: 'Salubrité alimentaire',
+    text: "Enquêtes de toxi-infections alimentaires à la division de l'inspection des aliments de la Ville de Montréal — la santé publique environnementale telle qu'elle se pratique au palier municipal."
   },
   {
     icon: '🔬',
-    domain: 'Recherche & surveillance',
-    text: "Stages en observatoire régional de santé, centre de recherche clinique, cellule de veille sanitaire, registre des cancers. Évaluation d'interventions de santé publique."
+    domain: 'Recherche & santé environnementale',
+    text: "Plusieurs années comme agente de recherche sur des thèmes de santé environnementale et écosystémique, de savoirs traditionnels, de sexe et genre en santé et de partenariats communauté-université."
   },
   {
-    icon: '🩺',
-    domain: 'Médecine & humanitaire',
-    text: "Formation médicale avec expérience terrain : programmes de lutte contre le paludisme et le choléra à la Croix-Rouge, soutien psychosocial pour réfugiés de guerre."
-  },
-  {
-    icon: '🦠',
-    domain: 'Maladies infectieuses',
-    text: "Travail sur la propagation des maladies infectieuses avec une grande organisation humanitaire internationale. Approche intégrée de la santé mondiale."
+    icon: '🐾',
+    domain: 'Zoonoses & Une seule santé',
+    text: "Médecine vétérinaire et projets de recherche en microbiologie portant sur des agents pathogènes zoonotiques, ainsi que sur les moyens de prévention et de protection contre ces maladies."
   }
 ];
 
 // ── EXPECTATIONS DATA ──
 const expectations = [
-  "Obtenir plus d'outils statistiques et stratégiques pour passer de l'action d'urgence à la planification à plus grande échelle.",
-  "Je ne sais pas à quoi m'attendre.",
-  "Gestion de projet et surveillance.",
-  "Intégrer les connaissances théoriques acquises tout au long de la maîtrise pour les mettre en pratique.",
-  "Comment appliquer les notions de cours de manière concrète, adaptées à la réalité du terrain.",
-  "Éviter les doublons et les répétitions. Une charge de travail raisonnable pour un cours d'été.",
-  "Approfondir mes connaissances de la pratique de santé publique.",
-  "Revoir les notions théoriques acquises en stage et en maîtrise, et les mettre en œuvre de manière pratique.",
-  "Qu'il soit concret, pratico-pratique, palpable.",
-  "Consolider l'ensemble de mes apprentissages pour mon stage/emploi et tirer le maximum d'éléments concrets et pratiques.",
-  "Maîtriser les méthodes de planification et de collaboration intersectorielle pour structurer mon expérience terrain.",
-  "Approfondir mes connaissances en santé communautaire, sur les indicateurs et méthodes pour choisir une intervention prioritaire.",
-  "Comprendre de nouvelles perspectives.",
-  "Développer des compétences pratiques, mieux comprendre les interventions et appliquer les concepts à des situations concrètes.",
-  "Être en mesure d'élaborer une note de politique, d'établir une charte de projet et être prête pour le stage."
+  "Approfondir mes connaissances et acquérir des expériences qui me serviront face à une situation professionnelle.",
+  "Acquérir les outils nécessaires pour approfondir ma compréhension de l'action en santé publique, en particulier le rôle des institutions, des acteurs et des dynamiques intersectorielles propres au contexte canadien.",
+  "Je m'attends à ce que ce soit un cours plus pratique que théorique.",
+  "Acquérir des bases solides qui seront applicables sur le marché du travail.",
+  "Apprendre le côté plus pratique de la santé publique et comment l'appliquer dans la vie réelle.",
+  "Approfondir mes connaissances sur les pratiques de santé au niveau communautaire et populationnel, et appliquer de façon concrète les notions apprises aux interventions communautaires.",
+  "Mieux comprendre l'étendue de la santé publique, ses différents domaines d'intervention et ses applications concrètes.",
+  "Revoir et intégrer les différentes notions étudiées, et voir de manière concrète comment se font les interventions en santé publique."
 ];
 
 // ── SEANCES DATA ──
@@ -773,56 +768,56 @@ const seances = [
     icon: '📊',
     name: 'Données probantes & recherche documentaire',
     color: 'blue',
-    link: "Plusieurs participant·e·s ont un parcours en sciences biologiques ou en recherche. Leur familiarité avec la méthode scientifique et l'analyse de données sera un atout pour les travaux de recherche documentaire. Les attentes exprimées autour des « outils statistiques » et des « indicateurs » confirment un besoin d'ancrer la démarche dans les données probantes.",
+    link: "Le groupe compte une agente de recherche titulaire d'une maîtrise de recherche et une vétérinaire ayant participé à des projets de microbiologie : la méthode scientifique et la lecture critique sont déjà familières à plusieurs. L'attente de « revoir et intégrer les notions étudiées » invite à ancrer la recherche documentaire dans des questions de pratique plutôt que dans l'exercice académique.",
     tags: ['parcours', 'attente']
   },
   {
     icon: '🤖',
     name: 'Intelligence artificielle',
     color: 'gold',
-    link: "La cohorte possède une forte base en sciences (biologie, microbiologie, immunologie), ce qui facilitera l'appropriation critique des outils d'IA en santé publique. Le désir de « nouvelles perspectives » et d'innovation peut trouver un écho direct dans l'exploration de l'IA appliquée à la surveillance et à l'analyse de données populationnelles.",
+    link: "Les bases scientifiques de la cohorte (biologie, microbiologie, sciences de l'environnement) facilitent une appropriation critique des outils d'IA. Le souhait, exprimé par plusieurs, de « mieux comprendre l'étendue de la santé publique et ses applications concrètes » ouvre la porte à explorer ce que l'IA change — et ne change pas — au travail réel des équipes de santé publique.",
     tags: ['parcours', 'attente']
   },
   {
     icon: '📋',
     name: 'Gestion de projet',
     color: 'terra',
-    link: "C'est l'une des attentes les plus explicitement nommées. Plusieurs réponses mentionnent la « charte de projet », la « planification » et la « gestion de projet ». L'expérience de coordination ONG et de développement de programmes sera une ressource directe pour les mises en situation.",
+    link: "C'est ici que l'expérience du groupe est la plus dense : neuf ans de conception, d'implémentation et de suivi de programmes en ONG internationale, et une trajectoire de coordination de programmes de nutrition et d'ANJE en Haïti. Ces deux parcours peuvent servir de cas vivants pour la charte de projet et la planification, au bénéfice de celles et ceux qui souhaitent des « bases applicables sur le marché du travail ».",
     tags: ['attente', 'experience']
   },
   {
     icon: '📡',
     name: 'Surveillance en santé des populations',
     color: 'blue',
-    link: "Avec des parcours en épidémiologie, en veille sanitaire et en registres de maladies, plusieurs membres du groupe ont une expérience directe en surveillance. Les attentes autour de la « surveillance » et des « indicateurs de choix d'intervention prioritaire » signalent un intérêt marqué pour cette compétence.",
+    link: "L'enquête de toxi-infections alimentaires à la Ville de Montréal, le dépistage des ITSS en CLSC et la recherche sur les pathogènes zoonotiques donnent trois entrées concrètes et complémentaires dans la vigie et l'investigation. Le passage du signalement individuel au portrait populationnel sera un pont naturel à faire avec le groupe.",
     tags: ['experience', 'attente']
   },
   {
     icon: '📢',
     name: 'Communication en santé publique',
     color: 'sage',
-    link: "Les profils en sensibilisation communautaire, en promotion de la santé et en coordination d'ONG impliquent une pratique déjà existante de la communication en SP. Le souhait d'« élaborer une note de politique » exprimé par certain·e·s traduit une volonté d'apprendre à communiquer efficacement vers les décideurs.",
+    link: "Le travail communautaire, la coordination de programmes de nutrition et la promotion de la santé impliquent déjà une pratique quotidienne de la communication. L'attente d'outils pour « éclairer le rôle des institutions et des acteurs » rejoint directement l'exercice de la note de politique et la communication vers les décideurs.",
     tags: ['experience', 'attente']
   },
   {
     icon: '🏛️',
     name: 'Organisation de la santé publique',
     color: 'terra',
-    link: "Les participant·e·s issu·e·s des soins infirmiers et de la médecine connaissent l'organisation des soins de l'intérieur. Leur vécu dans les systèmes de santé (France, Niger, Québec) offrira une richesse de comparaisons internationales pour alimenter les discussions sur les modèles organisationnels.",
-    tags: ['parcours', 'experience']
+    link: "Une attente est formulée explicitement : comprendre les institutions, les acteurs et les dynamiques intersectorielles <em>propres au contexte canadien</em>. Le groupe réunit une expérience du réseau québécois (CLSC), du palier municipal (Ville de Montréal) et de systèmes de santé étrangers, ce qui permet des comparaisons riches entre modèles d'organisation.",
+    tags: ['attente', 'experience']
   },
   {
     icon: '⚖️',
     name: 'Éthique',
     color: 'gold',
-    link: "L'expérience humanitaire de certains membres (réfugiés de guerre, lutte contre les épidémies, contextes de crise) pose directement la question des enjeux éthiques de l'intervention en santé publique. L'attente de « structurer l'expérience terrain selon les standards éthiques et professionnels » l'illustre parfaitement.",
+    link: "Le travail en contexte de vulnérabilité — programmes de nutrition en Haïti, intervention communautaire, dépistage — soulève des questions éthiques concrètes. L'expérience de recherche sur les savoirs traditionnels, le sexe et le genre en santé et les partenariats communauté-université apporte au groupe un vocabulaire précieux pour discuter du respect des communautés et du partage du pouvoir.",
     tags: ['experience', 'attente']
   },
   {
     icon: '🧩',
     name: 'Cadres conceptuels & théories',
     color: 'sage',
-    link: "Le souhait répété de « passer de la théorie à la pratique » et de « consolider les apprentissages » révèle un besoin d'outillage conceptuel ancré dans le réel. Les cadres théoriques pourront s'appuyer sur les cas concrets vécus par le groupe pour prendre sens et être réellement appropriés.",
+    link: "L'attente d'un cours « plus pratique que théorique » revient dans presque toutes les réponses : les cadres conceptuels gagneront à être introduits à partir des situations vécues par le groupe. La présence de quatre options de maîtrise (santé mondiale, promotion de la santé, systèmes et politiques, Une seule santé) offre autant d'angles pour éprouver un même cadre sur des objets différents.",
     tags: ['attente', 'parcours']
   }
 ];
@@ -844,10 +839,11 @@ function renderBarChart(id, data, colorClass) {
 }
 
 renderBarChart('chart-background', [
-  { label: 'Sciences biologiques', value: 6 },
-  { label: 'Santé publique', value: 5 },
-  { label: 'Médecine', value: 4 },
-  { label: 'Sciences infirmières', value: 2 },
+  { label: 'Sciences infirmières', value: 3 },
+  { label: 'Santé publique / mondiale', value: 2 },
+  { label: 'Sciences biologiques & environnement', value: 1 },
+  { label: 'Sociologie', value: 1 },
+  { label: 'Médecine vétérinaire', value: 1 },
 ], 'blue');
 
 // ── RENDER EXPERIENCE ──
@@ -860,9 +856,9 @@ document.getElementById('exp-container').innerHTML = experiences.map(e => `
 `).join('');
 
 // ── RENDER EXPECTATIONS ──
-const rotations = [-1.5, 0.8, -0.5, 1.2, -1, 0.3, -0.8, 1.5, -0.3, 0.6, -1.2, 0.9, -0.6, 1, -0.4];
+const rotations = [-1.5, 0.8, -0.5, 1.2, -1, 0.3, -0.8, 1.5];
 document.getElementById('expectations-container').innerHTML = expectations.map((att, i) => `
-  <div class="expect-card fade-up" style="transform: rotate(${rotations[i]}deg)">
+  <div class="expect-card fade-up" style="transform: rotate(${rotations[i % rotations.length]}deg)">
     ${att}
   </div>
 `).join('');
@@ -902,8 +898,8 @@ const donutObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const circ = 2 * Math.PI * 56;
-      const yesLen = (9 / 15) * circ;
-      const noLen = (6 / 15) * circ;
+      const yesLen = (6 / 8) * circ;
+      const noLen = (2 / 8) * circ;
       document.getElementById('donut-yes').setAttribute('stroke-dasharray', `${yesLen} ${circ}`);
       document.getElementById('donut-no').setAttribute('stroke-dasharray', `${noLen} ${circ}`);
       document.getElementById('donut-no').setAttribute('stroke-dashoffset', `-${yesLen}`);
@@ -913,5 +909,5 @@ const donutObs = new IntersectionObserver((entries) => {
 
 donutObs.observe(document.getElementById('chart-exp'));
 </script>
-</body>
-</html>
+
+</body></html>
