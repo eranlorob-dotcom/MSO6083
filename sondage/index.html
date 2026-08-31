@@ -519,116 +519,6 @@ footer strong {
   .exp-highlight-grid { grid-template-columns: 1fr; }
 }
 
-/* ── CHANTIERS THÉMATIQUES ── */
-.chantiers-section { background: var(--warm-white); }
-
-.chantiers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
-.chantier-card {
-  background: var(--cream);
-  border-radius: 16px;
-  padding: 1.8rem;
-  border: 1px solid var(--sand);
-  box-shadow: var(--card-shadow);
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.chantier-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--card-hover);
-}
-
-.chantier-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-}
-
-.chantier-card[data-color="blue"]::before { background: var(--udem-blue); }
-.chantier-card[data-color="sage"]::before { background: var(--sage); }
-.chantier-card[data-color="terra"]::before { background: var(--terracotta); }
-.chantier-card[data-color="gold"]::before { background: var(--gold); }
-.chantier-card[data-color="slate"]::before { background: var(--slate); }
-
-.chantier-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.chantier-icon { font-size: 1.8rem; line-height: 1; }
-
-.chantier-count {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.6rem;
-  color: var(--udem-blue);
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.chantier-count span {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--slate);
-  display: block;
-  letter-spacing: 0.04em;
-}
-
-.chantier-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.1rem;
-  color: var(--udem-dark);
-  line-height: 1.3;
-  margin-bottom: 0.4rem;
-}
-
-.chantier-tutor {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--terracotta);
-  margin-bottom: 0.9rem;
-}
-
-.chantier-text {
-  font-size: 0.9rem;
-  color: var(--slate);
-  line-height: 1.65;
-}
-
-/* ── RÉPARTITION (barres) ── */
-.repartition {
-  background: var(--cream);
-  border: 1px solid var(--sand);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-top: 2rem;
-  box-shadow: var(--card-shadow);
-}
-
-.repartition h3 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
-  color: var(--udem-dark);
-  margin-bottom: 1.5rem;
-}
-
-@media (max-width: 600px) {
-  .chantiers-grid { grid-template-columns: 1fr; }
-}
 </style>
 </head>
 <body>
@@ -639,7 +529,6 @@ footer strong {
   <a href="#parcours">Parcours</a>
   <a href="#experience">Expérience</a>
   <a href="#attentes">Attentes</a>
-  <a href="#chantiers">Chantiers</a>
 </nav>
 
 <!-- HERO -->
@@ -675,7 +564,7 @@ footer strong {
       </div>
       <div class="stat-card fade-up visible">
         <div class="stat-number gold">5</div>
-        <div class="stat-label">Chantiers thématiques</div>
+        <div class="stat-label">Infirmier·ère·s dans le groupe</div>
       </div>
     </div>
   </div>
@@ -735,22 +624,6 @@ footer strong {
     <h2 class="section-title fade-up">Ce que nous espérons</h2>
     <p class="section-desc fade-up">Un thème traverse les seize réponses : le désir de concret. « Plus pratique que théorique », « applicable sur le marché du travail », « dans la vie réelle », « de manière concrète », « comme une professionnelle de terrain » — le mot revient dans presque chaque réponse. Un second fil apparaît avec la cohorte élargie : le souhait de disposer d'<em>outils</em> — outils de mesure, outils d'analyse, outils de conception d'interventions.</p>
     <div class="expectations-wall" id="expectations-container"></div>
-  </div>
-</section>
-
-<!-- CHANTIERS -->
-<section class="chantiers-section" id="chantiers">
-  <div class="container">
-    <div class="section-label fade-up">05 — Chantiers thématiques</div>
-    <h2 class="section-title fade-up">Sur quoi allons-nous travailler ?</h2>
-    <p class="section-desc fade-up">Cinq chantiers réunissent la cohorte autour d'objets de santé publique concrets et ancrés dans des territoires réels, encadrés par Éric, Patrick et Geneviève.</p>
-
-    <div class="chantiers-grid" id="chantiers-container"></div>
-
-    <div class="repartition fade-up">
-      <h3>Répartition de la cohorte</h3>
-      <div class="bar-chart" id="chart-chantiers"></div>
-    </div>
   </div>
 </section>
 
@@ -830,50 +703,6 @@ const expectations = [
   "Revoir et intégrer les différentes notions étudiées, et voir de manière concrète comment se font les interventions en santé publique."
 ];
 
-// ── CHANTIERS DATA ──
-const chantiers = [
-  {
-    icon: '🚲',
-    name: "Épidémiologie des blessures liées à la nouvelle micromobilité",
-    tutor: 'Patrick',
-    count: 4,
-    color: 'terra',
-    text: "Le plus gros chantier de la cohorte. Il réunit des profils complémentaires : gestion de données et surveillance épidémiologique, coordination de programmes en ONG, sciences infirmières et sociologie. De quoi articuler mesure du phénomène, lecture des déterminants sociaux et pistes d'intervention."
-  },
-  {
-    icon: '🥬',
-    name: "Les systèmes alimentaires dans la région des Laurentides",
-    tutor: 'Éric',
-    count: 3,
-    color: 'sage',
-    text: "Un chantier territorial qui bénéficie directement d'une expérience d'enquête en toxi-infections alimentaires au palier municipal, d'une formation en Une seule santé et d'une pratique de coordination de projets de santé."
-  },
-  {
-    icon: '🏠',
-    name: "Itinérance chez les personnes aînées",
-    tutor: 'Geneviève',
-    count: 3,
-    color: 'blue',
-    text: "Porté par des parcours en neurosciences cognitives, en microbiologie-immunologie et en biologie clinique : un chantier qui demandera de passer des sciences fondamentales aux déterminants sociaux du logement, du vieillissement et de l'exclusion."
-  },
-  {
-    icon: '🎗️',
-    name: "Infection par le VIH et stigmatisation des populations migrantes",
-    tutor: 'Geneviève',
-    count: 3,
-    color: 'gold',
-    text: "Une pratique de dépistage des ITSS en CLSC, une expérience de recherche sur le sexe et le genre en santé et les partenariats communauté-université, et un regard vétérinaire sur la prévention des maladies : trois entrées convergentes vers la question de la stigmatisation."
-  },
-  {
-    icon: '🛒',
-    name: "L'accès aux commerces d'alimentation dans les Laurentides",
-    tutor: 'Éric',
-    count: 1,
-    color: 'sage',
-    text: "Un chantier d'accessibilité géographique, abordé depuis une formation en sciences infirmières doublée d'études féministes et de promotion de la santé — un croisement fécond avec les enjeux d'équité territoriale."
-  }
-];
-
 // ── RENDER CHART ──
 function renderBarChart(id, data, colorClass) {
   const container = document.getElementById(id);
@@ -900,14 +729,6 @@ renderBarChart('chart-background', [
   { label: 'Médecine vétérinaire', value: 1 },
 ], 'blue');
 
-renderBarChart('chart-chantiers', [
-  { label: 'Micromobilité', value: 4 },
-  { label: 'Systèmes alimentaires', value: 3 },
-  { label: 'Itinérance des aîné·e·s', value: 3 },
-  { label: 'VIH & stigmatisation', value: 3 },
-  { label: "Accès aux commerces d'alimentation", value: 1 },
-], 'sage');
-
 // ── RENDER EXPERIENCE ──
 document.getElementById('exp-container').innerHTML = experiences.map(e => `
   <div class="exp-highlight fade-up">
@@ -922,19 +743,6 @@ const rotations = [-1.5, 0.8, -0.5, 1.2, -1, 0.3, -0.8, 1.5];
 document.getElementById('expectations-container').innerHTML = expectations.map((att, i) => `
   <div class="expect-card fade-up" style="transform: rotate(${rotations[i % rotations.length]}deg)">
     ${att}
-  </div>
-`).join('');
-
-// ── RENDER CHANTIERS ──
-document.getElementById('chantiers-container').innerHTML = chantiers.map(c => `
-  <div class="chantier-card fade-up" data-color="${c.color}">
-    <div class="chantier-head">
-      <div class="chantier-icon">${c.icon}</div>
-      <div class="chantier-count">${c.count}<span>${c.count > 1 ? 'personnes' : 'personne'}</span></div>
-    </div>
-    <div class="chantier-name">${c.name}</div>
-    <div class="chantier-tutor">Encadrement · ${c.tutor}</div>
-    <div class="chantier-text">${c.text}</div>
   </div>
 `).join('');
 
