@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -590,6 +589,119 @@ footer strong {
   .seance-cards { grid-template-columns: 1fr; }
   .exp-highlight-grid { grid-template-columns: 1fr; }
 }
+
+/* ── CHANTIERS THÉMATIQUES ── */
+.chantiers-section { background: var(--cream); }
+
+.chantiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.chantier-card {
+  background: var(--warm-white);
+  border-radius: 16px;
+  padding: 1.8rem;
+  border: 1px solid var(--sand);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chantier-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-hover);
+}
+
+.chantier-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.chantier-card[data-color="blue"]::before { background: var(--udem-blue); }
+.chantier-card[data-color="sage"]::before { background: var(--sage); }
+.chantier-card[data-color="terra"]::before { background: var(--terracotta); }
+.chantier-card[data-color="gold"]::before { background: var(--gold); }
+.chantier-card[data-color="slate"]::before { background: var(--slate); }
+
+.chantier-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.chantier-icon { font-size: 1.8rem; line-height: 1; }
+
+.chantier-count {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  color: var(--udem-blue);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.chantier-count span {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--slate);
+  display: block;
+  letter-spacing: 0.04em;
+}
+
+.chantier-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--udem-dark);
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+
+.chantier-tutor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 0.9rem;
+}
+
+.chantier-text {
+  font-size: 0.9rem;
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+.chantier-card.todo { border-style: dashed; }
+
+/* ── RÉPARTITION (barres) ── */
+.repartition {
+  background: var(--warm-white);
+  border: 1px solid var(--sand);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: var(--card-shadow);
+}
+
+.repartition h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--udem-dark);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .chantiers-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -600,6 +712,7 @@ footer strong {
   <a href="#parcours">Parcours</a>
   <a href="#experience">Expérience</a>
   <a href="#attentes">Attentes</a>
+  <a href="#chantiers">Chantiers</a>
   <a href="#seances">Séances</a>
 </nav>
 
@@ -620,23 +733,23 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up visible">01 — Coup d'œil</div>
     <h2 class="section-title fade-up visible">Notre cohorte en chiffres</h2>
-    <p class="section-desc fade-up visible">8 participant·e·s aux parcours riches et diversifiés, réuni·e·s pour une session d'apprentissage pratique en santé publique.</p>
+    <p class="section-desc fade-up visible">16 participant·e·s aux parcours riches et diversifiés, réuni·e·s pour une session d'apprentissage pratique en santé publique. Le groupe s'est étoffé : le portrait ci-dessous intègre l'ensemble des réponses reçues au questionnaire de départ.</p>
     <div class="stats-grid">
       <div class="stat-card fade-up visible">
-        <div class="stat-number blue">8</div>
+        <div class="stat-number blue">16</div>
         <div class="stat-label">Participant·e·s</div>
       </div>
       <div class="stat-card fade-up visible">
-        <div class="stat-number terra">5</div>
+        <div class="stat-number terra">7</div>
         <div class="stat-label">Disciplines d'origine</div>
       </div>
       <div class="stat-card fade-up visible">
-        <div class="stat-number sage">75%</div>
+        <div class="stat-number sage">56&nbsp;%</div>
         <div class="stat-label">Ont de l'expérience terrain</div>
       </div>
       <div class="stat-card fade-up visible">
-        <div class="stat-number gold">3</div>
-        <div class="stat-label">Infirmier·ère·s dans le groupe</div>
+        <div class="stat-number gold">5</div>
+        <div class="stat-label">Chantiers thématiques</div>
       </div>
     </div>
   </div>
@@ -647,7 +760,7 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up">02 — Parcours académiques</div>
     <h2 class="section-title fade-up">D'où venons-nous ?</h2>
-    <p class="section-desc fade-up">Sciences infirmières, sociologie, médecine vétérinaire, sciences biologiques et environnementales, santé publique et santé mondiale : cinq disciplines d'origine se croisent dans le groupe. Les options de maîtrise sont tout aussi variées — santé mondiale, promotion de la santé, systèmes et politiques de santé, Une seule santé.</p>
+    <p class="section-desc fade-up">Sciences infirmières, médecine, médecine vétérinaire, sociologie, bioinformatique, sciences biologiques et environnementales, santé publique et santé mondiale : sept disciplines d'origine se croisent dans le groupe. Les sciences infirmières forment le socle le plus large (cinq personnes), suivies des sciences biologiques et biomédicales. Les options de maîtrise sont tout aussi variées — santé mondiale, promotion de la santé et prévention, systèmes et politiques de santé, Une seule santé — et le groupe compte aussi des diplômes complémentaires en administration des services de santé et en études féministes.</p>
 
     <div class="charts-row">
       <div class="chart-card fade-up">
@@ -664,8 +777,8 @@ footer strong {
             <circle class="donut-circle" id="donut-no" cx="80" cy="80" r="56" stroke="#C75B39" stroke-dasharray="0 351.86"></circle>
           </svg>
           <div class="donut-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#6B8F71"></div>Avec expérience (6)</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#C75B39"></div>Sans expérience directe (2)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#6B8F71"></div>Avec expérience (9)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#C75B39"></div>Sans expérience directe (7)</div>
           </div>
         </div>
       </div>
@@ -678,13 +791,13 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up">03 — Expériences terrain</div>
     <h2 class="section-title fade-up">Ce que nous apportons</h2>
-    <p class="section-desc fade-up">Six participant·e·s arrivent avec une expérience professionnelle concrète en santé publique — de la première ligne en CLSC à la coordination de programmes de nutrition en Haïti, en passant par l'inspection des aliments et la recherche en santé environnementale.</p>
+    <p class="section-desc fade-up">Neuf participant·e·s arrivent avec une expérience professionnelle concrète en santé publique — de la première ligne en CLSC à la coordination de programmes de nutrition en Haïti, en passant par la surveillance de la COVID-19 à l'Institut Pasteur de Dakar, l'inspection des aliments à Montréal et la recherche en santé environnementale.</p>
 
     <div class="exp-highlight-grid" id="exp-container"></div>
 
     <div class="exp-summary fade-up">
       <h3>En résumé</h3>
-      <p>Le groupe combine des expériences en <strong>conception et suivi de programmes en ONG internationale</strong> (jusqu'à neuf années de pratique), en <strong>coordination de programmes de nutrition et de santé communautaire</strong>, en <strong>soins infirmiers de première ligne</strong> (dépistage ITSS, vaccination), en <strong>investigation de toxi-infections alimentaires</strong> au palier municipal, en <strong>recherche en santé environnementale et écosystémique</strong> et en <strong>microbiologie des zoonoses</strong>. Deux participantes n'ont pas encore d'expérience professionnelle directe en santé publique, mais apportent une formation en santé mondiale et un parcours en sociologie doublé d'un engagement dans le milieu communautaire — des regards précieux sur les déterminants sociaux de la santé et sur l'action de proximité.</p>
+      <p>Le groupe combine des expériences en <strong>conception et suivi de programmes en ONG internationale</strong> (jusqu'à neuf années de pratique), en <strong>coordination de programmes de nutrition et de santé communautaire</strong>, en <strong>surveillance épidémiologique et gestion de données</strong> (COVID-19, virus respiratoires, DRSP de Montréal), en <strong>soins infirmiers de première ligne</strong> (dépistage ITSS, vaccination), en <strong>investigation de toxi-infections alimentaires</strong> au palier municipal, en <strong>recherche en santé environnementale et écosystémique</strong> et en <strong>microbiologie des zoonoses</strong>. Sept participantes n'ont pas encore d'expérience professionnelle directe en santé publique, mais apportent des formations en sciences infirmières, en santé mondiale, en microbiologie et immunologie, en neurosciences cognitives, en biologie clinique, ainsi qu'un parcours en sociologie doublé d'un engagement dans le milieu communautaire — autant de regards précieux sur les déterminants sociaux de la santé et sur l'action de proximité.</p>
     </div>
   </div>
 </section>
@@ -694,15 +807,31 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up">04 — Attentes</div>
     <h2 class="section-title fade-up">Ce que nous espérons</h2>
-    <p class="section-desc fade-up">Un thème traverse les huit réponses : le désir de concret. « Plus pratique que théorique », « applicable sur le marché du travail », « dans la vie réelle », « de manière concrète » — le mot revient dans presque chaque réponse.</p>
+    <p class="section-desc fade-up">Un thème traverse les seize réponses : le désir de concret. « Plus pratique que théorique », « applicable sur le marché du travail », « dans la vie réelle », « de manière concrète », « comme une professionnelle de terrain » — le mot revient dans presque chaque réponse. Un second fil apparaît avec la cohorte élargie : le souhait de disposer d'<em>outils</em> — outils de mesure, outils d'analyse, outils de conception d'interventions.</p>
     <div class="expectations-wall" id="expectations-container"></div>
+  </div>
+</section>
+
+<!-- CHANTIERS -->
+<section class="chantiers-section" id="chantiers">
+  <div class="container">
+    <div class="section-label fade-up">05 — Chantiers thématiques</div>
+    <h2 class="section-title fade-up">Sur quoi allons-nous travailler ?</h2>
+    <p class="section-desc fade-up">Cinq chantiers réunissent la cohorte autour d'objets de santé publique concrets et ancrés dans des territoires réels, encadrés par Éric, Patrick et Geneviève. Deux personnes restent à affecter.</p>
+
+    <div class="chantiers-grid" id="chantiers-container"></div>
+
+    <div class="repartition fade-up">
+      <h3>Répartition de la cohorte</h3>
+      <div class="bar-chart" id="chart-chantiers"></div>
+    </div>
   </div>
 </section>
 
 <!-- SEANCES -->
 <section class="seances-section" id="seances">
   <div class="container">
-    <div class="section-label fade-up">05 — Liens avec les séances</div>
+    <div class="section-label fade-up">06 — Liens avec les séances</div>
     <h2 class="section-title fade-up">Du portrait de groupe aux thématiques du cours</h2>
     <p class="section-desc fade-up">En croisant les parcours, les expériences et les attentes de la cohorte avec les grandes thématiques du MSO6083, plusieurs ponts se dessinent.</p>
     <div class="seance-cards" id="seances-container"></div>
@@ -729,6 +858,16 @@ const experiences = [
     text: "Coordination nutrition (CARE Haïti), coordination technique ANJE (Save the Children), coordination de programme (Caris Foundation), consultation infirmière (CHARESS) et bénévolat dans les communautés de Labadie et Caracol, en Haïti."
   },
   {
+    icon: '🦠',
+    domain: 'Surveillance & gestion de données',
+    text: "Surveillance et diagnostic de la COVID-19 comme data analyste et data manager au sein d'une équipe multidisciplinaire à l'Institut Pasteur de Dakar, après des travaux sur l'étiologie des virus respiratoires en ambulatoire et en milieu hospitalier."
+  },
+  {
+    icon: '🩺',
+    domain: 'Résidence en santé publique',
+    text: "Résidence en santé publique et médecine préventive : stages en maladies infectieuses, en santé environnementale et en promotion-prévention, ainsi qu'un stage de quatre mois en surveillance à la Direction régionale de santé publique de Montréal."
+  },
+  {
     icon: '💉',
     domain: 'Première ligne & CLSC',
     text: "Pratique d'infirmière clinicienne en première ligne en CLSC : dépistage des ITSS, vaccination et autres services de prévention offerts directement à la population."
@@ -737,6 +876,11 @@ const experiences = [
     icon: '🍽️',
     domain: 'Salubrité alimentaire',
     text: "Enquêtes de toxi-infections alimentaires à la division de l'inspection des aliments de la Ville de Montréal — la santé publique environnementale telle qu'elle se pratique au palier municipal."
+  },
+  {
+    icon: '🗂️',
+    domain: 'Coordination de projets de santé',
+    text: "Coordination et suivi de projets de santé, adossés à une formation médicale et à un DESS en administration des services de santé — la santé publique vue depuis la gestion des services."
   },
   {
     icon: '🔬',
@@ -752,14 +896,75 @@ const experiences = [
 
 // ── EXPECTATIONS DATA ──
 const expectations = [
+  "Mieux appréhender les pratiques et les interventions en santé publique, ainsi que leur application dans les systèmes de santé.",
+  "Développer ma capacité à concevoir des interventions en santé publique et mieux intégrer l'analyse de données à la pratique.",
+  "Approfondir mes connaissances en santé publique.",
   "Approfondir mes connaissances et acquérir des expériences qui me serviront face à une situation professionnelle.",
+  "Savoir quels outils de mesure permettent d'identifier un problème de santé publique, comment en faire le suivi et quels mécanismes mettre en place pour anticiper sa résurgence.",
   "Acquérir les outils nécessaires pour approfondir ma compréhension de l'action en santé publique, en particulier le rôle des institutions, des acteurs et des dynamiques intersectorielles propres au contexte canadien.",
+  "Développer davantage mes connaissances sur les pratiques de santé publique en intégrant mes apprentissages de la première année de maîtrise.",
   "Je m'attends à ce que ce soit un cours plus pratique que théorique.",
   "Acquérir des bases solides qui seront applicables sur le marché du travail.",
+  "Avoir une vision plus complète de l'ensemble des apprentissages de l'année précédente et me sentir prête à travailler dans le domaine de la santé publique.",
+  "Une application de concepts pratiques.",
   "Apprendre le côté plus pratique de la santé publique et comment l'appliquer dans la vie réelle.",
   "Approfondir mes connaissances sur les pratiques de santé au niveau communautaire et populationnel, et appliquer de façon concrète les notions apprises aux interventions communautaires.",
+  "Être capable, à la fin, de traiter des sujets de santé publique comme une professionnelle de terrain.",
   "Mieux comprendre l'étendue de la santé publique, ses différents domaines d'intervention et ses applications concrètes.",
   "Revoir et intégrer les différentes notions étudiées, et voir de manière concrète comment se font les interventions en santé publique."
+];
+
+// ── CHANTIERS DATA ──
+const chantiers = [
+  {
+    icon: '🚲',
+    name: "Épidémiologie des blessures liées à la nouvelle micromobilité",
+    tutor: 'Patrick',
+    count: 4,
+    color: 'terra',
+    text: "Le plus gros chantier de la cohorte. Il réunit des profils complémentaires : gestion de données et surveillance épidémiologique, coordination de programmes en ONG, sciences infirmières et sociologie. De quoi articuler mesure du phénomène, lecture des déterminants sociaux et pistes d'intervention."
+  },
+  {
+    icon: '🥬',
+    name: "Les systèmes alimentaires dans la région des Laurentides",
+    tutor: 'Éric',
+    count: 3,
+    color: 'sage',
+    text: "Un chantier territorial qui bénéficie directement d'une expérience d'enquête en toxi-infections alimentaires au palier municipal, d'une formation en Une seule santé et d'une pratique de coordination de projets de santé."
+  },
+  {
+    icon: '🏠',
+    name: "Itinérance chez les personnes aînées",
+    tutor: 'Geneviève',
+    count: 3,
+    color: 'blue',
+    text: "Porté par des parcours en neurosciences cognitives, en microbiologie-immunologie et en biologie clinique : un chantier qui demandera de passer des sciences fondamentales aux déterminants sociaux du logement, du vieillissement et de l'exclusion."
+  },
+  {
+    icon: '🎗️',
+    name: "Infection par le VIH et stigmatisation des populations migrantes",
+    tutor: 'Geneviève',
+    count: 3,
+    color: 'gold',
+    text: "Une pratique de dépistage des ITSS en CLSC, une expérience de recherche sur le sexe et le genre en santé et les partenariats communauté-université, et un regard vétérinaire sur la prévention des maladies : trois entrées convergentes vers la question de la stigmatisation."
+  },
+  {
+    icon: '🛒',
+    name: "L'accès aux commerces d'alimentation dans les Laurentides",
+    tutor: 'Éric',
+    count: 1,
+    color: 'sage',
+    text: "Un chantier d'accessibilité géographique, abordé depuis une formation en sciences infirmières doublée d'études féministes et de promotion de la santé — un croisement fécond avec les enjeux d'équité territoriale."
+  },
+  {
+    icon: '🧭',
+    name: "Affectation à déterminer",
+    tutor: 'Patrick',
+    count: 2,
+    color: 'slate',
+    todo: true,
+    text: "Deux participantes restent à rattacher à un chantier : une résidente en santé publique et médecine préventive avec une solide expérience en surveillance, et une étudiante en santé mondiale en début de parcours professionnel."
+  }
 ];
 
 // ── SEANCES DATA ──
@@ -768,29 +973,36 @@ const seances = [
     icon: '📊',
     name: 'Données probantes & recherche documentaire',
     color: 'blue',
-    link: "Le groupe compte une agente de recherche titulaire d'une maîtrise de recherche et une vétérinaire ayant participé à des projets de microbiologie : la méthode scientifique et la lecture critique sont déjà familières à plusieurs. L'attente de « revoir et intégrer les notions étudiées » invite à ancrer la recherche documentaire dans des questions de pratique plutôt que dans l'exercice académique.",
+    link: "Le groupe compte une agente de recherche titulaire d'une maîtrise de recherche, un data manager formé en bioinformatique et biomathématiques, une résidente rompue à l'analyse de données de surveillance et une vétérinaire ayant participé à des projets de microbiologie : la méthode scientifique et la lecture critique sont déjà familières à plusieurs. L'attente de « revoir et intégrer les notions étudiées » invite à ancrer la recherche documentaire dans des questions de pratique plutôt que dans l'exercice académique.",
     tags: ['parcours', 'attente']
   },
   {
     icon: '🤖',
     name: 'Intelligence artificielle',
     color: 'gold',
-    link: "Les bases scientifiques de la cohorte (biologie, microbiologie, sciences de l'environnement) facilitent une appropriation critique des outils d'IA. Le souhait, exprimé par plusieurs, de « mieux comprendre l'étendue de la santé publique et ses applications concrètes » ouvre la porte à explorer ce que l'IA change — et ne change pas — au travail réel des équipes de santé publique.",
+    link: "Les bases scientifiques et quantitatives de la cohorte (biologie, microbiologie, sciences de l'environnement, bioinformatique) facilitent une appropriation critique des outils d'IA. Le souhait, exprimé par plusieurs, de « mieux comprendre l'étendue de la santé publique et ses applications concrètes » ouvre la porte à explorer ce que l'IA change — et ne change pas — au travail réel des équipes de santé publique.",
     tags: ['parcours', 'attente']
   },
   {
     icon: '📋',
     name: 'Gestion de projet',
     color: 'terra',
-    link: "C'est ici que l'expérience du groupe est la plus dense : neuf ans de conception, d'implémentation et de suivi de programmes en ONG internationale, et une trajectoire de coordination de programmes de nutrition et d'ANJE en Haïti. Ces deux parcours peuvent servir de cas vivants pour la charte de projet et la planification, au bénéfice de celles et ceux qui souhaitent des « bases applicables sur le marché du travail ».",
+    link: "C'est ici que l'expérience du groupe est la plus dense : neuf ans de conception, d'implémentation et de suivi de programmes en ONG internationale, une trajectoire de coordination de programmes de nutrition et d'ANJE en Haïti, et une pratique de coordination de projets de santé adossée à un DESS en administration des services de santé. Ces parcours peuvent servir de cas vivants pour la charte de projet et la planification, au bénéfice de celles et ceux qui souhaitent des « bases applicables sur le marché du travail ».",
     tags: ['attente', 'experience']
   },
   {
     icon: '📡',
     name: 'Surveillance en santé des populations',
     color: 'blue',
-    link: "L'enquête de toxi-infections alimentaires à la Ville de Montréal, le dépistage des ITSS en CLSC et la recherche sur les pathogènes zoonotiques donnent trois entrées concrètes et complémentaires dans la vigie et l'investigation. Le passage du signalement individuel au portrait populationnel sera un pont naturel à faire avec le groupe.",
+    link: "Quatre entrées concrètes et complémentaires dans la vigie et l'investigation : la surveillance de la COVID-19 à l'Institut Pasteur de Dakar, un stage de quatre mois en surveillance à la DRSP de Montréal, l'enquête de toxi-infections alimentaires à la Ville de Montréal et le dépistage des ITSS en CLSC. Le passage du signalement individuel au portrait populationnel sera un pont naturel à faire avec le groupe.",
     tags: ['experience', 'attente']
+  },
+  {
+    icon: '🧮',
+    name: "Mesure & indicateurs",
+    color: 'sage',
+    link: "Une attente est formulée sans détour : « quels sont les outils de mesure pour identifier un problème de santé publique, comment en faire le suivi et quels mécanismes mettre en place pour anticiper sa résurgence ». Elle rejoint le souhait d'une autre participante de mieux intégrer l'analyse de données à la conception d'interventions. Les chantiers thématiques — micromobilité, accès alimentaire, itinérance — offrent chacun un terrain pour construire et critiquer des indicateurs.",
+    tags: ['attente', 'experience']
   },
   {
     icon: '📢',
@@ -803,21 +1015,21 @@ const seances = [
     icon: '🏛️',
     name: 'Organisation de la santé publique',
     color: 'terra',
-    link: "Une attente est formulée explicitement : comprendre les institutions, les acteurs et les dynamiques intersectorielles <em>propres au contexte canadien</em>. Le groupe réunit une expérience du réseau québécois (CLSC), du palier municipal (Ville de Montréal) et de systèmes de santé étrangers, ce qui permet des comparaisons riches entre modèles d'organisation.",
+    link: "Une attente est formulée explicitement : comprendre les institutions, les acteurs et les dynamiques intersectorielles <em>propres au contexte canadien</em>. Le groupe réunit une expérience du réseau québécois (CLSC, DRSP), du palier municipal (Ville de Montréal) et de systèmes de santé étrangers — Haïti, Sénégal, Brésil —, ce qui permet des comparaisons riches entre modèles d'organisation.",
     tags: ['attente', 'experience']
   },
   {
     icon: '⚖️',
     name: 'Éthique',
     color: 'gold',
-    link: "Le travail en contexte de vulnérabilité — programmes de nutrition en Haïti, intervention communautaire, dépistage — soulève des questions éthiques concrètes. L'expérience de recherche sur les savoirs traditionnels, le sexe et le genre en santé et les partenariats communauté-université apporte au groupe un vocabulaire précieux pour discuter du respect des communautés et du partage du pouvoir.",
+    link: "Le travail en contexte de vulnérabilité — programmes de nutrition en Haïti, intervention communautaire, dépistage, itinérance, populations migrantes — soulève des questions éthiques concrètes. L'expérience de recherche sur les savoirs traditionnels, le sexe et le genre en santé et les partenariats communauté-université, tout comme la formation en études féministes présente dans le groupe, apporte un vocabulaire précieux pour discuter du respect des communautés et du partage du pouvoir.",
     tags: ['experience', 'attente']
   },
   {
     icon: '🧩',
     name: 'Cadres conceptuels & théories',
     color: 'sage',
-    link: "L'attente d'un cours « plus pratique que théorique » revient dans presque toutes les réponses : les cadres conceptuels gagneront à être introduits à partir des situations vécues par le groupe. La présence de quatre options de maîtrise (santé mondiale, promotion de la santé, systèmes et politiques, Une seule santé) offre autant d'angles pour éprouver un même cadre sur des objets différents.",
+    link: "L'attente d'un cours « plus pratique que théorique » revient dans presque toutes les réponses : les cadres conceptuels gagneront à être introduits à partir des situations vécues par le groupe et des cinq chantiers thématiques. La présence de plusieurs options de maîtrise (santé mondiale, promotion de la santé et prévention, systèmes et politiques, Une seule santé) offre autant d'angles pour éprouver un même cadre sur des objets différents.",
     tags: ['attente', 'parcours']
   }
 ];
@@ -839,12 +1051,23 @@ function renderBarChart(id, data, colorClass) {
 }
 
 renderBarChart('chart-background', [
-  { label: 'Sciences infirmières', value: 3 },
+  { label: 'Sciences infirmières', value: 5 },
+  { label: 'Sciences biologiques & biomédicales', value: 4 },
+  { label: 'Médecine', value: 2 },
   { label: 'Santé publique / mondiale', value: 2 },
-  { label: 'Sciences biologiques & environnement', value: 1 },
+  { label: 'Bioinformatique & biomathématiques', value: 1 },
   { label: 'Sociologie', value: 1 },
   { label: 'Médecine vétérinaire', value: 1 },
 ], 'blue');
+
+renderBarChart('chart-chantiers', [
+  { label: 'Micromobilité', value: 4 },
+  { label: 'Systèmes alimentaires', value: 3 },
+  { label: 'Itinérance des aîné·e·s', value: 3 },
+  { label: 'VIH & stigmatisation', value: 3 },
+  { label: "Accès aux commerces d'alimentation", value: 1 },
+  { label: 'À déterminer', value: 2 },
+], 'sage');
 
 // ── RENDER EXPERIENCE ──
 document.getElementById('exp-container').innerHTML = experiences.map(e => `
@@ -860,6 +1083,19 @@ const rotations = [-1.5, 0.8, -0.5, 1.2, -1, 0.3, -0.8, 1.5];
 document.getElementById('expectations-container').innerHTML = expectations.map((att, i) => `
   <div class="expect-card fade-up" style="transform: rotate(${rotations[i % rotations.length]}deg)">
     ${att}
+  </div>
+`).join('');
+
+// ── RENDER CHANTIERS ──
+document.getElementById('chantiers-container').innerHTML = chantiers.map(c => `
+  <div class="chantier-card fade-up${c.todo ? ' todo' : ''}" data-color="${c.color}">
+    <div class="chantier-head">
+      <div class="chantier-icon">${c.icon}</div>
+      <div class="chantier-count">${c.count}<span>${c.count > 1 ? 'personnes' : 'personne'}</span></div>
+    </div>
+    <div class="chantier-name">${c.name}</div>
+    <div class="chantier-tutor">Encadrement · ${c.tutor}</div>
+    <div class="chantier-text">${c.text}</div>
   </div>
 `).join('');
 
@@ -898,8 +1134,8 @@ const donutObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const circ = 2 * Math.PI * 56;
-      const yesLen = (6 / 8) * circ;
-      const noLen = (2 / 8) * circ;
+      const yesLen = (9 / 16) * circ;
+      const noLen = (7 / 16) * circ;
       document.getElementById('donut-yes').setAttribute('stroke-dasharray', `${yesLen} ${circ}`);
       document.getElementById('donut-no').setAttribute('stroke-dasharray', `${noLen} ${circ}`);
       document.getElementById('donut-no').setAttribute('stroke-dashoffset', `-${yesLen}`);
