@@ -451,76 +451,6 @@ section { padding: 5rem 2rem; }
   color: var(--charcoal);
 }
 
-/* ── SEANCES / LIENS ── */
-.seances-section { background: var(--warm-white); }
-
-.seance-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.5rem;
-}
-
-.seance-card {
-  background: var(--cream);
-  border-radius: 16px;
-  padding: 2rem;
-  border: 1px solid var(--sand);
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.seance-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--card-hover);
-}
-
-.seance-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 4px;
-}
-
-.seance-card[data-color="blue"]::after { background: var(--udem-blue); }
-.seance-card[data-color="sage"]::after { background: var(--sage); }
-.seance-card[data-color="terra"]::after { background: var(--terracotta); }
-.seance-card[data-color="gold"]::after { background: var(--gold); }
-
-.seance-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-}
-
-.seance-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.15rem;
-  color: var(--udem-dark);
-  margin-bottom: 0.75rem;
-  line-height: 1.3;
-}
-
-.seance-link {
-  font-size: 0.9rem;
-  color: var(--slate);
-  line-height: 1.7;
-}
-
-.seance-tag {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 0.06em;
-  padding: 0.2rem 0.6rem;
-  border-radius: 100px;
-  margin-top: 0.75rem;
-  font-weight: 500;
-}
-
-.seance-tag.parcours { background: var(--light-blue); color: var(--udem-blue); }
-.seance-tag.attente { background: #FFF3E0; color: #E65100; }
-.seance-tag.experience { background: #E8F5E9; color: #2E7D32; }
-
 /* ── FOOTER ── */
 footer {
   background: var(--udem-dark);
@@ -586,9 +516,169 @@ footer strong {
   .nav { gap: 0.8rem; flex-wrap: wrap; }
   .nav a { font-size: 0.7rem; }
   .bar-label { min-width: 100px; font-size: 0.75rem; }
-  .seance-cards { grid-template-columns: 1fr; }
   .exp-highlight-grid { grid-template-columns: 1fr; }
 }
+
+/* ── CHANTIERS THÉMATIQUES ── */
+.chantiers-section { background: var(--warm-white); }
+
+.chantiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.chantier-card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 1.8rem;
+  border: 1px solid var(--sand);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chantier-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-hover);
+}
+
+.chantier-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.chantier-card[data-color="blue"]::before { background: var(--udem-blue); }
+.chantier-card[data-color="sage"]::before { background: var(--sage); }
+.chantier-card[data-color="terra"]::before { background: var(--terracotta); }
+.chantier-card[data-color="gold"]::before { background: var(--gold); }
+.chantier-card[data-color="slate"]::before { background: var(--slate); }
+
+.chantier-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.chantier-icon { font-size: 1.8rem; line-height: 1; }
+
+.chantier-count {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  color: var(--udem-blue);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.chantier-count span {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--slate);
+  display: block;
+  letter-spacing: 0.04em;
+}
+
+.chantier-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--udem-dark);
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+
+.chantier-tutor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 0.9rem;
+}
+
+.chantier-text {
+  font-size: 0.9rem;
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+/* ── RÉPARTITION (barres) ── */
+.repartition {
+  background: var(--cream);
+  border: 1px solid var(--sand);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: var(--card-shadow);
+}
+
+.repartition h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--udem-dark);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .chantiers-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav scrolled" id="nav">
+  <a href="#apercu">Aperçu</a>
+  <a href="#parcours">Parcours</a>
+  <a href="#experience">Expérience</a>
+  <a href="#attentes">Attentes</a>
+  <a href="#chantiers">Chantiers</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">MSO6083 · Automne 2026</div>
+    <h1>Santé publique,<br><em>ensemble</em></h1>
+    <p class="hero-sub">Portrait de groupe du cours <strong>Pratiques de santé publique</strong> — École de santé publique de l'Université de Montréal</p>
+    <div class="hero-quote">« Aidez-nous à vous aider ! »</div>
+  </div>
+  <div class="scroll-hint">Explorer</div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section" id="apercu">
+  <div class="container">
+    <div class="section-label fade-up visible">01 — Coup d'œil</div>
+    <h2 class="section-title fade-up visible">Notre cohorte en chiffres</h2>
+    <p class="section-desc fade-up visible">16 participant·e·s aux parcours riches et diversifiés, réuni·e·s pour une session d'apprentissage pratique en santé publique. Le groupe s'est étoffé : le portrait ci-dessous intègre l'ensemble des réponses reçues au questionnaire de départ.</p>
+    <div class="stats-grid">
+      <div class="stat-card fade-up visible">
+        <div class="stat-number blue">16</div>
+        <div class="stat-label">Participant·e·s</div>
+      </div>
+      <div class="stat-card fade-up visible">
+        <div class="stat-number terra">7</div>
+        <div class="stat-label">Disciplines d'origine</div>
+      </div>
+      <div class="stat-card fade-up visible">
+        <div class="stat-number sage">56&nbsp;%</div>
+        <div class="stat-label">Ont de l'expérience terrain</div>
+      </div>
+      <div class="stat-card fade-up visible">
+        <div class="stat-number gold">5</div>
+        <div class="stat-label">Chantiers thématiques</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CHARTS -->
@@ -653,7 +743,7 @@ footer strong {
   <div class="container">
     <div class="section-label fade-up">05 — Chantiers thématiques</div>
     <h2 class="section-title fade-up">Sur quoi allons-nous travailler ?</h2>
-    <p class="section-desc fade-up">Cinq chantiers réunissent la cohorte autour d'objets de santé publique concrets et ancrés dans des territoires réels, encadrés par Éric, Patrick et Geneviève. Deux personnes restent à affecter.</p>
+    <p class="section-desc fade-up">Cinq chantiers réunissent la cohorte autour d'objets de santé publique concrets et ancrés dans des territoires réels, encadrés par Éric, Patrick et Geneviève.</p>
 
     <div class="chantiers-grid" id="chantiers-container"></div>
 
@@ -661,16 +751,6 @@ footer strong {
       <h3>Répartition de la cohorte</h3>
       <div class="bar-chart" id="chart-chantiers"></div>
     </div>
-  </div>
-</section>
-
-<!-- SEANCES -->
-<section class="seances-section" id="seances">
-  <div class="container">
-    <div class="section-label fade-up">06 — Liens avec les séances</div>
-    <h2 class="section-title fade-up">Du portrait de groupe aux thématiques du cours</h2>
-    <p class="section-desc fade-up">En croisant les parcours, les expériences et les attentes de la cohorte avec les grandes thématiques du MSO6083, plusieurs ponts se dessinent.</p>
-    <div class="seance-cards" id="seances-container"></div>
   </div>
 </section>
 
@@ -791,82 +871,6 @@ const chantiers = [
     count: 1,
     color: 'sage',
     text: "Un chantier d'accessibilité géographique, abordé depuis une formation en sciences infirmières doublée d'études féministes et de promotion de la santé — un croisement fécond avec les enjeux d'équité territoriale."
-  },
-  {
-    icon: '🧭',
-    name: "Affectation à déterminer",
-    tutor: 'Patrick',
-    count: 2,
-    color: 'slate',
-    todo: true,
-    text: "Deux participantes restent à rattacher à un chantier : une résidente en santé publique et médecine préventive avec une solide expérience en surveillance, et une étudiante en santé mondiale en début de parcours professionnel."
-  }
-];
-
-// ── SEANCES DATA ──
-const seances = [
-  {
-    icon: '📊',
-    name: 'Données probantes & recherche documentaire',
-    color: 'blue',
-    link: "Le groupe compte une agente de recherche titulaire d'une maîtrise de recherche, un data manager formé en bioinformatique et biomathématiques, une résidente rompue à l'analyse de données de surveillance et une vétérinaire ayant participé à des projets de microbiologie : la méthode scientifique et la lecture critique sont déjà familières à plusieurs. L'attente de « revoir et intégrer les notions étudiées » invite à ancrer la recherche documentaire dans des questions de pratique plutôt que dans l'exercice académique.",
-    tags: ['parcours', 'attente']
-  },
-  {
-    icon: '🤖',
-    name: 'Intelligence artificielle',
-    color: 'gold',
-    link: "Les bases scientifiques et quantitatives de la cohorte (biologie, microbiologie, sciences de l'environnement, bioinformatique) facilitent une appropriation critique des outils d'IA. Le souhait, exprimé par plusieurs, de « mieux comprendre l'étendue de la santé publique et ses applications concrètes » ouvre la porte à explorer ce que l'IA change — et ne change pas — au travail réel des équipes de santé publique.",
-    tags: ['parcours', 'attente']
-  },
-  {
-    icon: '📋',
-    name: 'Gestion de projet',
-    color: 'terra',
-    link: "C'est ici que l'expérience du groupe est la plus dense : neuf ans de conception, d'implémentation et de suivi de programmes en ONG internationale, une trajectoire de coordination de programmes de nutrition et d'ANJE en Haïti, et une pratique de coordination de projets de santé adossée à un DESS en administration des services de santé. Ces parcours peuvent servir de cas vivants pour la charte de projet et la planification, au bénéfice de celles et ceux qui souhaitent des « bases applicables sur le marché du travail ».",
-    tags: ['attente', 'experience']
-  },
-  {
-    icon: '📡',
-    name: 'Surveillance en santé des populations',
-    color: 'blue',
-    link: "Quatre entrées concrètes et complémentaires dans la vigie et l'investigation : la surveillance de la COVID-19 à l'Institut Pasteur de Dakar, un stage de quatre mois en surveillance à la DRSP de Montréal, l'enquête de toxi-infections alimentaires à la Ville de Montréal et le dépistage des ITSS en CLSC. Le passage du signalement individuel au portrait populationnel sera un pont naturel à faire avec le groupe.",
-    tags: ['experience', 'attente']
-  },
-  {
-    icon: '🧮',
-    name: "Mesure & indicateurs",
-    color: 'sage',
-    link: "Une attente est formulée sans détour : « quels sont les outils de mesure pour identifier un problème de santé publique, comment en faire le suivi et quels mécanismes mettre en place pour anticiper sa résurgence ». Elle rejoint le souhait d'une autre participante de mieux intégrer l'analyse de données à la conception d'interventions. Les chantiers thématiques — micromobilité, accès alimentaire, itinérance — offrent chacun un terrain pour construire et critiquer des indicateurs.",
-    tags: ['attente', 'experience']
-  },
-  {
-    icon: '📢',
-    name: 'Communication en santé publique',
-    color: 'sage',
-    link: "Le travail communautaire, la coordination de programmes de nutrition et la promotion de la santé impliquent déjà une pratique quotidienne de la communication. L'attente d'outils pour « éclairer le rôle des institutions et des acteurs » rejoint directement l'exercice de la note de politique et la communication vers les décideurs.",
-    tags: ['experience', 'attente']
-  },
-  {
-    icon: '🏛️',
-    name: 'Organisation de la santé publique',
-    color: 'terra',
-    link: "Une attente est formulée explicitement : comprendre les institutions, les acteurs et les dynamiques intersectorielles <em>propres au contexte canadien</em>. Le groupe réunit une expérience du réseau québécois (CLSC, DRSP), du palier municipal (Ville de Montréal) et de systèmes de santé étrangers — Haïti, Sénégal, Brésil —, ce qui permet des comparaisons riches entre modèles d'organisation.",
-    tags: ['attente', 'experience']
-  },
-  {
-    icon: '⚖️',
-    name: 'Éthique',
-    color: 'gold',
-    link: "Le travail en contexte de vulnérabilité — programmes de nutrition en Haïti, intervention communautaire, dépistage, itinérance, populations migrantes — soulève des questions éthiques concrètes. L'expérience de recherche sur les savoirs traditionnels, le sexe et le genre en santé et les partenariats communauté-université, tout comme la formation en études féministes présente dans le groupe, apporte un vocabulaire précieux pour discuter du respect des communautés et du partage du pouvoir.",
-    tags: ['experience', 'attente']
-  },
-  {
-    icon: '🧩',
-    name: 'Cadres conceptuels & théories',
-    color: 'sage',
-    link: "L'attente d'un cours « plus pratique que théorique » revient dans presque toutes les réponses : les cadres conceptuels gagneront à être introduits à partir des situations vécues par le groupe et des cinq chantiers thématiques. La présence de plusieurs options de maîtrise (santé mondiale, promotion de la santé et prévention, systèmes et politiques, Une seule santé) offre autant d'angles pour éprouver un même cadre sur des objets différents.",
-    tags: ['attente', 'parcours']
   }
 ];
 
@@ -902,7 +906,6 @@ renderBarChart('chart-chantiers', [
   { label: 'Itinérance des aîné·e·s', value: 3 },
   { label: 'VIH & stigmatisation', value: 3 },
   { label: "Accès aux commerces d'alimentation", value: 1 },
-  { label: 'À déterminer', value: 2 },
 ], 'sage');
 
 // ── RENDER EXPERIENCE ──
@@ -924,7 +927,7 @@ document.getElementById('expectations-container').innerHTML = expectations.map((
 
 // ── RENDER CHANTIERS ──
 document.getElementById('chantiers-container').innerHTML = chantiers.map(c => `
-  <div class="chantier-card fade-up${c.todo ? ' todo' : ''}" data-color="${c.color}">
+  <div class="chantier-card fade-up" data-color="${c.color}">
     <div class="chantier-head">
       <div class="chantier-icon">${c.icon}</div>
       <div class="chantier-count">${c.count}<span>${c.count > 1 ? 'personnes' : 'personne'}</span></div>
@@ -932,17 +935,6 @@ document.getElementById('chantiers-container').innerHTML = chantiers.map(c => `
     <div class="chantier-name">${c.name}</div>
     <div class="chantier-tutor">Encadrement · ${c.tutor}</div>
     <div class="chantier-text">${c.text}</div>
-  </div>
-`).join('');
-
-// ── RENDER SEANCES ──
-const tagLabels = { parcours: 'Parcours', attente: 'Attentes', experience: 'Expérience' };
-document.getElementById('seances-container').innerHTML = seances.map(s => `
-  <div class="seance-card fade-up" data-color="${s.color}">
-    <div class="seance-icon">${s.icon}</div>
-    <div class="seance-name">${s.name}</div>
-    <div class="seance-link">${s.link}</div>
-    <div>${s.tags.map(t => `<span class="seance-tag ${t}">${tagLabels[t]}</span> `).join('')}</div>
   </div>
 `).join('');
 
